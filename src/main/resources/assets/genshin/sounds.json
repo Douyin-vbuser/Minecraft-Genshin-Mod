@@ -1,0 +1,552 @@
+{
+  "main.0.1":
+  {
+    "subtitle": "main.0.1",
+    "sounds": [{"name":  "genshin:main/main_0_1", "stream":  true}]
+  },
+  "main.0.2":
+  {
+    "subtitle": "main.0.2",
+    "sounds": [{"name":  "genshin:main/main_0_2", "stream":  true}]
+  },
+  "main.0.3":
+  {
+    "subtitle": "main.0.3",
+    "sounds": [{"name":  "genshin:main/main_0_3", "stream":  true}]
+  },
+  "main.0.4":
+  {
+    "subtitle": "main.0.4",
+    "sounds": [{"name":  "genshin:main/main_0_4", "stream":  true}]
+  },
+  "main.0.5":
+  {
+    "subtitle": "main.0.5",
+    "sounds": [{"name":  "genshin:main/main_0_5", "stream":  true}]
+  },
+  "main.0.6":
+  {
+    "subtitle": "main.0.6",
+    "sounds": [{"name":  "genshin:main/main_0_6", "stream":  true}]
+  },
+  "main.0.7":
+  {
+    "subtitle": "main.0.7",
+    "sounds": [{"name":  "genshin:main/main_0_7", "stream":  true}]
+  },
+  "main.0.8":
+  {
+    "subtitle": "main.0.8",
+    "sounds": [{"name":  "genshin:main/main_0_8", "stream":  true}]
+  },
+  "test": {
+    "subtitle": "test",
+    "sounds": [{"name": "genshin:launcher/test_sound","stream": true}]
+  },
+  "main.0.9":
+  {
+    "subtitle": "main.0.9",
+    "sounds": [{"name":  "genshin:main/main_0_9", "stream":  true}]
+  },
+  "main.0.10":
+  {
+    "subtitle": "main.0.10",
+    "sounds": [{"name":  "genshin:main/main_0_10", "stream":  true}]
+  },
+  "main.0.11":
+  {
+    "subtitle": "main.0.8",
+    "sounds": [{"name":  "genshin:main/main_0_11", "stream":  true}]
+  },
+  "main.0.12.a1":
+  {
+    "subtitle": "main.0.12.a1",
+    "sounds": [{"name":  "genshin:main/main_0_12_a1", "stream":  true}]
+  },
+  "main.0.12.a2":
+  {
+    "subtitle": "main.0.12.a2",
+    "sounds": [{"name":  "genshin:main/main_0_12_a2", "stream":  true}]
+  },
+  "main.0.13":
+  {
+    "subtitle": "main.0.13",
+    "sounds": [{"name":  "genshin:main/main_0_13", "stream":  true}]
+  },
+  "main.0.14":
+  {
+    "subtitle": "main.0.14",
+    "sounds": [{"name":  "genshin:main/main_0_14", "stream":  true}]
+  },
+  "main.0.15":
+  {
+    "subtitle": "main.0.15",
+    "sounds": [{"name":  "genshin:main/main_0_15", "stream":  true}]
+  },
+  "main.0.16":
+  {
+    "subtitle": "main.0.16",
+    "sounds": [{"name":  "genshin:main/main_0_16", "stream":  true}]
+  },
+  "main.0.17":
+  {
+    "subtitle": "main.0.17",
+    "sounds": [{"name":  "genshin:main/main_0_17", "stream":  true}]
+  },
+  "main.0.18":
+  {
+    "subtitle": "main.0.18",
+    "sounds": [{"name":  "genshin:main/main_0_18", "stream":  true}]
+  },
+  "main.0.19":
+  {
+    "subtitle": "main.0.19",
+    "sounds": [{"name":  "genshin:main/main_0_19", "stream":  true}]
+  },
+  "main.0.20":
+  {
+    "subtitle": "main.0.20",
+    "sounds": [{"name":  "genshin:main/main_0_20", "stream":  true}]
+  },
+  "main.0.21":
+  {
+    "subtitle": "main.0.21",
+    "sounds": [{"name":  "genshin:main/main_0_21", "stream":  true}]
+  },
+  "main.0.22":
+  {
+    "subtitle": "main.0.22",
+    "sounds": [{"name":  "genshin:main/main_0_22", "stream":  true}]
+  },
+  "main.0.23":
+  {
+    "subtitle": "main.0.23",
+    "sounds": [{"name":  "genshin:main/main_0_23", "stream":  true}]
+  },
+  "main.0.24":
+  {
+    "subtitle": "main.0.24",
+    "sounds": [{"name":  "genshin:main/main_0_24", "stream":  true}]
+  },
+  "main.0.25.a1":
+  {
+    "subtitle": "main.0.25.a1",
+    "sounds": [{"name":  "genshin:main/main_0_25_a1", "stream":  true}]
+  },
+  "main.0.25.a2":
+  {
+    "subtitle": "main.0.25.a2",
+    "sounds": [{"name":  "genshin:main/main_0_25_a2", "stream":  true}]
+  },
+  "main.0.26":
+  {
+    "subtitle": "main.0.26",
+    "sounds": [{"name":  "genshin:main/main_0_26", "stream":  true}]
+  },
+  "main.0.27":
+  {
+    "subtitle": "main.0.27",
+    "sounds": [{"name":  "genshin:main/main_0_27", "stream":  true}]
+  },
+  "main.0.28":
+  {
+    "subtitle": "main.0.28",
+    "sounds": [{"name":  "genshin:main/main_0_28", "stream":  true}]
+  },
+  "main.0.29":
+  {
+    "subtitle": "main.0.29",
+    "sounds": [{"name":  "genshin:main/main_0_29", "stream":  true}]
+  },
+  "main.0.30":
+  {
+    "subtitle": "main.0.30",
+    "sounds": [{"name":  "genshin:main/main_0_30", "stream":  true}]
+  },
+  "main.0.31":
+  {
+    "subtitle": "main.0.31",
+    "sounds": [{"name":  "genshin:main/main_0_31", "stream":  true}]
+  },
+  "main.0.32":
+  {
+    "subtitle": "main.0.32",
+    "sounds": [{"name":  "genshin:main/main_0_32", "stream":  true}]
+  },
+  "main.0.33":
+  {
+    "subtitle": "main.0.33",
+    "sounds": [{"name":  "genshin:main/main_0_33", "stream":  true}]
+  },
+  "main.0.34":
+  {
+    "subtitle": "main.0.34",
+    "sounds": [{"name":  "genshin:main/main_0_34", "stream":  true}]
+  },
+  "main.0.35":
+  {
+    "subtitle": "main.0.35",
+    "sounds": [{"name":  "genshin:main/main_0_35", "stream":  true}]
+  },
+  "main.0.36":
+  {
+    "subtitle": "main.0.36",
+    "sounds": [{"name":  "genshin:main/main_0_36", "stream":  true}]
+  },
+  "main.0.37":
+  {
+    "subtitle": "main.0.37",
+    "sounds": [{"name":  "genshin:main/main_0_37", "stream":  true}]
+  },
+  "main.0.38":
+  {
+    "subtitle": "main.0.38",
+    "sounds": [{"name":  "genshin:main/main_0_38", "stream":  true}]
+  },
+  "main.0.39":
+  {
+    "subtitle": "main.0.39",
+    "sounds": [{"name":  "genshin:main/main_0_39", "stream":  true}]
+  },
+  "main.0.40.a1":
+  {
+    "subtitle": "main.0.40.a1",
+    "sounds": [{"name":  "genshin:main/main_0_40_a1", "stream":  true}]
+  },
+  "main.0.40.a2":
+  {
+    "subtitle": "main.0.40.a2",
+    "sounds": [{"name":  "genshin:main/main_0_40_a2", "stream":  true}]
+  },
+  "main.0.41":
+  {
+    "subtitle": "main.0.41",
+    "sounds": [{"name":  "genshin:main/main_0_41", "stream":  true}]
+  },
+  "main.0.42":
+  {
+    "subtitle": "main.0.42",
+    "sounds": [{"name":  "genshin:main/main_0_42", "stream":  true}]
+  },
+  "main.0.43":
+  {
+    "subtitle": "main.0.43",
+    "sounds": [{"name":  "genshin:main/main_0_43", "stream":  true}]
+  },
+  "main.0.44":
+  {
+    "subtitle": "main.0.44",
+    "sounds": [{"name":  "genshin:main/main_0_44", "stream":  true}]
+  },
+  "main.0.45":
+  {
+    "subtitle": "main.0.45",
+    "sounds": [{"name":  "genshin:main/main_0_45", "stream":  true}]
+  },
+  "main.0.46":
+  {
+    "subtitle": "main.0.46",
+    "sounds": [{"name":  "genshin:main/main_0_46", "stream":  true}]
+  },
+  "main.0.47":
+  {
+    "subtitle": "main.0.47",
+    "sounds": [{"name":  "genshin:main/main_0_47", "stream":  true}]
+  },
+  "main.0.48":
+  {
+    "subtitle": "main.0.48",
+    "sounds": [{"name":  "genshin:main/main_0_48", "stream":  true}]
+  },
+  "main.0.49":
+  {
+    "subtitle": "main.0.49",
+    "sounds": [{"name":  "genshin:main/main_0_49", "stream":  true}]
+  },
+  "main.0.50":
+  {
+    "subtitle": "main.0.50",
+    "sounds": [{"name":  "genshin:main/main_0_50", "stream":  true}]
+  },
+  "main.0.51":
+  {
+    "subtitle": "main.0.51",
+    "sounds": [{"name":  "genshin:main/main_0_51", "stream":  true}]
+  },
+  "main.0.53":
+  {
+    "subtitle": "main.0.53",
+    "sounds": [{"name":  "genshin:main/main_0_53", "stream":  true}]
+  },
+  "main.0.54":
+  {
+    "subtitle": "main.0.54",
+    "sounds": [{"name":  "genshin:main/main_0_54", "stream":  true}]
+  },
+  "main.0.55":
+  {
+    "subtitle": "main.0.55",
+    "sounds": [{"name":  "genshin:main/main_0_55", "stream":  true}]
+  },
+  "main.0.56":
+  {
+    "subtitle": "main.0.56",
+    "sounds": [{"name":  "genshin:main/main_0_56", "stream":  true}]
+  },
+  "main.0.57":
+  {
+    "subtitle": "main.0.57",
+    "sounds": [{"name":  "genshin:main/main_0_57", "stream":  true}]
+  },
+  "main.0.58":
+  {
+    "subtitle": "main.0.58",
+    "sounds": [{"name":  "genshin:main/main_0_58", "stream":  true}]
+  },
+  "main.0.59":
+  {
+    "subtitle": "main.0.59",
+    "sounds": [{"name":  "genshin:main/main_0_59", "stream":  true}]
+  },
+  "main.0.60":
+  {
+    "subtitle": "main.0.60",
+    "sounds": [{"name":  "genshin:main/main_0_60", "stream":  true}]
+  },
+  "main.0.61":
+  {
+    "subtitle": "main.0.61",
+    "sounds": [{"name":  "genshin:main/main_0_61", "stream":  true}]
+  },
+  "main.0.62": {
+    "subtitle": "main.0.62",
+    "sounds": [{"name":  "genshin:main/main_0_62", "stream": true}]
+  },
+  "main.0.63":
+  {
+    "subtitle": "main.0.63",
+    "sounds": [{"name":  "genshin:main/main_0_63", "stream":  true}]
+  },
+  "main.0.64":
+  {
+    "subtitle": "main.0.64",
+    "sounds": [{"name":  "genshin:main/main_0_64", "stream":  true}]
+  },
+  "a_day_in_mondstadt":{
+    "subtitle": "a_day_in_mondstadt",
+    "sounds": [{"name": "genshin:background/a_day_in_mondstadt","stream": true}]
+  },
+  "an_interesting_labour":{
+    "subtitle": "an_interesting_labour",
+    "sounds": [{"name": "genshin:background/an_interesting_labour","stream": true}]
+  },
+  "pure_sky":{
+    "subtitle": "pure_sky",
+    "sounds": [{"name": "genshin:background/pure_sky","stream": true}]
+  },
+  "main.0.65":
+  {
+    "subtitle": "main.0.65",
+    "sounds": [{"name":  "genshin:main/main_0_65", "stream":  true}]
+  },
+  "main.0.66":
+  {
+    "subtitle": "main.0.66",
+    "sounds": [{"name":  "genshin:main/main_0_66", "stream":  true}]
+  },
+  "main.0.67":
+  {
+    "subtitle": "main.0.67",
+    "sounds": [{"name":  "genshin:main/main_0_67", "stream":  true}]
+  },
+  "main.0.68":
+  {
+    "subtitle": "main.0.68",
+    "sounds": [{"name":  "genshin:main/main_0_68", "stream":  true}]
+  },
+  "main.0.69":
+  {
+    "subtitle": "main.0.69",
+    "sounds": [{"name":  "genshin:main/main_0_69", "stream":  true}]
+  },
+  "main.0.70":
+  {
+    "subtitle": "main.0.70",
+    "sounds": [{"name":  "genshin:main/main_0_70", "stream":  true}]
+  },
+  "main.0.71":
+  {
+    "subtitle": "main.0.71",
+    "sounds": [{"name":  "genshin:main/main_0_71", "stream":  true}]
+  },
+  "main.0.72":
+  {
+    "subtitle": "main.0.72",
+    "sounds": [{"name":  "genshin:main/main_0_72", "stream":  true}]
+  },
+  "main.0.73":
+  {
+    "subtitle": "main.0.73",
+    "sounds": [{"name":  "genshin:main/main_0_73", "stream":  true}]
+  },
+  "main.0.74":
+  {
+    "subtitle": "main.0.74",
+    "sounds": [{"name":  "genshin:main/main_0_74", "stream":  true}]
+  },
+  "main.0.75":
+  {
+    "subtitle": "main.0.75",
+    "sounds": [{"name":  "genshin:main/main_0_75", "stream":  true}]
+  },
+  "main.0.76":
+  {
+    "subtitle": "main.0.76",
+    "sounds": [{"name":  "genshin:main/main_0_76", "stream":  true}]
+  },
+  "main.0.77":
+  {
+    "subtitle": "main.0.77",
+    "sounds": [{"name":  "genshin:main/main_0_77", "stream":  true}]
+  },
+  "main.0.78":
+  {
+    "subtitle": "main.0.78",
+    "sounds": [{"name":  "genshin:main/main_0_78", "stream":  true}]
+  },
+  "main.0.79":
+  {
+    "subtitle": "main.0.79",
+    "sounds": [{"name":  "genshin:main/main_0_79", "stream":  true}]
+  },
+  "main.0.80":
+  {
+    "subtitle": "main.0.80",
+    "sounds": [{"name":  "genshin:main/main_0_80", "stream":  true}]
+  },
+  "main.0.81":
+  {
+    "subtitle": "main.0.51",
+    "sounds": [{"name":  "genshin:main/main_0_81", "stream":  true}]
+  },
+  "main.0.83":
+  {
+    "subtitle": "main.0.83",
+    "sounds": [{"name":  "genshin:main/main_0_83", "stream":  true}]
+  },
+  "main.0.84":
+  {
+    "subtitle": "main.0.84",
+    "sounds": [{"name":  "genshin:main/main_0_84", "stream":  true}]
+  },
+  "main.0.85":
+  {
+    "subtitle": "main.0.85",
+    "sounds": [{"name":  "genshin:main/main_0_85", "stream":  true}]
+  },
+  "main.0.86":
+  {
+    "subtitle": "main.0.86",
+    "sounds": [{"name":  "genshin:main/main_0_86", "stream":  true}]
+  },
+  "main.0.87":
+  {
+    "subtitle": "main.0.87",
+    "sounds": [{"name":  "genshin:main/main_0_87", "stream":  true}]
+  },
+  "main.0.88":
+  {
+    "subtitle": "main.0.88",
+    "sounds": [{"name":  "genshin:main/main_0_88", "stream":  true}]
+  },
+  "main.0.89":
+  {
+    "subtitle": "main.0.89",
+    "sounds": [{"name":  "genshin:main/main_0_89", "stream":  true}]
+  },
+  "main.0.90":
+  {
+    "subtitle": "main.0.90",
+    "sounds": [{"name":  "genshin:main/main_0_90", "stream":  true}]
+  },
+  "main.0.91":
+  {
+    "subtitle": "main.0.91",
+    "sounds": [{"name":  "genshin:main/main_0_91", "stream":  true}]
+  },
+  "main.0.92":
+  {
+    "subtitle": "main.0.92",
+    "sounds": [{"name":  "genshin:main/main_0_92", "stream":  true}]
+  },
+  "main.0.93":
+  {
+    "subtitle": "main.0.93",
+    "sounds": [{"name":  "genshin:main/main_0_93", "stream":  true}]
+  },
+  "main.0.94":
+  {
+    "subtitle": "main.0.94",
+    "sounds": [{"name":  "genshin:main/main_0_94", "stream":  true}]
+  },
+  "main.0.95":
+  {
+    "subtitle": "main.0.95",
+    "sounds": [{"name":  "genshin:main/main_0_95", "stream":  true}]
+  },
+  "main.0.96":
+  {
+    "subtitle": "main.0.96",
+    "sounds": [{"name":  "genshin:main/main_0_96", "stream":  true}]
+  },
+  "main.0.97":
+  {
+    "subtitle": "main.0.97",
+    "sounds": [{"name":  "genshin:main/main_0_97", "stream":  true}]
+  },
+  "main.0.98":
+  {
+    "subtitle": "main.0.98",
+    "sounds": [{"name":  "genshin:main/main_0_98", "stream":  true}]
+  },
+  "main.0.99":
+  {
+    "subtitle": "main.0.99",
+    "sounds": [{"name":  "genshin:main/main_0_99", "stream":  true}]
+  },
+  "main.0.100":
+  {
+    "subtitle": "main.0.100",
+    "sounds": [{"name":  "genshin:main/main_0_100", "stream":  true}]
+  },
+  "main.0.101":
+  {
+    "subtitle": "main.0.101",
+    "sounds": [{"name":  "genshin:main/main_0_101", "stream":  true}]
+  },
+  "main.0.102":
+  {
+    "subtitle": "main.0.102",
+    "sounds": [{"name":  "genshin:main/main_0_102", "stream":  true}]
+  },
+  "main.0.103":
+  {
+    "subtitle": "main.0.103",
+    "sounds": [{"name":  "genshin:main/main_0_103", "stream":  true}]
+  },
+  "main.0.104":
+  {
+    "subtitle": "main.0.104",
+    "sounds": [{"name":  "genshin:main/main_0_104", "stream":  true}]
+  },
+  "main.0.105":
+  {
+    "subtitle": "main.0.105",
+    "sounds": [{"name":  "genshin:main/main_0_105", "stream":  true}]
+  },
+  "main.0.106":
+  {
+    "subtitle": "main.0.106",
+    "sounds": [{"name":  "genshin:main/main_0_106", "stream":  true}]
+  }
+}

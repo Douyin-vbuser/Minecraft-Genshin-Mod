@@ -1,0 +1,56 @@
+package com.vbuser.genshin;
+
+import com.vbuser.genshin.proxy.CommonProxy;
+import com.vbuser.genshin.tab.*;
+import com.vbuser.genshin.util.Reference;
+import com.vbuser.genshin.util.handlers.RegistryHandler;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+
+@Mod(modid = Reference.Mod_ID,name = Reference.NAME,version = Reference.VERSION)
+public class Main {
+
+    /**
+     * some CreativeTabs for mod
+     * see the translations and notes of the tabs above in package "tab" (Ctrl + click(in IDEA))
+     **/
+
+    public static CreativeTabs JIANCAI_TAB = new JianCaiTab();
+
+    public static CreativeTabs SHENGYIWU_TAB = new ShengYiWuTab();
+
+    public static CreativeTabs ZHENGGUIWUPING_TAB = new ZhengGuiWuPingTab();
+
+    public static CreativeTabs SHIWUTAB = new ShiWuTab();
+
+    public static CreativeTabs ZIRANCAILIAO = new ZiRanCaiLiao();
+
+    @Mod.Instance
+    public static Main instance;
+
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS,serverSide = Reference.COMMON_PROXY_CLASS)
+    public static CommonProxy proxy;
+
+    @Mod.EventHandler
+    public static void PreInit(FMLPreInitializationEvent event){
+        RegistryHandler.preInitRegistries(event);
+    }
+
+    @Mod.EventHandler
+    public static void Init(FMLInitializationEvent event){
+        RegistryHandler.initRegistries();
+    }
+
+    @Mod.EventHandler
+    public static void PostInit(FMLPostInitializationEvent event){}
+
+    @Mod.EventHandler
+    public static void serverInit(FMLServerStartingEvent event) {
+        RegistryHandler.serverRegistries(event);
+    }
+}

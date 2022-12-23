@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "active=false": {"model": "genshin:chuan_song_mao_dian_0"},
+    "active=true": {"model": "genshin:chuan_song_mao_dian"}
+  }
+}

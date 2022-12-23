@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "picked=false": {"model": "genshin:xiao_deng_cao"},
+    "picked=true": {"model": "genshin:air"}
+  }
+}

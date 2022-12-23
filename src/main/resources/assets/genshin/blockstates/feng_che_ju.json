@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "picked=false": {"model": "genshin:feng_che_ju"},
+    "picked=true": {"model": "genshin:air"}
+  }
+}

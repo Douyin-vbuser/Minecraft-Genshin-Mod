@@ -1,0 +1,62 @@
+package com.vbuser.genshin.blocks;
+
+import com.vbuser.genshin.Main;
+import com.vbuser.genshin.init.ModBlocks;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+
+@SuppressWarnings("all")
+public class DuDuLian extends FlowerBase {
+
+    public static final PropertyBool PICKED = PropertyBool.create("picked");
+
+    public DuDuLian(String name, Material material){
+        super(name,material);
+        setDefaultState(this.blockState.getBaseState().withProperty(PICKED,false));
+    }
+
+    //方块属性
+    @Override
+    protected BlockStateContainer createBlockState(){
+        return new BlockStateContainer(this,PICKED);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(PICKED,meta==1);
+    }
+
+    //右键事件
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+        else {
+            worldIn.setBlockState(pos, state.withProperty(PICKED, true));
+            if (!state.getValue(PICKED)) {
+                EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.DU_DU_LIAN), 1));
+                worldIn.spawnEntity(entityitem);
+            }
+            return true;
+        }
+    }
+}

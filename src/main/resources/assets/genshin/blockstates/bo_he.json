@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "picked=false": {"model": "genshin:bo_he"},
+    "picked=true": {"model": "genshin:air"}
+  }
+}

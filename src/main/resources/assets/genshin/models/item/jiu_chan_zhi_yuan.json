@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "genshin:items/jiu_chan_zhi_yuan"
+  }
+}

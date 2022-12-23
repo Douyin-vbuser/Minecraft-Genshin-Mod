@@ -1,0 +1,16 @@
+[
+{
+  "modid": "genshin",
+  "name": "Genshin",
+  "description": "Minecraft Genshin Mod(MineCraft Impact)",
+  "version": "basic 1.0.8",
+  "mcversion": "1.12.2",
+  "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod",
+  "updateUrl": "",
+  "authorList": ["MCI Studio"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
