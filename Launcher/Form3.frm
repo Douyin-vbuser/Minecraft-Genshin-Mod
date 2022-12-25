@@ -246,25 +246,25 @@ Attribute VB_Exposed = False
 Private Declare Function URLDownloadToFile Lib "urlmon.dll" Alias "URLDownloadToFileA" (ByVal pCaller As Long, ByVal szURL As String, ByVal szFileName As String, ByVal dwReserved As Long, ByVal lpfnCB As Long) As Long
 Private Sub Command1_Click()
 If Combo1.Text = "Minecraft libraries" Then
-WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/Runtime_environment/default.minecraft.exe"
+WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/Runtime-Environment/default.minecraft.exe"
 Else
 End If
 End Sub
 
 Private Sub Command2_Click()
-a = MsgBox("防止误操作导致崩溃,确认部署", vbYesNo, "Update Manager")
+a = MsgBox("防止误操作导致崩溃,确认部署", vbYesNo + vbQuestion, "Update Manager")
 If a = vbYes Then
     If Combo1.Text = "Minecraft libraries" Then
         MsgBox "按默认执行解压程序即可", vbInformation, "Update Manager"
         Shell ("" & App.Path & "\.minecraft.exe")
     Else
         If Combo1.Text = "Map" Then
-        
+            
         Else
             If Combo1.Text = "Mod" Then
-            
+                
             Else
-            
+                MsgBox "如果有其他更新项目,请优先更新其他内容", vbCritical, "Update Manager"
             End If
         End If
     End If
@@ -273,7 +273,7 @@ End Sub
 
 Private Sub Command3_Click()
 Dim nUrl As String, F As String, S As Long
-nUrl = "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/versions_check/versions.txt": F = App.Path & "\versions.txt"
+nUrl = "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/version-check/versions.txt": F = App.Path & "\versions.txt"
 S = URLDownloadToFile(0, nUrl, F, 0, 0)
 Open "" & App.Path & "\versions.txt" For Input As #3
 While Not EOF(3)
@@ -290,17 +290,17 @@ If a = Text1.Text Then
             If d = Text4.Text Then
                 MsgBox "所有文件已是最新", vbInformation, "Update Manager"
             Else
-                MsgBox "地图文件可更新", vbInformation, "Update Manager"
+                Text4.Text = "" & Text4.Text & "(Latest:" & d & ")"
             End If
         Else
-            MsgBox "模组可更新", vbInformation, "Update Manager"
+            Text3.Text = "" & Text3.Text & "(Latest:" & c & ")"
         End If
     Else
-        MsgBox "启动器可更新", vbInformation, "Update Manager"
+        Text2.Text = "" & Text4.Text & "(Latest:" & b & ")"
     End If
 Else
-    MsgBox "运行库可更新", vbInformation, "Update Manager"
+    Text1.Text = "" & Text4.Text & "(Latest:" & a & ")"
 End If
-
 Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\versions.txt")
+Command3.Enabled = False
 End Sub
