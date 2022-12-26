@@ -1,0 +1,55 @@
+package com.vbuser.genshin.blocks;
+
+import com.vbuser.genshin.init.ModBlocks;
+import com.vbuser.genshin.init.ModItems;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+public class PuGongYing extends FlowerBase{
+
+    public static final PropertyInteger STATE = PropertyInteger.create("state",1,3);
+
+    public PuGongYing(String name, Material material){
+        super(name,material);
+        setDefaultState(blockState.getBaseState().withProperty(STATE,3));
+    }
+
+    //方块属性
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, STATE);
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(STATE, 3 - meta);
+    }
+
+    //右击事件
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
+            if(playerIn.getHeldItemMainhand().getItem()==ModItems.DEBUG_STICK){
+                worldIn.setBlockState(pos,state.withProperty(STATE,(state.getValue(STATE)==1?3:state.getValue(STATE)-1)));
+            }
+            else{
+                if(state.getValue(STATE)==2) {
+                    worldIn.setBlockState(pos, state.withProperty(STATE, 1));
+                    EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.PU_GONG_YING_ZI, 1));
+                    worldIn.spawnEntity(entityitem);
+                }
+            }
+        }
+        return true;
+    }
+}

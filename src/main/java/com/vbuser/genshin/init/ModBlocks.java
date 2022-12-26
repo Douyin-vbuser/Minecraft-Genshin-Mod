@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class ModBlocks {
     public static final List<Block> BLOCKS = new ArrayList<Block>();
 
@@ -51,4 +52,7 @@ public class ModBlocks {
 
     public static final Block MU_FENG_MO_GU = new MuFengMoGu("mu_feng_mo_gu",Material.GRASS);
     //慕风蘑菇 Phillanemo Mushroom
+
+    public static final Block PU_GONG_YING = new PuGongYing("pu_gong_ying",Material.GRASS);
+    //蒲公英 Dandelion
 }

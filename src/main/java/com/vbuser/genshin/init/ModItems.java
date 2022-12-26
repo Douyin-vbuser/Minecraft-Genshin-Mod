@@ -24,4 +24,7 @@ public class ModItems {
 
     public static final Item DEBUG_STICK = new ItemBase("debug_stick",Main.ZHENGGUIWUPING_TAB);
     //调试棒 Debug_stick
+
+    public static final Item PU_GONG_YING_ZI = new ItemBase("pu_gong_ying_zi",Main.ZIRANCAILIAO);
+    //蒲公英籽 Dandelion Seed
 }

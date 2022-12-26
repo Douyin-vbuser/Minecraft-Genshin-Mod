@@ -1,0 +1,7 @@
+{
+  "variants":{
+    "state=1": {"model": "genshin:pu_gong_ying_2"},
+    "state=2": {"model": "genshin:pu_gong_ying_1"},
+    "state=3": {"model": "genshin:pu_gong_ying_0"}
+  }
+}
