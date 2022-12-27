@@ -25,3 +25,5 @@ item.debug_stick.name=调戏棒
 tile.chuan_song_mao_dian.name=传送锚点
 tile.pu_gong_ying.name=蒲公英
 item.pu_gong_ying_zi.name=蒲公英籽
+key.category.genshin=MCI模组按键
+key.genshin.test=测试按键

@@ -42,6 +42,9 @@ Begin VB.Form Form1
    Begin VB.Menu code 
       Caption         =   "Code"
    End
+   Begin VB.Menu help 
+      Caption         =   "Help"
+   End
 End
 Attribute VB_Name = "Form1"
 Attribute VB_GlobalNameSpace = False
@@ -56,6 +59,7 @@ Private Sub Command1_Click()
 Dim fso As Object, ts As Object
 If Dir("" & App.Path & "\start.bat") = "" Then
 Form2.Show
+Form4.Show
 Else
 Me.Hide
 Form2.Hide
@@ -64,6 +68,10 @@ End
 End If
 Set ts = Nothing
 Set fso = Nothing
+End Sub
+
+Private Sub help_Click()
+Form4.Show
 End Sub
 
 Private Sub setting_Click()

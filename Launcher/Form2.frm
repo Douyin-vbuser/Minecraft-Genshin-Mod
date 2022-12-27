@@ -81,25 +81,18 @@ Begin VB.Form Form2
       TabIndex        =   6
       Top             =   2040
       Width           =   5655
-      Begin VB.OptionButton Option1 
-         Height          =   300
-         Left            =   3360
-         TabIndex        =   20
-         Top             =   1320
-         Width           =   375
-      End
       Begin VB.TextBox Text8 
          Height          =   270
          Left            =   4080
          TabIndex        =   18
-         Top             =   1800
+         Top             =   1200
          Width           =   1335
       End
       Begin VB.TextBox Text7 
          Height          =   270
          Left            =   1320
          TabIndex        =   16
-         Top             =   1800
+         Top             =   1200
          Width           =   1335
       End
       Begin VB.TextBox Text3 
@@ -116,23 +109,6 @@ Begin VB.Form Form2
          Top             =   360
          Width           =   3495
       End
-      Begin VB.Label Label7 
-         Caption         =   "*是否在运行时显示cmd输出"
-         BeginProperty Font 
-            Name            =   "宋体"
-            Size            =   12
-            Charset         =   134
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   375
-         Left            =   360
-         TabIndex        =   19
-         Top             =   1320
-         Width           =   3255
-      End
       Begin VB.Label Label6 
          Caption         =   "窗口高："
          BeginProperty Font 
@@ -145,9 +121,9 @@ Begin VB.Form Form2
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   3000
+         Left            =   2880
          TabIndex        =   17
-         Top             =   1800
+         Top             =   1200
          Width           =   1935
       End
       Begin VB.Label Label5 
@@ -164,7 +140,7 @@ Begin VB.Form Form2
          Height          =   375
          Left            =   120
          TabIndex        =   15
-         Top             =   1800
+         Top             =   1200
          Width           =   1935
       End
       Begin VB.Label Label3 
@@ -354,10 +330,7 @@ Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\start.bat")
 End Sub
 
 Private Sub Text3_DblClick()
-If Option1.Value = False Then
 Text3.Text = "C:\ProgramData\Oracle\Java\javapath\javaw.exe"
-Else
-Text3.Text = "C:\ProgramData\Oracle\Java\javapath\java.exe"
 End If
 End Sub
 

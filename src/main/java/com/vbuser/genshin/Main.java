@@ -1,5 +1,6 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.key.KeyboardManager;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tab.*;
 import com.vbuser.genshin.util.Reference;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = Reference.Mod_ID,name = Reference.NAME,version = Reference.VERSION)
 public class Main {
@@ -44,6 +46,7 @@ public class Main {
     @Mod.EventHandler
     public static void Init(FMLInitializationEvent event){
         RegistryHandler.initRegistries();
+        KeyboardManager.init();
     }
 
     @Mod.EventHandler

@@ -25,3 +25,5 @@ item.debug_stick.name=Debug Stick
 tile.chuan_song_mao_dian.name=Teleport Waypoint
 tile.pu_gong_ying.name=Dandelion
 tile.pu_gong_ying_zi.name=Dandelion Seed
+key.category.genshin=MCI KeyBinding
+key.genshin.test=Test KeyBinding
