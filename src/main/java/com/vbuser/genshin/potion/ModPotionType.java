@@ -7,10 +7,6 @@ import net.minecraft.potion.PotionType;
 import javax.annotation.Nullable;
 
 public class ModPotionType extends PotionType {
-    //protected ModPotionType(PotionEffect potionEffect,String p_i46739_1_){
-    //    this(null,p_i46739_1_);
-    //}
-
     public ModPotionType(@Nullable String p_i46740_1_, PotionEffect... p_i46740_2_) {
         super(p_i46740_1_, p_i46740_2_);
         setRegistryName(Reference.Mod_ID, p_i46740_1_);

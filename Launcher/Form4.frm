@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form Form4 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Help"
-   ClientHeight    =   4545
+   ClientHeight    =   4050
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   5505
@@ -10,23 +10,31 @@ Begin VB.Form Form4
    LinkTopic       =   "Form4"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4545
+   ScaleHeight     =   4050
    ScaleWidth      =   5505
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  '窗口缺省
    Begin VB.Frame Frame2 
-      Caption         =   "配置MCI"
-      Height          =   3255
+      Caption         =   "初次启动"
+      Height          =   2775
       Left            =   120
       TabIndex        =   3
       Top             =   120
       Width           =   5295
       Begin VB.TextBox Text1 
-         Height          =   2895
+         BeginProperty Font 
+            Name            =   "宋体"
+            Size            =   10.5
+            Charset         =   134
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   2415
          Left            =   120
          Locked          =   -1  'True
          MultiLine       =   -1  'True
-         ScrollBars      =   2  'Vertical
          TabIndex        =   4
          Text            =   "Form4.frx":038A
          Top             =   240
@@ -38,10 +46,10 @@ Begin VB.Form Form4
       Height          =   975
       Left            =   120
       TabIndex        =   0
-      Top             =   3480
+      Top             =   3000
       Width           =   5295
       Begin VB.CommandButton Command2 
-         Caption         =   "向作者邮件反映"
+         Caption         =   "Feedback by Email"
          Height          =   375
          Left            =   2880
          TabIndex        =   2
@@ -49,7 +57,7 @@ Begin VB.Form Form4
          Width           =   2055
       End
       Begin VB.CommandButton Command1 
-         Caption         =   "提交问题到GitHub Issues"
+         Caption         =   "Feedback by GitHub Issues"
          Height          =   375
          Left            =   240
          TabIndex        =   1

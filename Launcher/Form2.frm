@@ -268,6 +268,13 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub Command1_Click()
+Dim fso As Object, ts As Object
+If Dir("" & Text4.Text & "\versions\Modtester\Modtester.jar") = "" Then
+    MsgBox "请将.minecraft文件夹中一个1.12.2forge版本重命名为Modtester", vbInformation, "或双击文本框下载我们提供的"
+Else
+
+    i = InStr(1, "" & Text4.Text & "", " ", 1)
+    If i = 0 Then
 Text6.Text = "" & Text1.Text & "" & Chr(13) + Chr(10) & "" & Text4.Text & "" & Chr(13) + Chr(10) & "" & Text3.Text & "" & Chr(13) + Chr(10) & "" & Text7.Text & "" & Chr(13) + Chr(10) & "" & Text8.Text & ""
 Open "" & App.Path & "\property.txt" For Output As #1
 Print #1, Text6.Text
@@ -280,10 +287,16 @@ temp4 = "" & Text4.Text & "\libraries\com\mojang\realms\1.10.22\realms-1.10.22.j
 temp5 = "" & Text4.Text & "\libraries\com\mojang\text2speech\1.10.3\text2speech-1.10.3.jar;" & Text4.Text & "\libraries\net\minecraftforge\forge\1.12.2-14.23.5.2847\forge-1.12.2-14.23.5.2847.jar;" & Text4.Text & "\libraries\net\minecraft\launchwrapper\1.12\launchwrapper-1.12.jar;" & Text4.Text & "\libraries\org\ow2\asm\asm-all\5.2\asm-all-5.2.jar;" & Text4.Text & "\libraries\org\jline\jline\3.5.1\jline-3.5.1.jar;" & Text4.Text & "\libraries\com\typesafe\akka\akka-actor_2.11\2.3.3\akka-actor_2.11-2.3.3.jar;" & Text4.Text & "\libraries\com\typesafe\config\1.2.1\config-1.2.1.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-actors-migration_2.11\1.1.0\scala-actors-migration_2.11-1.1.0.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-compiler\2.11.1\scala-compiler-2.11.1.jar;" & Text4.Text & "\libraries\org\scala-lang\plugins\scala-continuations-library_2.11\1.0.2\scala-continuations-library_2.11-1.0.2.jar;"
 temp6 = "" & Text4.Text & "\libraries\org\scala-lang\plugins\scala-continuations-plugin_2.11.1\1.0.2\scala-continuations-plugin_2.11.1-1.0.2.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-library\2.11.1\scala-library-2.11.1.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-parser-combinators_2.11\1.0.1\scala-parser-combinators_2.11-1.0.1.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-reflect\2.11.1\scala-reflect-2.11.1.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-swing_2.11\1.0.1\scala-swing_2.11-1.0.1.jar;" & Text4.Text & "\libraries\org\scala-lang\scala-xml_2.11\1.0.2\scala-xml_2.11-1.0.2.jar;" & Text4.Text & "\libraries\lzma\lzma\0.0.1\lzma-0.0.1.jar;" & Text4.Text & "\libraries\java3d\vecmath\1.5.2\vecmath-1.5.2.jar;" & Text4.Text & "\libraries\net\sf\trove4j\trove4j\3.0.3\trove4j-3.0.3.jar;" & Text4.Text & "\libraries\org\apache\maven\maven-artifact\3.5.3\maven-artifact-3.5.3.jar;"
 temp7 = "" & Text4.Text & "\versions\Modtester\Modtester.jar net.minecraft.launchwrapper.Launch --versionType PCL2 --username " & Text1.Text & " --version Modtester --gameDir " & Text4.Text & "\versions\Modtester --assetsDir " & Text4.Text & "\assets --assetIndex 1.12 --uuid fb48efcbb7014a6f883d5f5bdacda3dd --accessToken eyJhbGciOiJIUzI1NiJ9.eyJ4dWlkIjoiMjUzNTQwODUzNzA4NSMxNTIsImFnZyI6IkFkdWx0Iiwic3ViIjoiZmE1Njg1OTEtYWZhZS00Zjc5LWEzNjgtMjFiYTYxMmIwYjAyIiwibmJmIjoxNjY0NjE1NzQ2LCJhdXRoIjoiWEJPWCIsInJvbGVzIjpbXSwiaXNzIjoiYXV0aGVudGljYXRpb24iLCJleHAiOjE2NjQ3MDIxNDYsImlhdCI6MTY2NDYxNTc0NiwicGxhdGZvcm0iOiJVTktOT1dOIiwieXVpZCI6IjU2MTlkN2ZhYThmNjI4MWQwZmVjODY5ZjE1MzQwMzg0In0.PIBqz5e-Oq64-zcsPegxC6P0FXJWLz8noDQKYb2h0bQ --userType Mojang --tweakClass net.minecraftforge.fml.common.launcher.FMLTweaker --versionType Forge --height " & Text8.Text & " --width " & Text7.Text & " " & Chr(10) & "" & Chr(13) & "Echo End" & Chr(10) & "" & Chr(13) & "pause " & Chr(10) & "" & Chr(13) & "" & Text2.Text & "\launcher.exe"
-code = temp1 + temp2 + temp3 + temp4 + temp5 + temp6 + temp7
-Print #1, code
-Close #1
-Me.Hide
+        code = temp1 + temp2 + temp3 + temp4 + temp5 + temp6 + temp7
+        Print #1, code
+        Close #1
+        Me.Hide
+    Else
+        MsgBox "请选择其他.minecraft文件夹", vbCritical, "路径中存在空格"
+    End If
+End If
+Set fso = Nothing
+Set ts = Nothing
 End Sub
 
 Private Sub Command2_Click()
@@ -294,8 +307,8 @@ Me.Hide
 End Sub
 
 Private Sub Form_Load()
-On Error GoTo Err:
 Text2.Text = "" & App.Path & ""
+On Error GoTo Err:
 Open "" & App.Path & "\property.txt" For Binary As #1
 Text5 = StrConv(InputB$(LOF(1), 1), vbUnicode)
 Close #1
@@ -331,7 +344,6 @@ End Sub
 
 Private Sub Text3_DblClick()
 Text3.Text = "C:\ProgramData\Oracle\Java\javapath\javaw.exe"
-End If
 End Sub
 
 Private Sub Text4_DblClick()
