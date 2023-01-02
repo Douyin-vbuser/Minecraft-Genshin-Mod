@@ -3,29 +3,48 @@ Object = "{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}#1.1#0"; "ieframe.dll"
 Begin VB.Form Form3 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Download"
-   ClientHeight    =   4575
+   ClientHeight    =   2505
    ClientLeft      =   45
-   ClientTop       =   390
-   ClientWidth     =   5385
+   ClientTop       =   690
+   ClientWidth     =   5250
+   Icon            =   "Form3.frx":0000
    LinkTopic       =   "Form3"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4575
-   ScaleWidth      =   5385
+   ScaleHeight     =   2505
+   ScaleWidth      =   5250
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  '窗口缺省
+   Begin VB.Timer Timer3 
+      Enabled         =   0   'False
+      Interval        =   1000
+      Left            =   5280
+      Top             =   1440
+   End
+   Begin VB.Timer Timer2 
+      Enabled         =   0   'False
+      Interval        =   1000
+      Left            =   5280
+      Top             =   840
+   End
+   Begin VB.Timer Timer1 
+      Enabled         =   0   'False
+      Interval        =   1000
+      Left            =   5280
+      Top             =   240
+   End
    Begin VB.Frame Frame2 
       Caption         =   "版本号"
       Height          =   2295
       Left            =   120
-      TabIndex        =   9
-      Top             =   2160
+      TabIndex        =   1
+      Top             =   120
       Width           =   5055
       Begin VB.TextBox Text4 
          Height          =   270
          Left            =   1080
          Locked          =   -1  'True
-         TabIndex        =   17
+         TabIndex        =   9
          Text            =   "(none)"
          Top             =   1800
          Width           =   3615
@@ -34,7 +53,7 @@ Begin VB.Form Form3
          Height          =   270
          Left            =   1080
          Locked          =   -1  'True
-         TabIndex        =   16
+         TabIndex        =   8
          Text            =   "basic 1.0.6"
          Top             =   1320
          Width           =   3615
@@ -43,7 +62,7 @@ Begin VB.Form Form3
          Height          =   270
          Left            =   1080
          Locked          =   -1  'True
-         TabIndex        =   15
+         TabIndex        =   7
          Text            =   "alpha 1.1.7"
          Top             =   840
          Width           =   3615
@@ -52,7 +71,7 @@ Begin VB.Form Form3
          Height          =   270
          Left            =   1080
          Locked          =   -1  'True
-         TabIndex        =   14
+         TabIndex        =   6
          Text            =   "release 1.0.0"
          Top             =   360
          Width           =   3615
@@ -70,7 +89,7 @@ Begin VB.Form Form3
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   13
+         TabIndex        =   5
          Top             =   1800
          Width           =   1455
       End
@@ -87,7 +106,7 @@ Begin VB.Form Form3
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   12
+         TabIndex        =   4
          Top             =   1320
          Width           =   1455
       End
@@ -104,7 +123,7 @@ Begin VB.Form Form3
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   3
          Top             =   840
          Width           =   1455
       End
@@ -121,93 +140,7 @@ Begin VB.Form Form3
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   10
-         Top             =   360
-         Width           =   1455
-      End
-   End
-   Begin VB.Frame Frame1 
-      Caption         =   "下载"
-      Height          =   1935
-      Left            =   120
-      TabIndex        =   0
-      Top             =   120
-      Width           =   5055
-      Begin VB.CommandButton Command3 
-         Caption         =   "检查更新"
-         Height          =   375
-         Left            =   1560
-         TabIndex        =   8
-         Top             =   1320
-         Width           =   975
-      End
-      Begin VB.CommandButton Command2 
-         Caption         =   "部署"
-         Height          =   375
-         Left            =   3720
-         TabIndex        =   7
-         Top             =   1320
-         Width           =   975
-      End
-      Begin VB.CommandButton Command1 
-         Caption         =   "下载"
-         Height          =   375
-         Left            =   2640
-         TabIndex        =   5
-         Top             =   1320
-         Width           =   975
-      End
-      Begin VB.ComboBox Combo2 
-         Height          =   300
-         ItemData        =   "Form3.frx":0000
-         Left            =   1560
-         List            =   "Form3.frx":0007
-         TabIndex        =   4
-         Text            =   "Github"
-         Top             =   840
-         Width           =   3135
-      End
-      Begin VB.ComboBox Combo1 
-         Height          =   300
-         ItemData        =   "Form3.frx":0013
-         Left            =   1560
-         List            =   "Form3.frx":0023
          TabIndex        =   2
-         Text            =   "Minecraft libraries"
-         Top             =   360
-         Width           =   3135
-      End
-      Begin VB.Label Label2 
-         Caption         =   "选择下载源："
-         BeginProperty Font 
-            Name            =   "宋体"
-            Size            =   12
-            Charset         =   134
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   120
-         TabIndex        =   3
-         Top             =   840
-         Width           =   1455
-      End
-      Begin VB.Label Label1 
-         Caption         =   "选择下载项："
-         BeginProperty Font 
-            Name            =   "宋体"
-            Size            =   12
-            Charset         =   134
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   120
-         TabIndex        =   1
          Top             =   360
          Width           =   1455
       End
@@ -215,7 +148,7 @@ Begin VB.Form Form3
    Begin SHDocVwCtl.WebBrowser WebBrowser1 
       Height          =   1215
       Left            =   120
-      TabIndex        =   6
+      TabIndex        =   0
       Top             =   360
       Width           =   5055
       ExtentX         =   8916
@@ -235,7 +168,13 @@ Begin VB.Form Form3
       NoFolders       =   0   'False
       Transparent     =   0   'False
       ViewID          =   "{0057D0E0-3573-11CF-AE69-08002B2E1262}"
-      Location        =   ""
+      Location        =   "http:///"
+   End
+   Begin VB.Menu check 
+      Caption         =   "Check"
+   End
+   Begin VB.Menu download 
+      Caption         =   "Download"
    End
 End
 Attribute VB_Name = "Form3"
@@ -244,34 +183,8 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Declare Function URLDownloadToFile Lib "urlmon.dll" Alias "URLDownloadToFileA" (ByVal pCaller As Long, ByVal szURL As String, ByVal szFileName As String, ByVal dwReserved As Long, ByVal lpfnCB As Long) As Long
-Private Sub Command1_Click()
-If Combo1.Text = "Minecraft libraries" Then
-WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/Runtime-Environment/default.minecraft.exe"
-Else
-End If
-End Sub
 
-Private Sub Command2_Click()
-a = MsgBox("防止误操作导致崩溃,确认部署", vbYesNo + vbQuestion, "Update Manager")
-If a = vbYes Then
-    If Combo1.Text = "Minecraft libraries" Then
-        MsgBox "按默认执行解压程序即可", vbInformation, "Update Manager"
-        Shell ("" & App.Path & "\.minecraft.exe")
-    Else
-        If Combo1.Text = "Map" Then
-            
-        Else
-            If Combo1.Text = "Mod" Then
-                
-            Else
-                MsgBox "如果有其他更新项目,请优先更新其他内容", vbCritical, "Update Manager"
-            End If
-        End If
-    End If
-End If
-End Sub
-
-Private Sub Command3_Click()
+Private Sub check_Click()
 Dim nUrl As String, F As String, S As Long
 nUrl = "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/version-check/versions.txt": F = App.Path & "\versions.txt"
 S = URLDownloadToFile(0, nUrl, F, 0, 0)
@@ -303,4 +216,45 @@ Else
 End If
 Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\versions.txt")
 Command3.Enabled = False
+End Sub
+
+Private Sub download_Click()
+MsgBox "最好将文件下载至根目录", vbInformation, "Update Manager"
+If Dir("" & App.Path & "\start.bat") = "" Then
+    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.minecraft.exe"
+    Timer3.Enabled = True
+Else
+    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.updater.exe"
+    Timer1.Enabled = True
+End If
+End Sub
+
+Private Sub Timer1_Timer()
+If Dir("" & App.Path & "\updater.exe") = "" Then
+    Form3.Caption = "Downloading..."
+Else
+    Shell "" & App.Path & "\default.updater.exe"
+    Timer2.Enabled = True
+    Timer1.Enabled = False
+End If
+End Sub
+
+Private Sub Timer2_Timer()
+If Dir("" & App.Path & "\updater\updater.exe") = "" Then
+    Form3.Caption = "Unzipping..."
+Else
+    Shell "" & App.Path & "\updater\updater.exe"
+    Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\default.updater.exe")
+    Form3.Caption = "Download"
+    Timer2.Enabled = False
+End If
+End Sub
+
+Private Sub Timer3_Timer()
+If Dir("" & App.Path & "\default.minecraft.exe") = "" Then
+    Form3.Caption = "Downloading..."
+Else
+    Shell "" & App.Path & "\default.minecraft.exe"
+    Timer3.Enabled = False
+End If
 End Sub
