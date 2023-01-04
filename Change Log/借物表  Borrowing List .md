@@ -29,18 +29,15 @@
 
 2.Command Tpdim    **Reference:[IdeallandFramework(github)](https://github.com/IdeallandEarthDept/IdeallandFramework) (MIT License)**
 
-3.方块动画    **依赖库：[geckolib](https://github.com/bernie-g/geckolib-core) (MIT License)**
-
-3.Block Animation    **Dependence:[geckolib](https://github.com/bernie-g/geckolib-core) (MIT License)**
 ### 音乐：
 
 ### Music:
 
 1.所有位于*scr/resources/genshin/sounds*下的文件    **版权方：上海米哈游天命科技有限公司**
 
-2.所有位于*scr/resources/minecraft/sounds*下的文件    **版权方：上海米哈游天命科技有限公司**
-
 1.All the sound files in _scr/resources/genshin/sounds_    **Copyright owner:MiHoYo(Hoyoverse)**
+
+2.所有位于*scr/resources/minecraft/sounds*下的文件    **版权方：上海米哈游天命科技有限公司**
 
 2.All the sound files in _scr/resources/minecraft/sounds_    **Copyright owner:MiHoYo(Hoyoverse)**
 
