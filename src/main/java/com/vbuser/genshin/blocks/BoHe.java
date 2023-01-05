@@ -1,6 +1,7 @@
 package com.vbuser.genshin.blocks;
 
 import com.vbuser.genshin.init.ModBlocks;
+import com.vbuser.genshin.util.handlers.SoundsHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -11,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -43,6 +46,7 @@ public class BoHe extends FlowerBase{
             if (!state.getValue(PICKED)) {
                 EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.BO_HE), 1));
                 worldIn.spawnEntity(entityitem);
+                worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
             }
         }
         return true;

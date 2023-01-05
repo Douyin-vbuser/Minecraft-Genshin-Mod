@@ -224,7 +224,7 @@ If Dir("" & App.Path & "\start.bat") = "" Then
     WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.minecraft.exe"
     Timer3.Enabled = True
 Else
-    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.updater.exe"
+    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.updater1.exe"
     Timer1.Enabled = True
 End If
 End Sub

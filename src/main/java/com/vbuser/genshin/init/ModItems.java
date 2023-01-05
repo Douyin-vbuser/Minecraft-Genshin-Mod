@@ -27,4 +27,7 @@ public class ModItems {
 
     public static final Item PU_GONG_YING_ZI = new ItemBase("pu_gong_ying_zi",Main.ZIRANCAILIAO);
     //蒲公英籽 Dandelion Seed
+
+    public static final Item JING_HE = new ItemBase("jing_he",Main.ZIRANCAILIAO);
+    //晶核  Crystal Core
 }

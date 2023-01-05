@@ -3,6 +3,7 @@ package com.vbuser.genshin.blocks;
 import com.google.common.base.Predicate;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
+import com.vbuser.genshin.util.handlers.SoundsHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -96,6 +98,7 @@ public class MuFengMoGu extends BlockBase {
                 if (!state.getValue(PICKED)) {
                     EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.MU_FENG_MO_GU), 1));
                     worldIn.spawnEntity(entityitem);
+                    worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
                 }
             }
         }

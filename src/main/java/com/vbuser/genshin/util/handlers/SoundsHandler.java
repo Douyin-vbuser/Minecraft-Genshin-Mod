@@ -218,13 +218,17 @@ public class SoundsHandler {
     public static SoundEvent M_0_200;
     public static SoundEvent M_0_201;
     public static SoundEvent M_0_202;
+
     public static SoundEvent TEST;
+    public static SoundEvent PICK;
+
     public static SoundEvent A_DAY_IN_MONDSTADT;
     public static SoundEvent AN_INTERESTING_LABOUR;
     public static SoundEvent PURE_SKY;
 
     public static void registerSounds(){
         TEST = registerSound("test");
+        PICK = registerSound("pick");
 
         M_0_1 = registerSound("main.0.1");
         M_0_2 = registerSound("main.0.2");
@@ -435,6 +439,7 @@ public class SoundsHandler {
         M_0_200 = registerSound("main.0.200");
         M_0_201 = registerSound("main.0.201");
         M_0_202 = registerSound("main.0.202");
+
         A_DAY_IN_MONDSTADT=registerSound("a_day_in_mondstadt");
         AN_INTERESTING_LABOUR=registerSound("an_interesting_labour");
         PURE_SKY=registerSound("pure_sky");

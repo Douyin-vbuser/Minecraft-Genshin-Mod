@@ -1055,5 +1055,9 @@
   "main.0.202": {
     "subtitle": "main.0.202",
     "sounds": [{"name": "genshin:main/main_0_202","stream": true}]
+  },
+  "pick": {
+    "subtitle": "pick",
+    "sounds": [{"name": "genshin:launcher/pick","stream": true}]
   }
 }

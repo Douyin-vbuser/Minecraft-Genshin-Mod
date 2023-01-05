@@ -17,6 +17,10 @@
 
 3.Moss Block    **Copyright owner:Mojang Studio**
 
+4.晶核    **版权方：上海米哈游天命科技有限公司**
+
+4.Crystal Core    **Copyright owner:MiHoYo(Hoyoverse)**
+
 ### 代码段：
 
 ### Code：
