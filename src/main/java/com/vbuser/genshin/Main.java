@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import software.bernie.geckolib3.GeckoLib;
 
 @Mod(modid = Reference.Mod_ID,name = Reference.NAME,version = Reference.VERSION)
 public class Main {
@@ -40,6 +41,7 @@ public class Main {
 
     @Mod.EventHandler
     public static void PreInit(FMLPreInitializationEvent event){
+        GeckoLib.initialize();
         RegistryHandler.preInitRegistries(event);
     }
 

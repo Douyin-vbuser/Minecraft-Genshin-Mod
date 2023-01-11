@@ -33,6 +33,9 @@
 
 2.Command Tpdim    **Reference:[IdeallandFramework(github)](https://github.com/IdeallandEarthDept/IdeallandFramework) (MIT License)**
 
+3.动画效果    **开源库：[Geckolib](https://github.com/bernie-g/geckolib/tree/1.12)**
+
+3.Animation Implementation    **Open Resource Library:[Geckolib](https://github.com/bernie-g/geckolib/tree/1.12)**
 ### 音乐：
 
 ### Music:
