@@ -63,7 +63,7 @@ Begin VB.Form Form4
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          TabIndex        =   4
-         Text            =   "Form4.frx":0421
+         Text            =   "Form4.frx":03FB
          Top             =   240
          Width           =   5055
       End

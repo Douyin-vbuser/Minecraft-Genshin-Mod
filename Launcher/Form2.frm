@@ -270,7 +270,7 @@ Attribute VB_Exposed = False
 Private Sub Command1_Click()
 Dim fso As Object, ts As Object
 If Dir("" & Text4.Text & "\versions\Modtester\Modtester.jar") = "" Then
-    MsgBox "请将.minecraft文件夹中一个1.12.2forge版本重命名为Modtester", vbInformation, "或双击文本框下载我们提供的"
+    MsgBox "请将.minecraft文件夹中一个1.12.2forge版本重命名为Modtester", vbExclamation, "或双击文本框下载我们提供的"
 Else
 
     i = InStr(1, "" & Text4.Text & "", " ", 1)

@@ -4,17 +4,49 @@ Begin VB.Form Form3
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Download"
    ClientHeight    =   2505
-   ClientLeft      =   45
-   ClientTop       =   690
-   ClientWidth     =   5250
+   ClientLeft      =   150
+   ClientTop       =   795
+   ClientWidth     =   5205
    Icon            =   "Form3.frx":0000
    LinkTopic       =   "Form3"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2505
-   ScaleWidth      =   5250
+   ScaleWidth      =   5205
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  '窗口缺省
+   Begin VB.TextBox Text8 
+      Height          =   270
+      Left            =   5760
+      TabIndex        =   13
+      Text            =   "Text8"
+      Top             =   1920
+      Width           =   4215
+   End
+   Begin VB.TextBox Text7 
+      Height          =   270
+      Left            =   5760
+      TabIndex        =   12
+      Text            =   "Text7"
+      Top             =   1440
+      Width           =   4215
+   End
+   Begin VB.TextBox Text6 
+      Height          =   270
+      Left            =   5760
+      TabIndex        =   11
+      Text            =   "Text6"
+      Top             =   960
+      Width           =   4215
+   End
+   Begin VB.TextBox Text5 
+      Height          =   270
+      Left            =   5760
+      TabIndex        =   10
+      Text            =   "Text5"
+      Top             =   480
+      Width           =   4215
+   End
    Begin VB.Timer Timer3 
       Enabled         =   0   'False
       Interval        =   1000
@@ -168,7 +200,7 @@ Begin VB.Form Form3
       NoFolders       =   0   'False
       Transparent     =   0   'False
       ViewID          =   "{0057D0E0-3573-11CF-AE69-08002B2E1262}"
-      Location        =   "http:///"
+      Location        =   ""
    End
    Begin VB.Menu check 
       Caption         =   "Check"
@@ -197,25 +229,20 @@ Line Input #3, d
 Wend
 Close #3
 
-If a = Text1.Text Then
-    If b = Text2.Text Then
-        If c = Text3.Text Then
-            If d = Text4.Text Then
-                MsgBox "所有文件已是最新", vbInformation, "Update Manager"
-            Else
-                Text4.Text = "" & Text4.Text & "(Latest:" & d & ")"
-            End If
-        Else
-            Text3.Text = "" & Text3.Text & "(Latest:" & c & ")"
-        End If
-    Else
-        Text2.Text = "" & Text4.Text & "(Latest:" & b & ")"
-    End If
+Text5.Text = a
+Text6.Text = b
+Text7.Text = c
+Text8.Text = d
+
+If a = Text1.Text And b = Text2.Text And c = Text3.Text And d = Text4.Text Then
+    MsgBox "所有内容均为最新", vbInformation, "Update Manager"
 Else
-    Text1.Text = "" & Text4.Text & "(Latest:" & a & ")"
+    If MsgBox("存在可用的更新,是否现在更新", vbQuestion + vbYesNo, "update Manager") = vbYes Then
+        WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/updater/default.updater1.exe"
+        Timer1.Enabled = True
+    End If
 End If
 Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\versions.txt")
-Command3.Enabled = False
 End Sub
 
 Private Sub download_Click()
@@ -224,7 +251,7 @@ If Dir("" & App.Path & "\start.bat") = "" Then
     WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.minecraft.exe"
     Timer3.Enabled = True
 Else
-    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/full_version/default.updater1.exe"
+    WebBrowser1.Navigate "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download/updater/default.updater1.exe"
     Timer1.Enabled = True
 End If
 End Sub

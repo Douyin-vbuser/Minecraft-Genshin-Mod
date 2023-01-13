@@ -6,14 +6,21 @@ import com.vbuser.genshin.tab.*;
 import com.vbuser.genshin.util.Reference;
 import com.vbuser.genshin.util.handlers.RegistryHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.resource.ResourceListener;
+
+import java.util.concurrent.FutureTask;
+
+import static software.bernie.geckolib3.GeckoLib.hasInitialized;
 
 @Mod(modid = Reference.Mod_ID,name = Reference.NAME,version = Reference.VERSION)
 public class Main {
@@ -41,7 +48,6 @@ public class Main {
 
     @Mod.EventHandler
     public static void PreInit(FMLPreInitializationEvent event){
-        GeckoLib.initialize();
         RegistryHandler.preInitRegistries(event);
     }
 
@@ -49,6 +55,7 @@ public class Main {
     public static void Init(FMLInitializationEvent event){
         RegistryHandler.initRegistries();
         KeyboardManager.init();
+        initialize();
     }
 
     @Mod.EventHandler
@@ -57,5 +64,21 @@ public class Main {
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event) {
         RegistryHandler.serverRegistries(event);
+    }
+
+    public static void initialize() {
+        if (!hasInitialized) {
+            FMLCommonHandler.callFuture(new FutureTask<>(() -> {
+                if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+                    doOnlyOnClient();
+                }
+            }, null));
+        }
+        hasInitialized = true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static void doOnlyOnClient() {
+        ResourceListener.registerReloadListener();
     }
 }
