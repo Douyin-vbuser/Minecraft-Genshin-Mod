@@ -55,4 +55,10 @@ public class ModBlocks {
 
     public static final Block PU_GONG_YING = new PuGongYing("pu_gong_ying",Material.GRASS);
     //蒲公英 Dandelion
+
+    public static final Block MO_GU = new MoGu("mo_gu",Material.GRASS);
+    //蘑菇 Mushroom
+
+    public static final Block SONG_RONG = new SongRong("song_rong",Material.GRASS);
+    //松茸 Matsutake
 }

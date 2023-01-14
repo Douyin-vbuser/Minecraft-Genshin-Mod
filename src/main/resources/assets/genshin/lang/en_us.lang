@@ -19,6 +19,8 @@ tile.du_du_lian.name=Calla Lily
 tile.mu_feng_mo_gu.name=Phillanemo Mushroom
 tile.chuan_song_mao_dian.name=Teleport Waypoint
 tile.pu_gong_ying.name=Dandelion
+tile.mo_gu.name=Mushroom
+tile.song_rong.name=Matsutake
 
 item.jiu_chan_zhi_yuan.name=Intertwined Fate
 item.xiang_yu_zhi_yuan.name=Acquaint Fate

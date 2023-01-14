@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "picked=false": {"model": "genshin:song_rong"},
+    "picked=true": {"model": "genshin:air"}
+  }
+}
