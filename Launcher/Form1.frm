@@ -2,17 +2,17 @@ VERSION 5.00
 Begin VB.Form Form1 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Launcher"
-   ClientHeight    =   9150
+   ClientHeight    =   8535
    ClientLeft      =   1920
    ClientTop       =   1410
-   ClientWidth     =   16170
+   ClientWidth     =   15240
    Icon            =   "Form1.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    Picture         =   "Form1.frx":038A
-   ScaleHeight     =   9150
-   ScaleWidth      =   16170
+   ScaleHeight     =   8535
+   ScaleWidth      =   15240
    Begin VB.CommandButton Command1 
       Appearance      =   0  'Flat
       Caption         =   "Launch"
@@ -26,10 +26,10 @@ Begin VB.Form Form1
          Strikethrough   =   0   'False
       EndProperty
       Height          =   1335
-      Left            =   12360
+      Left            =   11640
       MaskColor       =   &H8000000F&
       TabIndex        =   0
-      Top             =   7440
+      Top             =   6720
       UseMaskColor    =   -1  'True
       Width           =   3015
    End
