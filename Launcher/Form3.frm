@@ -267,10 +267,10 @@ End If
 End Sub
 
 Private Sub Timer2_Timer()
-If Dir("" & App.Path & "\updater\updater.exe") = "" Then
+If Dir("" & App.Path & "\updater.exe") = "" Then
     Form3.Caption = "Unzipping..."
 Else
-    Shell "" & App.Path & "\updater\updater.exe"
+    Shell "" & App.Path & "\updater.exe"
     Shell ("C:\Windows\System32\cmd.exe /c del " & App.Path & "\default.updater.exe")
     Form3.Caption = "Download"
     Timer2.Enabled = False
