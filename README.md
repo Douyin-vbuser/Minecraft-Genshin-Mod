@@ -14,7 +14,7 @@
 
 ## 关于开发
 
-模组方面：
+### 模组方面：
 
 1.为方便国内开发者快速看懂作者的~~屎山~~代码，所有的对象，变量**命名都是其中文名称的全拼**，若涉及前后鼻音（仅针对en(g)，in(g)）（~~这对一个南方人真的很重要~~）**一律使用后鼻音**（即eng、ing）。但无论如何，都会在相关代码后加上中英文注释。
 
@@ -24,8 +24,13 @@
 
 **（因此，考虑版权原因，本模组、整合包永久性保持公益性质，不用于商业用途，不上架网易版）**。
 
-启动器方面：[参考Launcher文件夹的文档](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Launcher/README.md)
+### 启动器方面：
 
+[参考Launcher文件夹的文档](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Launcher/README.md)
+
+### 地图方面:
+
+没啥可说,[参考Map文件夹的文档](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Map/README.md)
 ****
 
 ## Overview
@@ -36,13 +41,19 @@ Because of the fierce competition in China's college entrance examination (espec
 We plan to complete mondstadt first, including CG animations and plots. At present, the main challenge is to complete the role system,artifact system,elemental reaction system and the battle system.(because they are so different with Minecraft)
 
 ## Start Develop
-Mod:
+### Mod:
 
 1.To help Chinese developers to understand the code more quickly.Everything in the mod is named according to its Chinese pronunciation.But it must be noted in both Chinese and English.(considering the copyright, this mod and mod_pack permanently maintain the free nature of public welfare, and is not allowed to be used for commercial purposes , it will also never be grounded on Netease version(the distributor of Minecraft in China)).
 
 2.We also hope that you can record sounds of characters in other 3 languages and made them into resource packages.
 
-Launcher:[See Doc in Launcher folder](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Launcher/README.md)
+### Launcher:
+
+[See Doc in Launcher folder](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Launcher/README.md)
+
+### Map:
+
+Nothing important,[see Doc in Map folder](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Map/README.md)
 
 ----
 **仓库中一切内容以中文版本为准（包括借物表等声明）,英语版本仅供参考，不代表MCI的任何主张**
