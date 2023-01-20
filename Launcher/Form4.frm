@@ -103,7 +103,5 @@ Shell ("C:\Windows\explorer.exe https://github.com/Douyin-vbuser/Minecraft-Gensh
 End Sub
 
 Private Sub Command2_Click()
-MsgBox "请向douyin_vbuser@outlook.com发送邮件", vbInformation, "邮箱已复制到剪切板"
-Clipboard.Clear
-Clipboard.SetText ("douyin_vbuser@outlook.com")
+Shell ("C:\Windows\explorer.exe mailto:douyin_vbuser@outlook.com")
 End Sub

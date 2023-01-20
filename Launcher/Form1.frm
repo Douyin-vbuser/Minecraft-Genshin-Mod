@@ -5,14 +5,14 @@ Begin VB.Form Form1
    ClientHeight    =   8535
    ClientLeft      =   1920
    ClientTop       =   1410
-   ClientWidth     =   15270
+   ClientWidth     =   15210
    Icon            =   "Form1.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    Picture         =   "Form1.frx":038A
    ScaleHeight     =   8535
-   ScaleWidth      =   15270
+   ScaleWidth      =   15210
    Begin VB.CommandButton Command1 
       Appearance      =   0  'Flat
       Caption         =   "Launch"
