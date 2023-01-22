@@ -6,18 +6,14 @@ import com.vbuser.genshin.util.Reference;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 import javax.annotation.Nullable;
 
-public class JingDieRender extends RenderLiving<JingDie> {
+public class JingDieRender extends GeoEntityRenderer<JingDie> {
 
-    public JingDieRender(RenderManager rendermanagerIn){
-        super(rendermanagerIn,new JingDieModel(), 0.1f);
+    public JingDieRender(RenderManager renderManager) {
+        super(renderManager, new JingDieModel());
     }
 
-    @Nullable
-    @Override
-    protected ResourceLocation getEntityTexture(JingDie entity) {
-        return new ResourceLocation(Reference.Mod_ID + ":textures/entity/jing_die.png");
-    }
 }

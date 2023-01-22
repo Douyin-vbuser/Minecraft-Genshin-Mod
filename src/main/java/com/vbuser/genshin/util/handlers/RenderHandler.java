@@ -9,14 +9,6 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class RenderHandler {
     public static void registerEntityRenders(){
-
-        RenderingRegistry.registerEntityRenderingHandler(JingDie.class, new IRenderFactory<JingDie>()
-        {
-            @Override
-            public Render<? super JingDie> createRenderFor(RenderManager manager)
-            {
-                return new JingDieRender(manager) ;
-            }
-        });
+        RenderingRegistry.registerEntityRenderingHandler(JingDie.class, JingDieRender::new);
     }
 }
