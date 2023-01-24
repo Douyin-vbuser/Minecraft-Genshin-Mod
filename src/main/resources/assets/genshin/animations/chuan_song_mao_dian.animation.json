@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.chuan_song_mao_dian.actived": {
+		"actived": {
 			"animation_length": 2.08,
 			"bones": {
 				"bone": {
@@ -20,7 +20,7 @@
 				}
 			}
 		},
-		"animation.chuan_song_mao_dian.loop": {
+		"loop": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {

@@ -1,11 +1,14 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.blocks.tileEntity.TileEntityChuan;
+import com.vbuser.genshin.client.renderer.tile.TileChuanRenderer;
 import com.vbuser.genshin.key.KeyboardManager;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tab.*;
 import com.vbuser.genshin.util.Reference;
 import com.vbuser.genshin.util.handlers.RegistryHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -13,8 +16,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.relauncher.CoreModManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import software.bernie.example.GeckoLibMod;
+import software.bernie.example.block.tile.FertilizerTileEntity;
+import software.bernie.example.client.renderer.tile.FertilizerTileRenderer;
 import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.resource.ResourceListener;
 
@@ -80,5 +87,13 @@ public class Main {
     @SideOnly(Side.CLIENT)
     private static void doOnlyOnClient() {
         ResourceListener.registerReloadListener();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Mod.EventHandler
+    public void registerRenderers(FMLPreInitializationEvent event) {
+        if (!GeckoLibMod.DISABLE_IN_DEV) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChuan.class, new TileChuanRenderer());
+        }
     }
 }

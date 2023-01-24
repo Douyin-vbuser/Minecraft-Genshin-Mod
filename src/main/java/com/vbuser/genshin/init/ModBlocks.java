@@ -1,6 +1,7 @@
 package com.vbuser.genshin.init;
 
 import com.vbuser.genshin.blocks.*;
+import com.vbuser.genshin.blocks.tileEntity.ChuanSongMaoDian;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
