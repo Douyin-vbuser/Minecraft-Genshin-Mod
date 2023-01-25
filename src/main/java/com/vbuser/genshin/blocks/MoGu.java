@@ -16,6 +16,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@SuppressWarnings("all")
 public class MoGu extends FlowerBase{
     public static final PropertyBool PICKED = PropertyBool.create("picked");
 

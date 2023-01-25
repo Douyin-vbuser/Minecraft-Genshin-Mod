@@ -4647,6 +4647,11 @@
   },
   "main.1.457_a3": {
     "subtitle": "main.1.457_a3",
-    "sounds": [{"name": "genshin:main/main_2_457_a3","stream": true}]
+    "sounds": [{"name": "genshin:main/main_1_457_a3","stream": true}]
+  },
+
+  "xiao_deng_cao": {
+    "subtitle": "xiao_deng_cao",
+    "sounds": [{"name": "genshin:block/xiao_deng_cao","stream": true}]
   }
 }

@@ -90,7 +90,6 @@ public class ChuanSongMaoDian extends BlockBase implements ITileEntityProvider {
                         tileEntityChuan.isActived = true;
                         worldIn.setBlockState(pos, state.withProperty(ACTIVE, true));
                         worldIn.playSound(null, pos, SoundsHandler.PICK, SoundCategory.BLOCKS, 5, 1);
-                        tileEntityChuan.isActived = false;
                     }
                 }
             }

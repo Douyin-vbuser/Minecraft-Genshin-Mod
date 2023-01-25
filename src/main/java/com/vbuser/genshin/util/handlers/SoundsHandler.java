@@ -946,6 +946,8 @@ public class SoundsHandler {
     public static SoundEvent AN_INTERESTING_LABOUR;
     public static SoundEvent PURE_SKY;
 
+    public static SoundEvent XDC;
+
     public static void registerSounds(){
         TEST = registerSound("test");
         PICK = registerSound("pick");
@@ -1883,6 +1885,8 @@ public class SoundsHandler {
         A_DAY_IN_MONDSTADT=registerSound("a_day_in_mondstadt");
         AN_INTERESTING_LABOUR=registerSound("an_interesting_labour");
         PURE_SKY=registerSound("pure_sky");
+
+        XDC=registerSound("xiao_deng_cao");
     }
 
     private static SoundEvent registerSound(String name){
