@@ -1,0 +1,74 @@
+<table>
+    <tr>
+        <td>功能</td>
+        <td>实现</td>
+        <td>进度</td>
+        <td>优先级</td>
+    </tr>
+    <tr>
+        <td>蒙德剧情</td>
+        <td>模组 地图 红石(命令方块)</td>
+        <td>模组完成音频录入</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>角色系统</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>区域特产</td>
+        <td>模组</td>
+        <td>部分完成</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>元素系统</td>
+        <td>模组</td>
+        <td>极小部分完成</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>启动器与更新</td>
+        <td>Visual Basic</td>
+        <td>完成</td>
+        <td>小部分修改</td>
+    </tr>
+    <tr>
+        <td>战斗 圣遗物系统</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>炼金 烹饪</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>CG播放</td>
+        <td>模组 3D(暂定mine-imactor)动画</td>
+        <td>新建文件夹</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>npc设计</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>音乐系统</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>小地图等</td>
+        <td>模组</td>
+        <td>新建文件夹</td>
+        <td>3</td>
+    </tr>
+</table>

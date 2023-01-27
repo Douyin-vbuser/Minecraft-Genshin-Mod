@@ -16,13 +16,9 @@
 
 ### 模组方面：
 
-1.为方便国内开发者快速看懂作者的~~屎山~~代码，所有的对象，变量**命名都是其中文名称的全拼**，若涉及前后鼻音（仅针对en(g)，in(g)）（~~这对一个南方人真的很重要~~）**一律使用后鼻音**（即eng、ing）。但无论如何，都会在相关代码后加上中英文注释。
+1.为方便国内开发者快速看懂作者的~~屎山~~代码，所有的对象，变量**命名都是其中文名称的全拼**，若涉及前后鼻音（仅针对en(g)，in(g)）（~~这对一个南方人真的很重要~~）**一律使用后鼻音**（即eng、ing）。但无论如何，都会在相关代码后加上中英文注释。[另附角色中英文对照表](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Docs/角色中英对照表.md)
 
-2.关于语音系统，目前仅打算将bgm与人物语言（包括剧情与战斗）通过游戏实录的方式加入。考虑到作者因学业原因入坑晚，角色少，还是希望有大(fu)佬(po)帮忙录制。
-
-3.当哪天commit上来的版本是release开头的，这个模组就基本完整了。~~（也就是说作者想多水几个commit）~~
-
-**（因此，考虑版权原因，本模组、整合包永久性保持公益性质，不用于商业用途，不上架网易版）**。
+2.关于语音系统，已完成对蒙德主线三部曲中配的录入，其他三语配音将以资源包的形式发布~~(但作者的SSD已经不支持这么做了)~~
 
 ### 启动器方面：
 
@@ -31,6 +27,13 @@
 ### 地图方面:
 
 没啥可说,[参考Map文件夹的文档](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Map/README.md)
+
+## 关于版权与MCI
+
+[完整借物表及版权声明](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/blob/master/Docs/%E5%80%9F%E7%89%A9%E8%A1%A8%20%20Borrowing%20List%20.md) ，由于作者能力与精力有限，作者希望得到各界的支持与帮助。作者希望今年暑假模组发布时MCI Studio已不再是如今的“班尼冒险团”。在模组开发与地图还原上，我们仍需要[支持(详见有关文档)](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Docs/TODO.md) ，如果您对Minecraft1.12.2的forge模组开发或lwjgl和OpenGL有所了解，亦愿意投入提瓦特的地形还原中，都可与我[联系](mailto:douyin_vbuser@outlook.com)
+
+~~tips:MCI不向成员提供医疗保险~~
+
 ****
 
 ## Overview
@@ -40,12 +43,12 @@ Because of the fierce competition in China's college entrance examination (espec
 
 We plan to complete mondstadt first, including CG animations and plots. At present, the main challenge is to complete the role system,artifact system,elemental reaction system and the battle system.(because they are so different with Minecraft)
 
-## Start Develop
+## About Develop
 ### Mod:
 
-1.To help Chinese developers to understand the code more quickly.Everything in the mod is named according to its Chinese pronunciation.But it must be noted in both Chinese and English.(considering the copyright, this mod and mod_pack permanently maintain the free nature of public welfare, and is not allowed to be used for commercial purposes , it will also never be grounded on Netease version(the distributor of Minecraft in China)).
+1.To help Chinese developers to understand the code more quickly.Everything in the mod is named according to its Chinese pronunciation.But it must be noted in both Chinese and English.
 
-2.We also hope that you can record sounds of characters in other 3 languages and made them into resource packages.
+2.We also hope that you can record sounds in other 3 languages and made them into resource packages.
 
 ### Launcher:
 
@@ -54,6 +57,13 @@ We plan to complete mondstadt first, including CG animations and plots. At prese
 ### Map:
 
 Nothing important,[see Doc in Map folder](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Map/README.md)
+
+
+### About copyright and MCI:
+
+[Borrowing List](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/blob/master/Docs/%E5%80%9F%E7%89%A9%E8%A1%A8%20%20Borrowing%20List%20.md) .Due to the limited ability and energy of the author, the author hopes to get support and help from all walks of life. The author hopes that MCI Studio will no longer be myself alone when the mod is released this summer. In terms of mod development and map restoration, we still need support (see relevant documents for details). If you have any knowledge about the Forge mod development of Minecraft 1.12.2 or lwjgl and OpenGL,or are willing to participate in the terrain restoration of Genshin Impact,you can [contact me](mailto:douyin_vbuser@outlook.com).
+
+~~tips:We don't offer studio members medical insurance~~
 
 ----
 **仓库中一切内容以中文版本为准（包括借物表等声明）,英语版本仅供参考，不代表MCI的任何主张**

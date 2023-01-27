@@ -27,6 +27,7 @@ public class XiaoDengCao extends FlowerBase {
     public XiaoDengCao(String name, Material material){
         super(name,material);
         setDefaultState(this.blockState.getBaseState().withProperty(PICKED,false));
+        setLightLevel(0.4f);
     }
 
     //方块属性
@@ -62,7 +63,9 @@ public class XiaoDengCao extends FlowerBase {
     @SideOnly(Side.CLIENT)//注：如果不禁用服务端实体长时间停留在方块中会导致服务端卡死
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        worldIn.playSound(null,pos,SoundsHandler.XDC, SoundCategory.BLOCKS,1,1);
+        if(entityIn instanceof EntityPlayer &!state.getValue(PICKED)){
+            worldIn.playSound(null,pos,SoundsHandler.XDC, SoundCategory.BLOCKS,1,1);
+        }
         //热知识：小灯草在玩家路过时会发出电流声
     }
 }
