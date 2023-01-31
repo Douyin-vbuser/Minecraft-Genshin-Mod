@@ -50,9 +50,9 @@
 
 ## 补充说明：
 ## Supplementary notes:
-公示外的**所有**内容，除上海米哈游天命科技有限公司对类电影作品《原神》及Mojang对游戏《Minecraft》、开源社区对Forge及开发组件依法保留有关著作权，其余所有内容MCI Studio均保留著作权。对任何与MCI有关的内容 **(包括但不仅限于代码段，贴图，程序运行时出现的含MCI内容的画面)** 的侵犯，MCI Studio均依法保留追究其法律责任的权力。
+公示外的**所有**内容，除上海米哈游天命科技有限公司对类电影作品《原神》及Mojang对游戏《Minecraft》、开源社区对Forge及开发组件依法保留有关著作权，其余所有内容MCI Studio均按公示开源协议保留著作权。对任何与MCI有关的内容 **(包括但不仅限于代码段，贴图，程序运行时出现的含MCI内容的画面)** 的侵犯，MCI Studio均依法保留追究其法律责任的权力。
 
-MCI将积极维护各方著作权益，致力于构建和谐进步的开源环境与氛围，承诺不将模组、地图、启动器用于商业目的，不通过MCI承接商业广告。对于第三方任何商用MCI内容的行为，MCI Studio将不再额外承担责任。
+MCI将积极维护各方著作权益，积极履行[原神用户协议](https://ys.mihoyo.com/main/company/agreement) 和[Minecraft EULA](https://www.minecraft.net/zh-hans/eula) ，致力于构建和谐进步的开源环境与氛围，承诺不将模组、地图、启动器用于商业目的，不通过MCI承接商业广告。对于任何第三方利用MCI侵害Mojang、米哈游或其他版权方内容的行为，MCI Studio将不再额外承担责任。
 
 For all contents other than those publicized, except for the game "Genshin Impact" by MiHoYo Technology Co., Ltd., Mojang's game "Minecraft", and the open source community's Forge and development components, copyright is reserved according to law, and all other contents are reserved by MCI Studio. MCI Studio reserves the right to investigate its legal liability for any violation of MCI related content **(including but not limited to code segments, maps, and images containing MCI content when the program runs)**.
 

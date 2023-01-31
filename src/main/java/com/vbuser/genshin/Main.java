@@ -2,6 +2,7 @@ package com.vbuser.genshin;
 
 import com.vbuser.genshin.blocks.tileEntity.TileEntityChuan;
 import com.vbuser.genshin.client.renderer.tile.TileChuanRenderer;
+import com.vbuser.genshin.gui.ModGuiLoader;
 import com.vbuser.genshin.key.KeyboardManager;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tab.*;
@@ -63,6 +64,7 @@ public class Main {
         RegistryHandler.initRegistries();
         KeyboardManager.init();
         initialize();
+        new ModGuiLoader();
     }
 
     @Mod.EventHandler

@@ -62,4 +62,7 @@ public class ModBlocks {
 
     public static final Block SONG_RONG = new SongRong("song_rong",Material.GRASS);
     //松茸 Matsutake
+
+    public static final Block HE_CHENG_TAI = new HeChengTai("he_cheng_tai",Material.IRON);
+    //合成台
 }
