@@ -64,5 +64,8 @@ public class ModBlocks {
     //松茸 Matsutake
 
     public static final Block HE_CHENG_TAI = new HeChengTai("he_cheng_tai",Material.IRON);
-    //合成台
+    //合成台 Crafting Bench
+
+    public static final Block GOU_HUO = new GouHuo("gou_huo",Material.WOOD);
+    //篝火
 }

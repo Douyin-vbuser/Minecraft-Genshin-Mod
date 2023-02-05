@@ -1,6 +1,7 @@
 package com.vbuser.genshin.blocks;
 
-import com.vbuser.genshin.gui.ContainerHeChengTai;
+import com.vbuser.genshin.Main;
+import com.vbuser.genshin.inventories.ContainerHeChengTai;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class HeChengTai extends BlockBase {
     public HeChengTai(String name,Material material){
         super(name,material);
+        setCreativeTab(Main.JIANCAI_TAB);
     }
 
     //提醒Minecraft渲染相邻方块的面
@@ -56,7 +58,7 @@ public class HeChengTai extends BlockBase {
         return true;
     }
 
-    //因为Minecraft限制了合成台容器的调用方块 需要抄下工作台的这个接口并重导向至经过修改的容器类
+    //因为Minecraft限制了工作台容器的调用方块 需要抄下工作台的这个接口并重导向至经过修改的容器类
     public static class InterfaceCraftingTable implements IInteractionObject
     {
         private final World world;
@@ -86,7 +88,7 @@ public class HeChengTai extends BlockBase {
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
         {
             return new ContainerHeChengTai(playerInventory, this.world, this.position);
-        }             //改接口仅该方法与net.minecraft.block.BlockWorkbench不同,其余代码一致
+        }             //该接口仅该方法与net.minecraft.block.BlockWorkbench不同,其余代码一致
 
         public String getGuiID()
         {

@@ -107,7 +107,7 @@ Else
         Shell ("" & App.Path & "\launcher.exe")
     Else
         MsgBox "存在更新的版本", vbInformation, "Update Manager"
-        'TODO
+        'TODO：修改为预留的更新的更新网址
     End If
     Timer2.Enabled = False
 End If

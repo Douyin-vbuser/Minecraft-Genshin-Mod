@@ -36,6 +36,10 @@
 3.动画效果    **开源库：[Geckolib](https://github.com/bernie-g/geckolib/tree/1.12) (MIT License)**
 
 3.Animation Implementation    **Open Resource Library:[Geckolib](https://github.com/bernie-g/geckolib/tree/1.12) (MIT License)**
+
+4.烹饪系统    **参考：[MMoCook](https://github.com/Titouan-Schotte/MMoCook) (Unknown License)**
+
+4.Cooking System:    **Reference:[MMoCook](https://github.com/Titouan-Schotte/MMoCook) (UnKnown License)**
 ### 音乐：
 
 ### Music:
