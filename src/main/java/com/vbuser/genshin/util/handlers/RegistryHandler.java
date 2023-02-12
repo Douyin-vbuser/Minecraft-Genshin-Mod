@@ -1,6 +1,7 @@
 package com.vbuser.genshin.util.handlers;
 
 import com.vbuser.genshin.blocks.tileEntity.TileEntityHandler;
+import com.vbuser.genshin.commands.CommandTask;
 import com.vbuser.genshin.commands.CommandTpdim;
 import com.vbuser.genshin.entity.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
@@ -60,5 +61,6 @@ public class RegistryHandler {
     public static void serverRegistries(FMLServerStartingEvent event)
     {
         event.registerServerCommand(new CommandTpdim());
+        event.registerServerCommand(new CommandTask());
     }
 }

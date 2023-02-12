@@ -16,13 +16,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("all")
 public class XiaoDengCao extends FlowerBase {
 
     public static final PropertyBool PICKED = PropertyBool.create("picked");
+
+    public static final PropertyBool NOISED = PropertyBool.create("noised");
 
     public XiaoDengCao(String name, Material material){
         super(name,material);
@@ -33,12 +33,12 @@ public class XiaoDengCao extends FlowerBase {
     //方块属性
     @Override
     protected BlockStateContainer createBlockState(){
-        return new BlockStateContainer(this,PICKED);
+        return new BlockStateContainer(this,PICKED,NOISED);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(PICKED,meta==1);
+        return this.getDefaultState().withProperty(PICKED,meta%2==1).withProperty(NOISED,meta>2);
     }
 
     //右键事件
@@ -59,12 +59,13 @@ public class XiaoDengCao extends FlowerBase {
         }
     }
 
-    //实体碰撞事件(可参考传送门方块)
-    @SideOnly(Side.CLIENT)//注：如果不禁用服务端实体长时间停留在方块中会导致服务端卡死
+    //实体碰撞事件
+    @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        if(entityIn instanceof EntityPlayer &!state.getValue(PICKED)){
+        if(entityIn instanceof EntityPlayer &!state.getValue(PICKED) &! state.getValue(NOISED)){
             worldIn.playSound(null,pos,SoundsHandler.XDC, SoundCategory.BLOCKS,1,1);
+            worldIn.setBlockState(pos,state.withProperty(NOISED,true));
         }
         //热知识：小灯草在玩家路过时会发出电流声
     }

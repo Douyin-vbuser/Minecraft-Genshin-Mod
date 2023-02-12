@@ -71,7 +71,7 @@ public class CommandTpdim extends CommandBase {
             }
             catch (IllegalArgumentException e)
             {
-                //
+                throw e;
             }
         }
     }
