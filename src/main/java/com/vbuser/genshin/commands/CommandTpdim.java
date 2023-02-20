@@ -17,7 +17,7 @@ import java.util.List;
 @SuppressWarnings("all")
 public class CommandTpdim extends CommandBase {
 
-    private final List<String> aliases = Lists.newArrayList(Reference.Mod_ID, "tp", "tpdim", "chuansong");
+    private final List<String> aliases = Lists.newArrayList("tp", "tpdim", "chuansong");
 
     @Override
     public String getName() {

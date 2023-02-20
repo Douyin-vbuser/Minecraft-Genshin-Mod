@@ -48,6 +48,8 @@ entity.jing_he.name=Crystal butterfly
 
 xiao_deng_cao:Small Lamp Grass:si~
 
+wrong_command_usage=Wrong command usage.Check your command with the doc.
+
 a_bei_duo=Albedo
 ai_luo_yi=Aloy
 an_bo=Amber

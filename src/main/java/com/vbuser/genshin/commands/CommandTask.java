@@ -11,7 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
 
 /**example:
- * input: /task @a feng_yuan_wan_ye genshin:main.0.1
+ * input: /task @a say feng_yuan_wan_ye main.0.1
  * output:[14:59:36] [Client thread/INFO] [minecraft/GuiNewChat]: [CHAT] <枫原万叶>哇
  * 注：这个音频是派蒙的
 */
@@ -23,19 +23,22 @@ public class CommandTask extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender){
-        return "task <character> <task_id>";
+        return "task <player> <function> <character> <task_id>";
     }
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         EntityPlayerMP entityplayermp = getPlayer(server, sender, args[0]);
-        String s = args[1];
+        String s2 = args[1];
+        String function;
+        String s = args[2];
         String character;
-        String s1 = args[2];
+        String s1 = args[3];
         String task_id;
         try {
             character = s;
             task_id = s1;
+            function=s2;
         }
         catch (NumberFormatException e)
         {
@@ -44,12 +47,26 @@ public class CommandTask extends CommandBase {
         if (sender instanceof EntityPlayer)
         {
             try{
-                entityplayermp.connection.sendPacket(new SPacketCustomSound(task_id, SoundCategory.PLAYERS, ((EntityPlayer) sender).posX, ((EntityPlayer) sender).posY, ((EntityPlayer) sender).posZ, 3, 1));
-                notifyCommandListener(sender, this,("<"+I18n.format(character)+">"+I18n.format(task_id)));
+                if(function.equals("say")) {
+                    entityplayermp.connection.sendPacket(new SPacketCustomSound("genshin:"+task_id, SoundCategory.PLAYERS, ((EntityPlayer) sender).posX, ((EntityPlayer) sender).posY, ((EntityPlayer) sender).posZ, 3, 1));
+                    notifyCommandListener(sender, this, ("<" + I18n.format(character) + ">" + I18n.format(task_id)));
+                }
+                if(function.equals("start")){
+                    //TODO
+                }
+                if(function.equals("end")){
+                    //TODO
+                }
+                if(function.equals("cg")){
+                    //TODO
+                }
+                else{
+                    notifyCommandListener(sender,this,"wrong_command_usage");
+                }
             }
             catch (IllegalArgumentException e)
             {
-                throw e;
+                notifyCommandListener(sender,this,"wrong_command_usage");
             }
         }
     }

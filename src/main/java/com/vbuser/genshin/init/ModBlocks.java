@@ -1,6 +1,7 @@
 package com.vbuser.genshin.init;
 
 import com.vbuser.genshin.blocks.*;
+import com.vbuser.genshin.blocks.tileEntity.BaoXiang;
 import com.vbuser.genshin.blocks.tileEntity.ChuanSongMaoDian;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -68,4 +69,7 @@ public class ModBlocks {
 
     public static final Block GOU_HUO = new GouHuo("gou_huo",Material.WOOD);
     //篝火
+
+    public static final Block BAO_XIANG = new BaoXiang("bao_xiang",Material.WOOD);
+    //宝箱
 }
