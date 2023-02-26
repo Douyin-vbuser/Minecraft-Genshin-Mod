@@ -25,6 +25,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.CoreModManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.spongepowered.asm.mixin.Mixin;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.example.block.tile.FertilizerTileEntity;
 import software.bernie.example.client.renderer.tile.FertilizerTileRenderer;
@@ -107,4 +108,5 @@ public class Main {
 
     public static CreativeTabs ZIRANCAILIAO = new ZiRanCaiLiao();
 
+    public static CreativeTabs YANGCHENGCAILIAO = new YangChengCaiLiao();
 }

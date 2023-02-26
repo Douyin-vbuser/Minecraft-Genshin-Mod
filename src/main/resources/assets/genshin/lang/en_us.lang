@@ -22,6 +22,8 @@ tile.pu_gong_ying.name=Dandelion
 tile.mo_gu.name=Mushroom
 tile.song_rong.name=Matsutake
 tile.he_cheng_tai.name=Crafting Bench
+tile.gou_huo.name=Campfire
+tile.bao_xiang.name=Treasure chest
 
 item.jiu_chan_zhi_yuan.name=Intertwined Fate
 item.xiang_yu_zhi_yuan.name=Acquaint Fate
@@ -47,8 +49,10 @@ key.genshin.test=Test KeyBinding
 entity.jing_he.name=Crystal butterfly
 
 xiao_deng_cao:Small Lamp Grass:si~
+pick=Interacting
 
 wrong_command_usage=Wrong command usage.Check your command with the doc.
+fire_first=Please light the campfire first.
 
 a_bei_duo=Albedo
 ai_luo_yi=Aloy

@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 public class ModGuiLoader implements IGuiHandler {
     public static final int HE_CHENG_TAI_ID = 1;
     public static final int PENG_RENG_ID=2;
+    public static final int BAO_XIANG=3;
 
     public ModGuiLoader(){
         NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance,this);

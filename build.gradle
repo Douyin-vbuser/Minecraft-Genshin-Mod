@@ -50,6 +50,7 @@ repositories{
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
     implementation fg.deobf('software.bernie.geckolib:forge-1.12.2-geckolib:3.0.21')
+    implementation('org.spongepowered:mixin:0.8.5')
 }
 
 jar {

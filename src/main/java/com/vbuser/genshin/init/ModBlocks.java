@@ -4,6 +4,7 @@ import com.vbuser.genshin.blocks.*;
 import com.vbuser.genshin.blocks.tileEntity.BaoXiang;
 import com.vbuser.genshin.blocks.tileEntity.ChuanSongMaoDian;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockChest;
 import net.minecraft.block.material.Material;
 
 import java.util.ArrayList;
@@ -68,8 +69,8 @@ public class ModBlocks {
     //合成台 Crafting Bench
 
     public static final Block GOU_HUO = new GouHuo("gou_huo",Material.WOOD);
-    //篝火
+    //篝火 Campfire
 
     public static final Block BAO_XIANG = new BaoXiang("bao_xiang",Material.WOOD);
-    //宝箱
+    //宝箱 Treasure Chest
 }

@@ -28,7 +28,7 @@
 
 没啥可说,[参考Map文件夹的文档](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Map/README.md)
 
-## 关于版权与MCI
+### 关于版权与MCI
 
 [完整借物表及版权声明](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/blob/master/Docs/%E5%80%9F%E7%89%A9%E8%A1%A8%20%20Borrowing%20List%20.md) ，由于作者能力与精力有限，作者希望得到各界的支持与帮助。作者希望今年暑假模组发布时MCI Studio已不再是如今的“班尼冒险团”。在模组开发与地图还原上，我们仍需要[支持(详见有关文档)](https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/Docs/TODO.md) ，如果您对Minecraft1.12.2的forge模组开发或lwjgl和OpenGL有所了解，亦愿意投入提瓦特的地形还原中，都可与我[联系](mailto:douyin_vbuser@outlook.com)
 

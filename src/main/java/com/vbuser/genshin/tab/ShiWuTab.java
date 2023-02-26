@@ -2,6 +2,7 @@ package com.vbuser.genshin.tab;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ShiWuTab extends CreativeTabs {
@@ -11,6 +12,6 @@ public class ShiWuTab extends CreativeTabs {
 
     @Override
     public ItemStack getTabIconItem(){
-        return new ItemStack(Blocks.CAKE);
+        return new ItemStack(Item.getItemFromBlock(Blocks.CAKE));
     }
 }

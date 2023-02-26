@@ -1,11 +1,13 @@
 package com.vbuser.genshin.blocks;
 
+import com.vbuser.genshin.entity.element.feng.Feng;
 import com.vbuser.genshin.init.ModItems;
 import com.vbuser.genshin.util.handlers.SoundsHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -19,6 +21,7 @@ import net.minecraft.world.World;
 public class PuGongYing extends FlowerBase{
 
     public static final PropertyInteger STATE = PropertyInteger.create("state",1,3);
+    //1:被采集 2:被风吹 3:正常
 
     public PuGongYing(String name, Material material){
         super(name,material);
@@ -53,5 +56,13 @@ public class PuGongYing extends FlowerBase{
             }
         }
         return true;
+    }
+
+    //实体碰撞
+    @Override
+    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+        if(entityIn instanceof Feng && state.getValue(STATE)==3){
+            worldIn.setBlockState(pos,state.withProperty(STATE,2));
+        }
     }
 }

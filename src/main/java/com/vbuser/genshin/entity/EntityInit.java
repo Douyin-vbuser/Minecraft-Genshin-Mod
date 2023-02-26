@@ -1,6 +1,8 @@
 package com.vbuser.genshin.entity;
 
 import com.vbuser.genshin.Main;
+import com.vbuser.genshin.entity.element.feng.LYYPZ_E;
+import com.vbuser.genshin.entity.organism.JingDie;
 import com.vbuser.genshin.util.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +12,7 @@ public class EntityInit {
 
     public static void registerEntities(){
         registerEntity("jing_die", JingDie.class, 1, 20, 9496552, 3532776);
+        registerEntity("lyypz_e", LYYPZ_E.class,2,0,8249855,4126207);
     }
 
     public static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int color1, int color2) {
