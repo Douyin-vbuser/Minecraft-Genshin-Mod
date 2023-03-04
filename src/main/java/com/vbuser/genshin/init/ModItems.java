@@ -171,7 +171,7 @@ public class ModItems {
     //历战的箭簇
 
     public static final Item CHANG_RAN_HUO_ZHONG = new ItemBase("chang_ran_huo_zhong",Main.YANGCHENGCAILIAO);
-    //养成材料
+    //常燃火种
 
     public static final Item DONG_FENG_DE_TU_XI = new ItemBase("dong_feng_de_tu_xi",Main.YANGCHENGCAILIAO);
     //东风的吐息
@@ -182,8 +182,8 @@ public class ModItems {
     public static final Item QING_LAO_DE_JIAO_DAO = new ItemBase("qing_lao_de_jiao_dao",Main.YANGCHENGCAILIAO);
     //勤劳的教导
 
-    public static final Item QING_LAO_DE_ZHI_YING = new ItemBase("qing_lao_de_zhe_xue",Main.YANGCHENGCAILIAO);
-    //勤劳的哲学
+    public static final Item QING_LAO_DE_ZHI_YING = new ItemBase("qing_lao_de_zhi_ying",Main.YANGCHENGCAILIAO);
+    //勤劳的指引
 
     public static final Item JUEYUNJIAOJIAO = new ItemBase("jueyunjiaojiao",Main.YANGCHENGCAILIAO);
     //绝云椒椒

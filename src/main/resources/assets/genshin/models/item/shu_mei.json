@@ -1,6 +1,1 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "genshin:items/shu_mei"
-  }
-}
+{"parent": "item/generated", "textures": {"layer0": "genshin:items/shu_mei"}}
