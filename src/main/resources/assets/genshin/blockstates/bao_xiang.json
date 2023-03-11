@@ -1,0 +1,14 @@
+{
+  "variants":{
+    "level=1,opened=false":{"model":"genshin:bao_xiang_1"},
+    "opened=false,level=2":{"model":"genshin:bao_xiang_2"},
+    "opened=false,level=3":{"model":"genshin:bao_xiang_3"},
+    "opened=false,level=4":{"model":"genshin:bao_xiang_4"},
+    "opened=false,level=4":{"model":"genshin:bao_xiang_5"},
+    "opened=true,level=1":{"model":"genshin:bao_xiang_1"},
+    "opened=true,level=2":{"model":"genshin:bao_xiang_2"},
+    "opened=true,level=3":{"model":"genshin:bao_xiang_3"},
+    "opened=true,level=4":{"model":"genshin:bao_xiang_4"},
+    "opened=true,level=5":{"model":"genshin:bao_xiang_5"}
+  }
+}

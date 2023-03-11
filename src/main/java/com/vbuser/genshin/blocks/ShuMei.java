@@ -15,6 +15,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("all")
 public class ShuMei extends FlowerBase {
 
@@ -36,6 +38,9 @@ public class ShuMei extends FlowerBase {
         return this.getDefaultState().withProperty(COUNT, 4 - meta);
     }
 
+    @Override
+    public int getMetaFromState(IBlockState state){return 4-state.getValue(COUNT);}
+
     //右击事件
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -50,7 +55,13 @@ public class ShuMei extends FlowerBase {
                 worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
             }
             worldIn.setBlockState(pos, state.withProperty(COUNT, state.getValue(COUNT) == 1 ? 1 : state.getValue(COUNT) - 1));
+            worldIn.scheduleUpdate(pos, this, 200);      //延时10秒执行updateTick方法
             return true;
         }
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+        worldIn.setBlockState(pos,state.withProperty(COUNT,state.getValue(COUNT)+1));
     }
 }

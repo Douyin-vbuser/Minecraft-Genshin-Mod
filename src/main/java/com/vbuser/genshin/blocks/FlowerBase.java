@@ -47,10 +47,6 @@ public class FlowerBase extends Block implements IHasModel {
         return BlockRenderLayer.CUTOUT;
     }
 
-    //通过这个方法实现在存档重置时复原
-    @Override
-    public int getMetaFromState(IBlockState state){return 0;}
-
     //通过下面几个方法实现不完整方块
     @Override
     public boolean isFullCube(IBlockState state)

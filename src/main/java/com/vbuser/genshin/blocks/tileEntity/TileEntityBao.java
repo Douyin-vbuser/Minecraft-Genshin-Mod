@@ -1,39 +1,60 @@
 package com.vbuser.genshin.blocks.tileEntity;
 
-import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.NonNullList;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class TileEntityBao extends TileEntityLockableLoot {
-    private NonNullList<ItemStack> chestContents = NonNullList.withSize(27, ItemStack.EMPTY);
-    public int numPlayersUsing;
-    protected String customName;
-
+public class TileEntityBao extends TileEntityLockableLoot implements IAnimatable,IInventory {
     public TileEntityBao()
     {
     }
 
-    public String getName()
-    {
-        return this.hasCustomName() ? this.customName : "container.chest";
+    //方块动画
+    private final AnimationFactory manager = new AnimationFactory(this);
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+        if(((TileEntity)event.getAnimatable()).getBlockMetadata()%2==1) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("new", false));
+        }
+        return PlayState.CONTINUE;
     }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController< >(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.manager;
+    }
+
+    //箱子实现
+    private NonNullList<ItemStack> contents = NonNullList.<ItemStack>withSize(27, ItemStack.EMPTY);
 
     public int getSizeInventory()
     {
         return 27;
     }
 
-    @Override
     public boolean isEmpty()
     {
-        for (ItemStack itemstack : this.chestContents)
+        for (ItemStack itemstack : contents)
         {
             if (!itemstack.isEmpty())
             {
@@ -44,106 +65,36 @@ public class TileEntityBao extends TileEntityLockableLoot {
         return true;
     }
 
-    public void readFromNBT(NBTTagCompound compound)
-    {
+    public String getName(){return "genshin:bao_xiang";}
+
+    public void readFromNBT(NBTTagCompound compound){
         super.readFromNBT(compound);
-        this.chestContents = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        contents=NonNullList.withSize(this.getSizeInventory(),ItemStack.EMPTY);
 
-        if (!this.checkLootAndRead(compound))
-        {
-            ItemStackHelper.loadAllItems(compound, this.chestContents);
-        }
-
-        if (compound.hasKey("CustomName", 8))
-        {
-            this.customName = compound.getString("CustomName");
+        if(!this.checkLootAndRead(compound)){
+            ItemStackHelper.loadAllItems(compound,contents);
         }
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
-    {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound){
         super.writeToNBT(compound);
-
-        if (!this.checkLootAndWrite(compound))
-        {
-            ItemStackHelper.saveAllItems(compound, this.chestContents);
+        if(!this.checkLootAndWrite(compound)){
+            ItemStackHelper.saveAllItems(compound,contents);
         }
-
-        if (this.hasCustomName())
-        {
-            compound.setString("CustomName", this.customName);
-        }
-
         return compound;
     }
 
-    public int getInventoryStackLimit()
-    {
-        return 64;
+    public int getInventoryStackLimit(){return 64;}
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        return contents;
     }
 
-    public void updateContainingBlockInfo()
-    {
-        super.updateContainingBlockInfo();
-
+    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player){
+        this.fillWithLoot(player);
+        return new ContainerChest(playerInventory,this,player);
     }
 
-    public boolean receiveClientEvent(int id, int type)
-    {
-        if (id == 1)
-        {
-            this.numPlayersUsing = type;
-            return true;
-        }
-        else
-        {
-            return super.receiveClientEvent(id, type);
-        }
-    }
-
-    public void openInventory(EntityPlayer player)
-    {
-        if (!player.isSpectator())
-        {
-            if (this.numPlayersUsing < 0)
-            {
-                this.numPlayersUsing = 0;
-            }
-            ++this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
-            this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
-        }
-    }
-
-    public void closeInventory(EntityPlayer player)
-    {
-        if (!player.isSpectator() && this.getBlockType() instanceof BlockChest)
-        {
-            --this.numPlayersUsing;
-            this.world.addBlockEvent(this.pos, this.getBlockType(), 1, this.numPlayersUsing);
-            this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
-        }
-    }
-
-    public void invalidate()
-    {
-        super.invalidate();
-        this.updateContainingBlockInfo();
-    }
-
-    public String getGuiID()
-    {
-        return "genshin:chest";
-    }
-
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
-    {
-        this.fillWithLoot(playerIn);
-        return new ContainerChest(playerInventory, this, playerIn);
-    }
-
-    protected NonNullList<ItemStack> getItems()
-    {
-        return this.chestContents;
-    }
+    public String getGuiID(){return "minecraft:chest";}
 }

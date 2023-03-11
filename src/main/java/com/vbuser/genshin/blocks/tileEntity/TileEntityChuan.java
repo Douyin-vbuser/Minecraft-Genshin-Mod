@@ -49,8 +49,8 @@ public class TileEntityChuan extends TileEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController< >(this, "controller", 2, this::predicate));
-        data.addAnimationController(new AnimationController< >(this,"controller1",2,this::predicate1));
+        data.addAnimationController(new AnimationController< >(this, "controller", 10, this::predicate));
+        data.addAnimationController(new AnimationController< >(this,"controller1",10,this::predicate1));
     }
 
     @Override

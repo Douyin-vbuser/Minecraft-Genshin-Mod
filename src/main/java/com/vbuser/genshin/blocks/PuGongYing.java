@@ -17,6 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("all")
 public class PuGongYing extends FlowerBase{
 
@@ -39,6 +41,9 @@ public class PuGongYing extends FlowerBase{
         return this.getDefaultState().withProperty(STATE, 3 - meta);
     }
 
+    @Override
+    public int getMetaFromState(IBlockState state){return 3-state.getValue(STATE);}
+
     //右击事件
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -52,6 +57,7 @@ public class PuGongYing extends FlowerBase{
                     EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.PU_GONG_YING_ZI, 1));
                     worldIn.spawnEntity(entityitem);
                     worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                    worldIn.scheduleUpdate(pos, this, 200);      //延时10秒执行updateTick方法
                 }
             }
         }
@@ -64,5 +70,10 @@ public class PuGongYing extends FlowerBase{
         if(entityIn instanceof Feng && state.getValue(STATE)==3){
             worldIn.setBlockState(pos,state.withProperty(STATE,2));
         }
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+        worldIn.setBlockState(pos,state.withProperty(STATE,3));
     }
 }

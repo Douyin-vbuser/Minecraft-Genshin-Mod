@@ -1,0 +1,17 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"new": {
+			"animation_length": 1.48,
+			"bones": {
+				"top": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.28": [112.5, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

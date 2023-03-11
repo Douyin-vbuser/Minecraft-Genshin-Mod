@@ -16,6 +16,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("all")
 public class SongRong extends FlowerBase{
     public static final PropertyBool PICKED = PropertyBool.create("picked");
@@ -36,6 +38,9 @@ public class SongRong extends FlowerBase{
         return this.getDefaultState().withProperty(PICKED,meta==1);
     }
 
+    @Override
+    public int getMetaFromState(IBlockState state){return state.getValue(PICKED)?1:0;}
+
     //右击事件
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
@@ -46,8 +51,14 @@ public class SongRong extends FlowerBase{
                 EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.SONG_RONG), 1));
                 worldIn.spawnEntity(entityitem);
                 worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                worldIn.scheduleUpdate(pos, this, 200);      //延时10秒执行updateTick方法
             }
         }
         return true;
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+        worldIn.setBlockState(pos,state.withProperty(PICKED,false));
     }
 }

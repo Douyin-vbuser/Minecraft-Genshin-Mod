@@ -24,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 @SuppressWarnings("all")
 public class MuFengMoGu extends BlockBase {
@@ -38,7 +39,7 @@ public class MuFengMoGu extends BlockBase {
     //方块属性
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return this.getDefaultState().withProperty(FACING,(((meta-meta%2)/2)+1)).withProperty(PICKED,false);
+        return this.getDefaultState().withProperty(FACING,(((meta-meta%2)/2)+1)).withProperty(PICKED,meta%2==1);
     }
 
     @Override
@@ -93,9 +94,15 @@ public class MuFengMoGu extends BlockBase {
                     EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.MU_FENG_MO_GU), 1));
                     worldIn.spawnEntity(entityitem);
                     worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                    worldIn.scheduleUpdate(pos, this, 200);      //延时10秒执行updateTick方法
                 }
             }
         }
         return true;
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+        worldIn.setBlockState(pos,state.withProperty(PICKED,false));
     }
 }

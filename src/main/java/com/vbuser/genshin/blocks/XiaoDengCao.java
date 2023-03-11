@@ -17,6 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("all")
 public class XiaoDengCao extends FlowerBase {
 
@@ -41,6 +43,11 @@ public class XiaoDengCao extends FlowerBase {
         return this.getDefaultState().withProperty(PICKED,meta%2==1).withProperty(NOISED,meta>2);
     }
 
+    @Override
+    public int getMetaFromState(IBlockState state){
+        return state.getValue(PICKED)?1:0;
+    }
+
     //右键事件
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
@@ -54,6 +61,7 @@ public class XiaoDengCao extends FlowerBase {
                 EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Item.getItemFromBlock(ModBlocks.XIAO_DENG_CAO), 1));
                 worldIn.spawnEntity(entityitem);
                 worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                worldIn.scheduleUpdate(pos, this, 200);      //延时10秒执行updateTick方法
             }
             return true;
         }
@@ -68,5 +76,10 @@ public class XiaoDengCao extends FlowerBase {
             worldIn.setBlockState(pos,state.withProperty(NOISED,true));
         }
         //热知识：小灯草在玩家路过时会发出电流声
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
+        worldIn.setBlockState(pos,state.withProperty(PICKED,false).withProperty(NOISED,false));
     }
 }
