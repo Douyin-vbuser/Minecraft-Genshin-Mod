@@ -1,5 +1,6 @@
 package com.vbuser.genshin.blocks.tileEntity;
 
+import com.vbuser.genshin.Main;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
 import net.minecraft.block.material.Material;
@@ -8,6 +9,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -23,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-@SuppressWarnings("all")
+//@SuppressWarnings("all")
 public class BaoXiang extends BlockContainerBase {
 
     public static final PropertyBool OPENED = PropertyBool.create("opened");
@@ -34,6 +36,7 @@ public class BaoXiang extends BlockContainerBase {
     public BaoXiang(String name, Material material) {
         super(name,material);
         setHardness(1f);
+        setCreativeTab(Main.ZHENGGUIWUPING_TAB);
         setDefaultState(blockState.getBaseState().withProperty(LEVEL, 1).withProperty(OPENED,false));
     }
 
@@ -58,16 +61,20 @@ public class BaoXiang extends BlockContainerBase {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote){
             if(playerIn.getHeldItemMainhand().getItem()== Item.getItemFromBlock(ModBlocks.BAO_XIANG)){
-                worldIn.setBlockState(pos,state.withProperty(LEVEL,state.getValue(LEVEL)%5+1));
-            }
-            if(playerIn.getHeldItemMainhand().getItem()== ModItems.DEBUG_STICK){
                 TileEntity tileentity = worldIn.getTileEntity(pos);
                 ILockableContainer ilockablecontainer = (TileEntityBao)tileentity;
                 playerIn.displayGUIChest(ilockablecontainer);
             }
-            else{
-                worldIn.scheduleUpdate(pos, this, 30);      //延时1.5秒执行updateTick方法
-                worldIn.setBlockState(pos,state.withProperty(OPENED,true));
+           else{
+                if(playerIn.getHeldItemMainhand().getItem()== Items.STICK){
+                    int a = state.getValue(LEVEL);
+                    worldIn.setBlockState(pos,state.withProperty(LEVEL,a%5+1));
+                }
+                else{
+                    TileEntity tileentity = worldIn.getTileEntity(pos);
+                    InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
+                    worldIn.scheduleUpdate(pos, this, 30);      //延时1.5秒执行updateTick方法
+                    worldIn.setBlockState(pos,state.withProperty(OPENED,true));}
             }
         }
         return true;
@@ -75,16 +82,10 @@ public class BaoXiang extends BlockContainerBase {
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-
-        if (tileentity instanceof IInventory)
-        {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
-            worldIn.updateComparatorOutputLevel(pos, this);
+        if(state.getValue(OPENED)) {
+            worldIn.setBlockToAir(pos);
+            worldIn.removeTileEntity(pos);
         }
-
-        worldIn.setBlockToAir(pos);
-        worldIn.removeTileEntity(pos);
     }
 
     //方块实体

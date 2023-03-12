@@ -22,6 +22,14 @@ public class BaoModel extends AnimatedGeoModel<TileEntityBao> {
 
     @Override
     public ResourceLocation getTextureLocation(TileEntityBao entity) {
-        return new ResourceLocation(Reference.Mod_ID, "textures/blocks/bao_xiang_1.png");
+        int meta =entity.getBlockMetadata();
+        switch ((meta-meta%2)/2+1) {
+            case(1):return new ResourceLocation(Reference.Mod_ID, "textures/blocks/bao_xiang_1.png");
+            case(2):return new ResourceLocation(Reference.Mod_ID,"textures/blocks/bao_xiang_2.png");
+            case(3):return new ResourceLocation(Reference.Mod_ID,"textures/blocks/bao_xiang_3.png");
+            case(4):return new ResourceLocation(Reference.Mod_ID,"textures/blocks/bao_xiang_4.png");
+            case(5):return new ResourceLocation(Reference.Mod_ID,"textures/blocks/bao_xiang_5.png");
+            default:return null;
+        }
     }
 }

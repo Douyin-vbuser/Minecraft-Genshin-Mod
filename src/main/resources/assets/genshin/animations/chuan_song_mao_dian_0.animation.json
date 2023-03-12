@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"actived": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 2.08,
+			"bones": {
+				"group3": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.8": [0, 13, 0],
+						"2.08": [0, 13, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
