@@ -23,7 +23,7 @@ public class PotionTest extends PotionBase{
             return;
         }
 
-        //魔法减伤
+        //魔法减伤 参考：https://blog.csdn.net/Jay_fearless/article/details/124049197
         Collection<PotionEffect> activePotionEffects = hurtOne.getActivePotionEffects();
         for (int i = 0; i < activePotionEffects.size(); i++) {
             PotionEffect buff = (PotionEffect)activePotionEffects.toArray()[i];

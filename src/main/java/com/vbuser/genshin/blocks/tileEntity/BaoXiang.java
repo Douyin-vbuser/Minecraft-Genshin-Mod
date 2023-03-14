@@ -66,7 +66,7 @@ public class BaoXiang extends BlockContainerBase {
                 playerIn.displayGUIChest(ilockablecontainer);
             }
            else{
-                if(playerIn.getHeldItemMainhand().getItem()== Items.STICK){
+                if(playerIn.getHeldItemMainhand().getItem()== ModItems.DEBUG_STICK){
                     int a = state.getValue(LEVEL);
                     worldIn.setBlockState(pos,state.withProperty(LEVEL,a%5+1));
                 }

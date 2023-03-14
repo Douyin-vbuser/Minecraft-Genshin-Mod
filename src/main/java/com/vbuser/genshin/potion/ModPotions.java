@@ -31,6 +31,8 @@ public class ModPotions {
     public static final PotionCao CAO = new PotionCao(false,0x06ff24,"cao",6);      //草元素附着 Dendro Attachment
     public static final PotionLei LEI = new PotionLei(false,0xbf84e6,"lei",7);      //雷元素附着 Electro Attachment
 
+    public static final PotionQ Q = new PotionQ(false,0xffffff,"q",8);      //元素战技释放时的无敌效果
+
     @Nullable
     private static Potion getRegisteredMobEffect(String id)
     {

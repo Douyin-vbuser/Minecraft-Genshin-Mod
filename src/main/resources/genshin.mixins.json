@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.vbuser.genshin.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "genshin.refmap.json",
+  "plugin": "com.vbuser.genshin.mixin.MixinPlugin",
+  "mixins": [
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
