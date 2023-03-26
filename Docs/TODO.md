@@ -72,9 +72,9 @@
         <td>2</td>
     </tr>
     <tr>
-        <td>小地图等</td>
-        <td>模组</td>
-        <td>新建文件夹</td>
-        <td>3</td>
+        <td>小地图</td>
+        <td>JourneyMap(第三方模组)</td>
+        <td>代码部分完成</td>
+        <td>1</td>
     </tr>
 </table>

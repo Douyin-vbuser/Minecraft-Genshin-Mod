@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "fired=false": {"model": "genshin:gou_huo"},
+    "fired=true": {"model": "genshin:gou_huo_0"}
+  }
+}

@@ -187,4 +187,125 @@ public class ModItems {
 
     public static final Item JUEYUNJIAOJIAO = new ItemBase("jueyunjiaojiao",Main.YANGCHENGCAILIAO);
     //绝云椒椒
+
+    public static final Item NIAO_DAN = new ItemBase("niao_dan",Main.ZIRANCAILIAO);
+    //鸟蛋
+
+    public static final Item SHOU_ROU = new ItemBase("shou_rou",Main.ZIRANCAILIAO);
+    //兽肉
+
+    public static final Item LUO_BO = new ItemBase("luo_bo",Main.ZIRANCAILIAO);
+    //萝卜
+
+    public static final Item JUAN_XING_CAI = new ItemBase("juan_xing_cai",Main.ZIRANCAILIAO);
+    //卷心菜
+
+    public static final Item PING_GUO = new ItemBase("ping_guo",Main.ZIRANCAILIAO);
+    //苹果
+
+    public static final Item TU_DOU = new ItemBase("tu_dou",Main.ZIRANCAILIAO);
+    //土豆
+
+    public static final Item NIU_NAI = new ItemBase("niu_nai",Main.ZIRANCAILIAO);
+    //牛奶
+
+    public static final Item TANG = new ItemBase("tang",Main.ZIRANCAILIAO);
+    //糖
+
+    public static final Item XING_RENG = new ItemBase("xing_reng",Main.ZIRANCAILIAO);
+    //杏仁
+
+    public static final Item HU_LUO_BO = new ItemBase("hu_luo_bo",Main.ZIRANCAILIAO);
+    //胡萝卜
+
+    public static final Item HUANG_YOU = new ItemBase("huang_you",Main.ZIRANCAILIAO);
+    //黄油
+
+    public static final Item YU_ROU = new ItemBase("yu_rou",Main.ZIRANCAILIAO);
+    //鱼肉
+
+    public static final Item RI_LUO_GUO = new ItemBase("ri_luo_guo",Main.ZIRANCAILIAO);
+    //日落果
+
+    public static final Item YE_GU_JI_ROU_CHUANG = new ItemBase("ye_gu_ji_rou_chuan",Main.SHIWUTAB);
+    //野菇鸡肉串
+
+    public static final Item TI_WA_TE_JIAN_DAN = new ItemBase("ti_wa_te_jian_dan",Main.SHIWUTAB);
+    //提瓦特煎蛋
+
+    public static final Item KAO_ROU_PAI = new ItemBase("kao_rou_pai",Main.SHIWUTAB);
+    //烤肉排
+
+    public static final Item LUO_BO_SHI_SHU_TANG = new ItemBase("luo_bo_shi_shu_tang",Main.SHIWUTAB);
+    //萝卜时蔬汤
+
+    public static final Item BAO_CHAO_ROU_PIAN = new ItemBase("bao_chao_rou_pian",Main.SHIWUTAB);
+    //爆炒肉片
+
+    public static final Item TIAN_TIAN_HUA_NIANG_JI = new ItemBase("tian_tian_hua_niang_ji",Main.SHIWUTAB);
+    //甜甜花酿鸡
+
+    public static final Item MAN_ZU_SHA_LA = new ItemBase("man_zu_sha_la",Main.SHIWUTAB);
+    //满足沙拉
+
+    public static final Item XING_RENG_DOU_FU = new ItemBase("xing_reng_dou_fu",Main.SHIWUTAB);
+    //杏仁豆腐
+
+    public static final Item SONG_RONG_NIANG_ROU_JUAN = new ItemBase("song_rong_niang_rou_juan",Main.SHIWUTAB);
+    //松茸酿肉卷
+
+    public static final Item YE_GU_JI_ROU_CHUANG_GOOD = new ItemBase("ye_gu_ji_rou_chuan_good",Main.SHIWUTAB);
+    //美味的野菇鸡肉串
+
+    public static final Item TI_WA_TE_JIAN_DAN_GOOD = new ItemBase("ti_wa_te_jian_dan_good",Main.SHIWUTAB);
+    //美味的提瓦特煎蛋
+
+    public static final Item KAO_ROU_PAI_GOOD = new ItemBase("kao_rou_pai_good",Main.SHIWUTAB);
+    //美味的烤肉排
+
+    public static final Item LUO_BO_SHI_SHU_TANG_GOOD = new ItemBase("luo_bo_shi_shu_tang_good",Main.SHIWUTAB);
+    //美味的萝卜时蔬汤
+
+    public static final Item BAO_CHAO_ROU_PIAN_GOOD = new ItemBase("bao_chao_rou_pian_good",Main.SHIWUTAB);
+    //美味的爆炒肉片
+
+    public static final Item TIAN_TIAN_HUA_NIANG_JI_GOOD = new ItemBase("tian_tian_hua_niang_ji_good",Main.SHIWUTAB);
+    //美味的甜甜花酿鸡
+
+    public static final Item MAN_ZU_SHA_LA_GOOD = new ItemBase("man_zu_sha_la_good",Main.SHIWUTAB);
+    //美味的满足沙拉
+
+    public static final Item XING_RENG_DOU_FU_GOOD = new ItemBase("xing_reng_dou_fu_good",Main.SHIWUTAB);
+    //美味的杏仁豆腐
+
+    public static final Item SONG_RONG_NIANG_ROU_JUAN_GOOD = new ItemBase("song_rong_niang_rou_juan_good",Main.SHIWUTAB);
+    //美味的松茸酿肉卷
+
+    public static final Item YE_GU_JI_ROU_CHUANG_BAD = new ItemBase("ye_gu_ji_rou_chuan_bad",Main.SHIWUTAB);
+    //奇怪的野菇鸡肉串
+
+    public static final Item TI_WA_TE_JIAN_DAN_BAD = new ItemBase("ti_wa_te_jian_dan_bad",Main.SHIWUTAB);
+    //奇怪的提瓦特煎蛋
+
+    public static final Item KAO_ROU_PAI_BAD = new ItemBase("kao_rou_pai_bad",Main.SHIWUTAB);
+    //奇怪的烤肉排
+
+    public static final Item LUO_BO_SHI_SHU_TANG_BAD = new ItemBase("luo_bo_shi_shu_tang_bad",Main.SHIWUTAB);
+    //奇怪的萝卜时蔬汤
+
+    public static final Item BAO_CHAO_ROU_PIAN_BAD = new ItemBase("bao_chao_rou_pian_bad",Main.SHIWUTAB);
+    //奇怪的爆炒肉片
+
+    public static final Item TIAN_TIAN_HUA_NIANG_JI_BAD = new ItemBase("tian_tian_hua_niang_ji_bad",Main.SHIWUTAB);
+    //奇怪的甜甜花酿鸡
+
+    public static final Item MAN_ZU_SHA_LA_BAD = new ItemBase("man_zu_sha_la_bad",Main.SHIWUTAB);
+    //奇怪的满足沙拉
+
+    public static final Item XING_RENG_DOU_FU_BAD = new ItemBase("xing_reng_dou_fu_bad",Main.SHIWUTAB);
+    //奇怪的杏仁豆腐
+
+    public static final Item SONG_RONG_NIANG_ROU_JUAN_BAD = new ItemBase("song_rong_niang_rou_juan_bad",Main.SHIWUTAB);
+    //奇怪的松茸酿肉卷
+
 }

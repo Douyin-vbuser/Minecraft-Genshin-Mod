@@ -6,11 +6,11 @@ import com.vbuser.genshin.init.ModItems;
 import com.vbuser.genshin.util.handlers.SoundsHandler;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -98,6 +98,7 @@ public class ChuanSongMaoDian extends BlockBase implements ITileEntityProvider {
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand){
         worldIn.setBlockState(pos, state.withProperty(ACTIVE, 3));
+        worldIn.setBlockState(pos.down().down().down(), Blocks.REDSTONE_BLOCK.getDefaultState());   //为了低代码兼容小地图的设计
     }
 
     //方块实体

@@ -4,6 +4,7 @@ import com.vbuser.genshin.Main;
 import com.vbuser.genshin.gui.GuiCookMain;
 import com.vbuser.genshin.init.ModItems;
 import com.vbuser.genshin.potion.ModPotions;
+import com.vbuser.genshin.util.ModDamageSource;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -80,8 +81,7 @@ public class GouHuo extends BlockBase {
         if(state.getValue(FIRED)) {
             if (entityIn instanceof EntityPlayer) {
                 //TODO:与玩家碰撞造成燃烧伤害(需等精通系统完成)
-                //float damage=67f;
-                //entityIn.attackEntityFrom(DamageSource.CACTUS, damage);
+                entityIn.attackEntityFrom(ModDamageSource.HUO,1);
                 ((EntityPlayer) entityIn).addPotionEffect(new PotionEffect(ModPotions.HUO, 20, 1));
             }
         }
