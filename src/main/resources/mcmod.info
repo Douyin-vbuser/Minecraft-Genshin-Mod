@@ -1,16 +1,30 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "modid": "genshin",
+  "name": "Minecraft Impact",
+  "description": "Minecraft Genshin Mod.",
+  "version": "basic 1.0.0(refactored)",
+  "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["MCI_studio"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
-}
+},
+  {
+    "modid": "mci_inventory",
+    "name": "MCI inventory",
+    "description": "Custom inventory design for MCI",
+    "version": "release 1.0.0",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "CodeGeeX(by THU),for providing reliable and free artificial intelligence coding aid;Pandora GPT,for providing a stable artificial intelligence access.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]
