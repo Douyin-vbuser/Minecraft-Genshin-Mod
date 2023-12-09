@@ -1,0 +1,6 @@
+inventory.error.add=[Genshin Runtime Error]:IO stream error,fail to add item to inventory.
+inventory.error.item=[Genshin Runtime Error]:Wrong inventory command,fail to get item from name provided.
+inventory.error.performance=[Genshin Runtime Error]:Wrong inventory command,undefined performance.
+inventory.error.min=[Genshin Runtime Error]:Fail to decrease item,player own less than required.
+
+key.genshin.b=Open/Close BackPack
