@@ -5,9 +5,7 @@ import com.vbuser.inventory.event.BPress;
 import com.vbuser.inventory.event.PickItem;
 import com.vbuser.inventory.gui.ModGuiLoader;
 import com.vbuser.inventory.key.KeyboardManager;
-import com.vbuser.inventory.packet.PacketDecreaseItem;
-import com.vbuser.inventory.packet.PacketGetItem;
-import com.vbuser.inventory.packet.PacketPickUp;
+import com.vbuser.inventory.packet.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -48,6 +46,8 @@ public class CustomInventory {
         network.registerMessage(PacketGetItem.PacketGetItemHandler.class, PacketGetItem.class, 1, Side.SERVER);
         network.registerMessage(PacketDecreaseItem.PacketDecreaseItemHandler.class, PacketDecreaseItem.class, 2, Side.SERVER);
         network.registerMessage(BPress.PacketInventoryGuiHandler.class,BPress.PacketInventoryGui.class,3,Side.SERVER);
+        network.registerMessage(PacketArtifactAdd.PacketArtifactAddHandler.class, PacketArtifactAdd.class,4,Side.SERVER);
+        network.registerMessage(PacketArtifactNBT.PacketArtifactNBTHandler.class, PacketArtifactNBT.class,5,Side.SERVER);
     }
 
     @Mod.EventHandler
@@ -82,6 +82,7 @@ public class CustomInventory {
 
     public static boolean loadPacket;
 
+    //APIs designed for common items:
     public static Map<String, Integer> getItem(UUID uuid, String tab) {
         temp.clear();
         int tryTime = 0;
@@ -96,6 +97,26 @@ public class CustomInventory {
             tryTime++;  //It usually takes about 50ms to get information from server.
         }
         return temp;
+    }
+
+    public static Map<String,Map<String,Integer>> temp_1 = new HashMap<>();
+
+    //APIs designed for artifacts:
+    public static Map<String,Map<String,Integer>> getItem(UUID uuid) {
+        temp_1.clear();
+        int tryTime = 0;
+        loadPacket = false;
+        network.sendToServer(new PacketGetArtifact(uuid.toString()));
+        while(!loadPacket && tryTime <= 20){
+            try{
+                Thread.sleep(5);
+            }
+            catch (InterruptedException e){
+                throw new RuntimeException(e);
+            }
+            tryTime++;
+        }
+        return temp_1;
     }
 
     //APIs to delete items:
