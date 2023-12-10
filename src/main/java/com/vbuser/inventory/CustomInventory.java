@@ -48,6 +48,7 @@ public class CustomInventory {
         network.registerMessage(BPress.PacketInventoryGuiHandler.class,BPress.PacketInventoryGui.class,3,Side.SERVER);
         network.registerMessage(PacketArtifactAdd.PacketArtifactAddHandler.class, PacketArtifactAdd.class,4,Side.SERVER);
         network.registerMessage(PacketArtifactNBT.PacketArtifactNBTHandler.class, PacketArtifactNBT.class,5,Side.SERVER);
+        network.registerMessage(PacketGetArtifact.PacketGetArtifactHandler.class,PacketGetArtifact.class,6,Side.SERVER);
     }
 
     @Mod.EventHandler
@@ -102,7 +103,7 @@ public class CustomInventory {
     public static Map<String,Map<String,Integer>> temp_1 = new HashMap<>();
 
     //APIs designed for artifacts:
-    public static Map<String,Map<String,Integer>> getItem(UUID uuid) {
+    public static Map<String,Map<String,Integer>> getItem1(UUID uuid) {
         temp_1.clear();
         int tryTime = 0;
         loadPacket = false;

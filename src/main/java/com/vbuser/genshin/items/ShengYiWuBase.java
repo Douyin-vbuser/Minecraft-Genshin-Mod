@@ -197,7 +197,7 @@ public class ShengYiWuBase extends Item implements IHasModel {
         }
     }
 
-    public String translateProperty(int index){
+    public static String translateProperty(int index){
         switch (index){
             case 1:return "sm";//num
             case 2:return "sm";

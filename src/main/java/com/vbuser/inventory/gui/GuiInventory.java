@@ -1,5 +1,7 @@
 package com.vbuser.inventory.gui;
 
+import com.vbuser.genshin.Main;
+import com.vbuser.genshin.items.ShengYiWuBase;
 import com.vbuser.inventory.CustomInventory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -16,15 +18,17 @@ import java.util.*;
 
 public class GuiInventory extends GuiScreen {
     private Map<String, Integer> data;
+    private Map<String, Map<String,Integer>> data_1;
     private final List<CreativeTabs> tabList;
     private int selectedTabIndex = 0;
     private int scrollIndex = 0;
     private int visibleItems;
     private String selectedItemName;
+    private String selectedItemUUID;
 
     public GuiInventory() {
-        tabList = new ArrayList<>(CreativeTabs.CREATIVE_TAB_ARRAY.length);
-        for (CreativeTabs tab : CreativeTabs.CREATIVE_TAB_ARRAY) {
+        tabList = new ArrayList<>();
+        for (CreativeTabs tab : Main.TABS) {
             if (tab != null) {
                 tabList.add(tab);
             }
@@ -38,7 +42,12 @@ public class GuiInventory extends GuiScreen {
 
     @Override
     public void initGui() {
-        data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+        if(tabList.get(selectedTabIndex)==Main.SHENG_YI_WU){
+            data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+        }
+        else{
+            data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+        }
         if(this.buttonList.isEmpty()){
             int buttonWidth = 60;
             int buttonHeight = 20;
@@ -57,13 +66,24 @@ public class GuiInventory extends GuiScreen {
         }
         drawTabs();
         drawSelectedTabInfo();
-        if(data!=CustomInventory.temp){
-            data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+        if(tabList.get(selectedTabIndex)!=Main.SHENG_YI_WU) {
+            if (data != CustomInventory.temp) {
+                data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+            }
+            updateVisibleItems();
+            drawItemList(visibleItems);
+            super.drawScreen(mouseX, mouseY, partialTicks);
+            drawItemTooltip(selectedItemName, mouseX, mouseY);
         }
-        updateVisibleItems();
-        drawItemList(visibleItems);
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        drawItemTooltip(selectedItemName, mouseX, mouseY);
+        else{
+            if(data_1 != CustomInventory.temp_1){
+                data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+            }
+            updateVisibleItems();
+            drawArtifactList(visibleItems);
+            super.drawScreen(mouseX, mouseY, partialTicks);
+            drawArtifactTooltip(selectedItemUUID, mouseX, mouseY);
+        }
     }
 
     private void drawTabs() {
@@ -121,6 +141,32 @@ public class GuiInventory extends GuiScreen {
         }
     }
 
+    private void drawArtifactList(int listCount){
+        int yPos = 60;
+        int count = 0;
+        int lineHeight = 20;
+
+        for (Map.Entry<String, Map<String,Integer>> entry : data_1.entrySet()) {
+            if (count >= scrollIndex && count < scrollIndex + listCount) {
+                String itemName = entry.getKey();
+                String item = "genshin:"+itemName.split(":")[0];
+                if(Item.getByNameOrId(item)==null)continue;
+                ItemStack itemStack = new ItemStack(Objects.requireNonNull(Item.getByNameOrId(item)));
+
+                int itemX = (this.width / 2 - 50);
+                int iconX = itemX - 20;
+
+                RenderHelper.enableGUIStandardItemLighting();
+                this.itemRender.renderItemAndEffectIntoGUI(itemStack, iconX, yPos);
+                RenderHelper.disableStandardItemLighting();
+
+                this.fontRenderer.drawString(itemStack.getDisplayName(), itemX, yPos, 0xFFFFFF);
+                yPos += lineHeight;
+            }
+            count++;
+        }
+    }
+
     @Override
     protected void actionPerformed(GuiButton button){
         if (button.id == 0) {
@@ -141,7 +187,12 @@ public class GuiInventory extends GuiScreen {
                 for (int i = 0; i < tabList.size(); i++) {
                     if (mouseX >= x + i * tabSize && mouseX <= x + (i + 1) * tabSize && mouseY >= y && mouseY <= y + tabSize) {
                         selectedTabIndex = i;
-                        data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+                        if(tabList.get(selectedTabIndex)!=Main.SHENG_YI_WU) {
+                            data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
+                        }
+                        else{
+                            data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+                        }
                         scrollIndex = 0;
                         break;
                     }
@@ -154,15 +205,30 @@ public class GuiInventory extends GuiScreen {
         int lineHeight = 20;
         int count = 0;
 
-        for (Map.Entry<String, Integer> entry : data.entrySet()) {
-            if (count >= scrollIndex && count < scrollIndex + visibleItems) {
-                if (mouseX >= iconX && mouseX <= iconX + 16 && mouseY >= yPos && mouseY <= yPos + 16) {
-                    selectedItemName = entry.getKey().split("\\.")[1];
-                    break;
+        assert tabList != null;
+        if(tabList.get(selectedTabIndex)!=Main.SHENG_YI_WU) {
+            for (Map.Entry<String, Integer> entry : data.entrySet()) {
+                if (count >= scrollIndex && count < scrollIndex + visibleItems) {
+                    if (mouseX >= iconX && mouseX <= iconX + 16 && mouseY >= yPos && mouseY <= yPos + 16) {
+                        selectedItemName = entry.getKey().split("\\.")[1];
+                        break;
+                    }
+                    yPos += lineHeight;
                 }
-                yPos += lineHeight;
+                count++;
             }
-            count++;
+        }
+        else{
+            for (Map.Entry<String, Map<String,Integer>> entry : data_1.entrySet()) {
+                if (count >= scrollIndex && count < scrollIndex + visibleItems) {
+                    if (mouseX >= iconX && mouseX <= iconX + 16 && mouseY >= yPos && mouseY <= yPos + 16) {
+                        selectedItemUUID = entry.getKey();
+                        break;
+                    }
+                    yPos += lineHeight;
+                }
+                count++;
+            }
         }
     }
 
@@ -173,7 +239,13 @@ public class GuiInventory extends GuiScreen {
 
         int delta = org.lwjgl.input.Mouse.getEventDWheel();
         if (delta != 0) {
-            int maxScroll = Math.max(0, data.size() - 5);
+            int maxScroll;
+            if(tabList.get(selectedTabIndex) != Main.SHENG_YI_WU) {
+                maxScroll = Math.max(0, data.size() - 5);
+            }
+            else{
+                maxScroll = Math.max(0, data_1.size() - 5);
+            }
             scrollIndex = Math.max(0, Math.min(maxScroll, scrollIndex - Integer.signum(delta)));
         }
     }
@@ -202,7 +274,9 @@ public class GuiInventory extends GuiScreen {
                 if (count >= scrollIndex && count < scrollIndex + visibleItems) {
                     if (itemName.equals(entry.getKey().split("\\.")[1])) {
                         if (mouseX >= iconX && mouseX <= iconX + 16 && mouseY >= yPos && mouseY <= yPos + 16) {
-                            drawHoveringText(Collections.singletonList(I18n.format(itemName+".description")), mouseX, mouseY);
+                            if(tabList.get(selectedTabIndex)!=Main.SHENG_YI_WU){
+                                drawHoveringText(Collections.singletonList(I18n.format(itemName+".description")), mouseX, mouseY);
+                            }
                             break;
                         }
                     }
@@ -211,6 +285,65 @@ public class GuiInventory extends GuiScreen {
                 count++;
             }
         }
+    }
+
+    private void drawArtifactTooltip(String uuid, int mouseX, int mouseY) {
+        if (uuid != null && !uuid.isEmpty()) {
+            int iconX = (this.width / 2 - 50) - 20;
+            int yPos = 60;
+            int lineHeight = 20;
+            int count = 0;
+
+            for (Map.Entry<String, Map<String,Integer>> entry : data_1.entrySet()) {
+                if (count >= scrollIndex && count < scrollIndex + visibleItems) {
+                    if(uuid.equals(entry.getKey())) {
+                        if (mouseX >= iconX && mouseX <= iconX + 16 && mouseY >= yPos && mouseY <= yPos + 16) {
+                            if (tabList.get(selectedTabIndex) == Main.SHENG_YI_WU) {
+                                Map<String, Integer> itemData = data_1.get(uuid);
+                                if (itemData != null) {
+                                    List<String> tooltipLines = getStrings(itemData);
+                                    drawHoveringText(tooltipLines, mouseX, mouseY);
+                                }
+                            }
+                            break;
+                        }
+                    }
+
+                    yPos += lineHeight;
+                }
+                count++;
+            }
+        }
+    }
+
+    private static List<String> getStrings(Map<String, Integer> itemData) {
+        Map<String, StringBuilder> propertyMap = new HashMap<>();
+        List<String> tooltipLines = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : itemData.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+
+            if (!key.endsWith("Property") && !key.endsWith("Value")) {
+                continue;
+            }
+
+            String prefix = key.substring(0, key.length() - (key.endsWith("Property")?9:6));
+
+            if (key.endsWith("Property")) {
+                propertyMap.put(prefix, Optional.of(I18n.format("genshin."+ShengYiWuBase.translateProperty(value)))
+                        .map(StringBuilder::new)
+                        .orElse(null));
+            }
+
+            if (key.endsWith("Value")) {
+                StringBuilder temp = propertyMap.get(prefix);
+                temp = (temp == null ? new StringBuilder("null") : temp).append(":").append(value);
+                tooltipLines.add(temp.toString());
+            }
+        }
+
+        return tooltipLines;
     }
 
     private CreativeTabs getSelectedTab() {

@@ -17,7 +17,7 @@
     "modid": "inventory",
     "name": "MCI inventory",
     "description": "Custom inventory design for MCI",
-    "version": "release 1.0.0",
+    "version": "release 1.3.14",
     "mcversion": "1.12.2",
     "url": "",
     "updateUrl": "",
