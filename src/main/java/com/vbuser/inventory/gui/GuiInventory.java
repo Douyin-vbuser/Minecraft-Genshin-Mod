@@ -43,7 +43,12 @@ public class GuiInventory extends GuiScreen {
     @Override
     public void initGui() {
         if(tabList.get(selectedTabIndex)==Main.SHENG_YI_WU){
-            data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+            if(CustomInventory.temp_1==null){
+                data_1 = new HashMap<>();
+            }
+            else {
+                data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+            }
         }
         else{
             data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
@@ -77,7 +82,12 @@ public class GuiInventory extends GuiScreen {
         }
         else{
             if(data_1 != CustomInventory.temp_1){
-                data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+                if(CustomInventory.temp_1 == null){
+                    data_1 = new HashMap<>();
+                }
+                else {
+                    data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+                }
             }
             updateVisibleItems();
             drawArtifactList(visibleItems);
@@ -191,7 +201,12 @@ public class GuiInventory extends GuiScreen {
                             data = CustomInventory.getItem(Minecraft.getMinecraft().player.getUniqueID(), getSelectedTab().getTabLabel());
                         }
                         else{
-                            data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+                            if(CustomInventory.temp_1 == null){
+                                data_1 = new HashMap<>();
+                            }
+                            else {
+                                data_1 = CustomInventory.getItem1(Minecraft.getMinecraft().player.getUniqueID());
+                            }
                         }
                         scrollIndex = 0;
                         break;
