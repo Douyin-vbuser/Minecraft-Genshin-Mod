@@ -49,6 +49,8 @@ public class CustomInventory {
         network.registerMessage(PacketArtifactAdd.PacketArtifactAddHandler.class, PacketArtifactAdd.class,4,Side.SERVER);
         network.registerMessage(PacketArtifactNBT.PacketArtifactNBTHandler.class, PacketArtifactNBT.class,5,Side.SERVER);
         network.registerMessage(PacketGetArtifact.PacketGetArtifactHandler.class,PacketGetArtifact.class,6,Side.SERVER);
+        network.registerMessage(PacketGetWeapon.PacketGetWeaponHandler.class,PacketGetWeapon.class,7,Side.SERVER);
+        network.registerMessage(PacketAddWeapon.PacketWeaponHandler.class,PacketAddWeapon.class,8,Side.SERVER);
     }
 
     @Mod.EventHandler
@@ -118,6 +120,28 @@ public class CustomInventory {
             tryTime++;
         }
         return temp_1;
+    }
+
+    public static Map<String,String> temp_2 = new HashMap<>();
+
+    public static Map<String,String> getItem2(UUID uuid) {
+        if(temp_2 == null){
+            temp_2 = new HashMap<>();
+        }
+        temp_2.clear();
+        int tryTime = 0;
+        loadPacket = false;
+        network.sendToServer(new PacketGetWeapon(uuid.toString()));
+        while(!loadPacket && tryTime <= 20){
+            try{
+                Thread.sleep(5);
+            }
+            catch (InterruptedException e){
+                throw new RuntimeException(e);
+            }
+            tryTime++;
+        }
+        return temp_2;
     }
 
     //APIs to delete items:

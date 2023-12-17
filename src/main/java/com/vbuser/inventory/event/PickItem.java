@@ -3,6 +3,7 @@ package com.vbuser.inventory.event;
 import com.vbuser.genshin.Main;
 import com.vbuser.genshin.tabs.TabBase;
 import com.vbuser.inventory.CustomInventory;
+import com.vbuser.inventory.packet.PacketAddWeapon;
 import com.vbuser.inventory.packet.PacketArtifactAdd;
 import com.vbuser.inventory.packet.PacketArtifactNBT;
 import net.minecraft.creativetab.CreativeTabs;
@@ -50,7 +51,13 @@ public class PickItem {
                 }
             }
             else{
-                CustomInventory.addItem(event.player.getUniqueID(),stack);
+                if(tabs == Main.WU_QI){
+                    UUID item_id = UUID.randomUUID();
+                    CustomInventory.network.sendToServer(new PacketAddWeapon(event.player.getUniqueID().toString(),item_id.toString(),item_name,0,1));
+                }
+                else {
+                    CustomInventory.addItem(event.player.getUniqueID(), stack);
+                }
             }
         }
     }
