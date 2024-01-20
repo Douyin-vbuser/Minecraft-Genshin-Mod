@@ -22,7 +22,21 @@
     "url": "",
     "updateUrl": "",
     "authorList": ["MCI-vbuser"],
-    "credits": "CodeGeeX(by THU),for providing reliable and free artificial intelligence coding aid;Pandora GPT,for providing a stable artificial intelligence access.",
+    "credits": "CodeGeeX(by THU),for providing reliable and free artificial intelligence coding aid;\nPandora GPT,for providing a stable artificial intelligence access.",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+  {
+    "modid": "browser",
+    "name": "MCI-Browser",
+    "description": "A mod use xuggler to build GuiScreen access mp4 files and web",
+    "version": "basic 4.3.3",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "Xuggler,for providing video decoding dependency;\nPandora GPT,for providing a reliable artificial intelligence access.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
