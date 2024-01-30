@@ -34,8 +34,14 @@ public class PacketVideo implements IMessage {
     public static class PacketVideoHandler implements IMessageHandler<PacketVideo,IMessage>{
         @Override
         public IMessage onMessage(PacketVideo message, MessageContext ctx) {
-            BlockPos pos = new BlockPos(Minecraft.getMinecraft().player);
-            Minecraft.getMinecraft().player.openGui(Browser.instance,10,Minecraft.getMinecraft().world,pos.getX(),pos.getY(), pos.getZ());
+            String mcDir = Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
+            String temp = (mcDir.endsWith("\\")?mcDir:mcDir+"\\").replace("\\","/");
+            temp = temp.substring(0,temp.length()-3);
+            Browser.path = "file:///"+temp+"/cg/"+ Browser.video+".mp4";
+            System.out.println(Browser.path);
+            Browser.isCG = true;
+            BlockPos pos = Minecraft.getMinecraft().player.getPosition();
+            Minecraft.getMinecraft().player.openGui(Browser.instance,13,Minecraft.getMinecraft().world,pos.getX(),pos.getY(),pos.getZ());
             return null;
         }
     }

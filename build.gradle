@@ -38,9 +38,8 @@ minecraft {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
-    implementation files('libs/xuggle-xuggler-5.4.jar')
-    implementation 'org.slf4j:slf4j-api:1.7.32'
-    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    runtimeOnly fg.deobf(files("libs/mcef.jar"))
+    implementation fg.deobf(files("libs/mcef.jar"))
 }
 
 jar {
@@ -54,11 +53,6 @@ jar {
             "Implementation-Vendor" :"MCI-vbuser",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
-    }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }{
-        exclude "net/minecraft/**","net/minecraftforge/**"
     }
 }
 

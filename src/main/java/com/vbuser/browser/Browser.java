@@ -1,8 +1,10 @@
 package com.vbuser.browser;
 
 import com.vbuser.browser.command.CommandCG;
+import com.vbuser.browser.command.CommandWeb;
 import com.vbuser.browser.gui.ModGuiLoader;
 import com.vbuser.browser.network.PacketVideo;
+import com.vbuser.browser.network.PacketWebPage;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -11,10 +13,14 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = "browser")
+@Mod(modid = "browser",dependencies = "required-after:mcef@[1.0,2.0);after:opencomputers;after:computercraft;")
 public class Browser {
 
     public static String video="";
+
+    public static String path;
+
+    public static boolean isCG;
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -27,14 +33,16 @@ public class Browser {
     public void PreInit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("browser_channel");
         network.registerMessage(PacketVideo.PacketVideoHandler.class, PacketVideo.class,1, Side.CLIENT);
+        network.registerMessage(PacketWebPage.PacketWebPageHandler.class, PacketWebPage.class,2, Side.CLIENT);
     }
 
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandCG());
+        event.registerServerCommand(new CommandWeb());
     }
 
-    @Mod.Instance
+    @Mod.Instance("browser")
     public static Browser instance;
 
 }

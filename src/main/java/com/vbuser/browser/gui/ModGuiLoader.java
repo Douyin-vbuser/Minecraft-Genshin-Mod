@@ -17,8 +17,10 @@ public class ModGuiLoader implements IGuiHandler {
     @Nullable
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        switch (ID){
-            case 10:return new GuiCG();
+        switch (ID) {
+            case 11:return new GuiCG();
+            case 12:return new GuiWeb();
+            case 13:return new GuiIndex();
             default:return null;
         }
     }
@@ -27,10 +29,10 @@ public class ModGuiLoader implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
-            case 10:
-                return new GuiCG();
-            default:
-                return null;
+            case 11:return new GuiCG();
+            case 12:return new GuiWeb();
+            case 13:return new GuiIndex();
+            default:return null;
         }
     }
 }
