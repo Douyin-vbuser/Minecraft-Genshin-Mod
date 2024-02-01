@@ -1,8 +1,10 @@
 package com.vbuser.browser;
 
 import com.vbuser.browser.command.CommandCG;
+import com.vbuser.browser.command.CommandStartServer;
 import com.vbuser.browser.command.CommandWeb;
 import com.vbuser.browser.gui.ModGuiLoader;
+import com.vbuser.browser.network.PacketServerIP;
 import com.vbuser.browser.network.PacketVideo;
 import com.vbuser.browser.network.PacketWebPage;
 import net.minecraftforge.fml.common.Mod;
@@ -22,8 +24,12 @@ public class Browser {
 
     public static boolean isCG;
 
+    public static String serverIP;
+
+    public static boolean lock;
+
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event){
         new ModGuiLoader();
     }
 
@@ -34,12 +40,14 @@ public class Browser {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("browser_channel");
         network.registerMessage(PacketVideo.PacketVideoHandler.class, PacketVideo.class,1, Side.CLIENT);
         network.registerMessage(PacketWebPage.PacketWebPageHandler.class, PacketWebPage.class,2, Side.CLIENT);
+        network.registerMessage(PacketServerIP.PacketServerIPHandler.class,PacketServerIP.class,3, Side.SERVER);
     }
 
     @Mod.EventHandler
-    public static void serverInit(FMLServerStartingEvent event) {
+    public static void serverInit(FMLServerStartingEvent event){
         event.registerServerCommand(new CommandCG());
         event.registerServerCommand(new CommandWeb());
+        event.registerServerCommand(new CommandStartServer());
     }
 
     @Mod.Instance("browser")

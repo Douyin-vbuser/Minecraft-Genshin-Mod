@@ -37,7 +37,7 @@ public class PacketVideo implements IMessage {
             String mcDir = Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
             String temp = (mcDir.endsWith("\\")?mcDir:mcDir+"\\").replace("\\","/");
             temp = temp.substring(0,temp.length()-3);
-            Browser.path = "file:///"+temp+"/cg/"+ Browser.video+".mp4";
+            Browser.path = "file:///"+temp+"/cg/"+ Browser.video+".webm";
             System.out.println(Browser.path);
             Browser.isCG = true;
             BlockPos pos = Minecraft.getMinecraft().player.getPosition();
