@@ -1,0 +1,114 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "genshin:blocks/pu_gong_ying_0",
+		"particle": "genshin:blocks/pu_gong_ying_0"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 8],
+			"to": [8, 11, 9],
+			"faces": {
+				"north": {"uv": [2.5, 5, 3, 10.5], "texture": "#0"},
+				"east": {"uv": [5, 2.5, 5.5, 8], "texture": "#0"},
+				"south": {"uv": [3, 5, 3.5, 10.5], "texture": "#0"},
+				"west": {"uv": [3.5, 5, 4, 10.5], "texture": "#0"},
+				"up": {"uv": [9, 4, 8.5, 3.5], "texture": "#0"},
+				"down": {"uv": [4.5, 8.5, 4, 9], "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, 11, 6],
+			"to": [10, 16, 11],
+			"faces": {
+				"north": {"uv": [0, 0, 2.5, 2.5], "texture": "#0"},
+				"east": {"uv": [0, 2.5, 2.5, 5], "texture": "#0"},
+				"south": {"uv": [2.5, 0, 5, 2.5], "texture": "#0"},
+				"west": {"uv": [2.5, 2.5, 5, 5], "texture": "#0"},
+				"up": {"uv": [2.5, 7.5, 0, 5], "texture": "#0"},
+				"down": {"uv": [7.5, 0, 5, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 0, 9],
+			"to": [9, 2, 10],
+			"faces": {
+				"north": {"uv": [5.5, 2.5, 7, 3.5], "texture": "#0"},
+				"east": {"uv": [4, 5, 4.5, 6], "texture": "#0"},
+				"south": {"uv": [5.5, 3.5, 7, 4.5], "texture": "#0"},
+				"west": {"uv": [4.5, 5, 5, 6], "texture": "#0"},
+				"up": {"uv": [1.5, 8, 0, 7.5], "texture": "#0"},
+				"down": {"uv": [9, 0, 7.5, 0.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 4, 7],
+			"to": [9, 6, 8],
+			"faces": {
+				"north": {"uv": [5.5, 4.5, 7, 5.5], "texture": "#0"},
+				"east": {"uv": [4, 6, 4.5, 7], "texture": "#0"},
+				"south": {"uv": [5.5, 5.5, 7, 6.5], "texture": "#0"},
+				"west": {"uv": [4.5, 6, 5, 7], "texture": "#0"},
+				"up": {"uv": [9, 1, 7.5, 0.5], "texture": "#0"},
+				"down": {"uv": [9, 1, 7.5, 1.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 2, 10],
+			"to": [9, 4, 11],
+			"faces": {
+				"north": {"uv": [5.5, 6.5, 7, 7.5], "texture": "#0"},
+				"east": {"uv": [4, 7, 4.5, 8], "texture": "#0"},
+				"south": {"uv": [7, 2.5, 8.5, 3.5], "texture": "#0"},
+				"west": {"uv": [4.5, 7, 5, 8], "texture": "#0"},
+				"up": {"uv": [9, 2, 7.5, 1.5], "texture": "#0"},
+				"down": {"uv": [9, 2, 7.5, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 5, 6],
+			"to": [9, 7, 7],
+			"faces": {
+				"north": {"uv": [7, 3.5, 8.5, 4.5], "texture": "#0"},
+				"east": {"uv": [1.5, 7.5, 2, 8.5], "texture": "#0"},
+				"south": {"uv": [7, 4.5, 8.5, 5.5], "texture": "#0"},
+				"west": {"uv": [2, 7.5, 2.5, 8.5], "texture": "#0"},
+				"up": {"uv": [7, 8, 5.5, 7.5], "texture": "#0"},
+				"down": {"uv": [8.5, 7.5, 7, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 6, 5],
+			"to": [9, 7, 6],
+			"faces": {
+				"north": {"uv": [0, 8, 1.5, 8.5], "texture": "#0"},
+				"east": {"uv": [8.5, 4, 9, 4.5], "texture": "#0"},
+				"south": {"uv": [4, 8, 5.5, 8.5], "texture": "#0"},
+				"west": {"uv": [4.5, 8.5, 5, 9], "texture": "#0"},
+				"up": {"uv": [7, 8.5, 5.5, 8], "texture": "#0"},
+				"down": {"uv": [8.5, 8, 7, 8.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 4, 11],
+			"to": [9, 5, 13],
+			"faces": {
+				"north": {"uv": [0, 8.5, 1.5, 9], "texture": "#0"},
+				"east": {"uv": [1.5, 8.5, 2.5, 9], "texture": "#0"},
+				"south": {"uv": [8.5, 2.5, 10, 3], "texture": "#0"},
+				"west": {"uv": [8.5, 3, 9.5, 3.5], "texture": "#0"},
+				"up": {"uv": [8.5, 6.5, 7, 5.5], "texture": "#0"},
+				"down": {"uv": [8.5, 6.5, 7, 7.5], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7]
+		}
+	]
+}

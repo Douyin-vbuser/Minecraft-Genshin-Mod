@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "actived=false": {"model": "genshin:yan_fang_bei_0"},
+    "actived=true": {"model": "genshin:yan_fang_bei_1"}
+  }
+}

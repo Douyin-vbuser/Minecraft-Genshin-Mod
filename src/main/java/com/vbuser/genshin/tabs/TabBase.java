@@ -1,5 +1,6 @@
 package com.vbuser.genshin.tabs;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,11 @@ public class TabBase extends CreativeTabs {
     public TabBase(String label, Item item) {
         super(label);
         this.item = item;
+    }
+
+    public TabBase(String label, Block block){
+        super(label);
+        this.item = Item.getItemFromBlock(block);
     }
 
     @Override

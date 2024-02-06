@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "backed=false": {"model": "genshin:xian_ling_zhi_ting"},
+    "backed=true": {"model": "genshin:xian_ling_zhi_ting_0"}
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "variants":{
+    "count=1": {"model": "genshin:luo_luo_mei_0"},
+    "count=2": {"model": "genshin:luo_luo_mei_1"},
+    "count=3": {"model": "genshin:luo_luo_mei_2"},
+    "count=4": {"model": "genshin:luo_luo_mei_3"}
+  }
+}

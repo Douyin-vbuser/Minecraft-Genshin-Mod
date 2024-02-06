@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("all")
-@Mod(modid = "inventory")
+@Mod(modid = "inventory",version = "release 1.9.19")
 public class CustomInventory {
 
 

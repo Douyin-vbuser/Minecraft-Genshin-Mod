@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "actived=false": {"model": "genshin:cao_fang_bei_0"},
+    "actived=true": {"model": "genshin:cao_fang_bei_1"}
+  }
+}

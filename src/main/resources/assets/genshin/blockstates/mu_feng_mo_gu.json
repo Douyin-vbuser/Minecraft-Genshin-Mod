@@ -1,0 +1,12 @@
+{
+  "variants":{
+    "facing=1,picked=false": {"model": "genshin:mu_feng_mo_gu_1"},
+    "facing=2,picked=false": {"model": "genshin:mu_feng_mo_gu_2"},
+    "facing=3,picked=false": {"model": "genshin:mu_feng_mo_gu_3"},
+    "facing=4,picked=false": {"model": "genshin:mu_feng_mo_gu_4"},
+    "facing=1,picked=true": {"model": "genshin:air"},
+    "facing=2,picked=true": {"model": "genshin:air"},
+    "facing=3,picked=true": {"model": "genshin:air"},
+    "facing=4,picked=true": {"model": "genshin:air"}
+  }
+}

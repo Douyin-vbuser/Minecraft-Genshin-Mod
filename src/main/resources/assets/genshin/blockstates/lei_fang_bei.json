@@ -1,0 +1,6 @@
+{
+  "variants":{
+    "actived=false": {"model": "genshin:lei_fang_bei_0"},
+    "actived=true": {"model": "genshin:lei_fang_bei_1"}
+  }
+}

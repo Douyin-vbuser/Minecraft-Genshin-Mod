@@ -1,0 +1,8 @@
+{
+  "variants":{
+    "noised=false,picked=false": {"model": "genshin:xiao_deng_cao"},
+    "noised=true,picked=false": {"model": "genshin:xiao_deng_cao"},
+    "noised=false,picked=true": {"model": "genshin:air"},
+    "noised=true,picked=true": {"model": "genshin:air"}
+  }
+}
