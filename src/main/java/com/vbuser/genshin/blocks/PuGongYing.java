@@ -1,6 +1,7 @@
 package com.vbuser.genshin.blocks;
 
 import com.vbuser.genshin.init.ModItems;
+import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -9,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -48,7 +50,7 @@ public class PuGongYing extends FlowerBase{
                     worldIn.setBlockState(pos, state.withProperty(STATE, 1));
                     //EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.PU_GONG_YING_ZI, 1));
                     //worldIn.spawnEntity(entityitem);
-                    //worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                    worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
                     worldIn.scheduleUpdate(pos, this, 200);
                 }
             }

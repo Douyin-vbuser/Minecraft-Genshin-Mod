@@ -22,7 +22,7 @@
     "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/inventory",
     "updateUrl": "",
     "authorList": ["MCI-vbuser"],
-    "credits": "CodeGeeX(by THU),for providing reliable and free artificial intelligence coding aid;\nPandora GPT,for providing a stable artificial intelligence access.",
+    "credits": "CodeGeeX,for providing reliable and free artificial intelligence coding aid;\nPandora GPT,for providing a stable artificial intelligence access.",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
@@ -37,6 +37,20 @@
     "updateUrl": "",
     "authorList": ["MCI-vbuser"],
     "credits": "MCEF,for providing video decoding dependency;\nPandora GPT,for providing a reliable artificial intelligence access till 24/01/30.\nFUCK U OPENAI!!!",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+{
+    "modid": "movement",
+    "name": "MCI-Movement",
+    "description": "A mod control players' camera and movement",
+    "version": "alpha 6.1.33",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/movement",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "Geckolib,for providing .json animation support",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []

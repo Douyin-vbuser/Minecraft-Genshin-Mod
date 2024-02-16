@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -36,11 +35,15 @@ minecraft {
     }
 }
 
+repositories {
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven' }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
     runtimeOnly fg.deobf(files("libs/mcef.jar"))
     implementation fg.deobf(files("libs/mcef.jar"))
-    //implementation fg.deobf('software.bernie.geckolib:forge-1.12.2-geckolib:3.0.21')
+    implementation fg.deobf('software.bernie.geckolib:forge-1.12.2-geckolib:3.0.21')
 }
 
 jar {

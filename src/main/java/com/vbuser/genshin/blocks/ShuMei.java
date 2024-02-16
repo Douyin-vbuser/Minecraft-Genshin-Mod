@@ -1,5 +1,6 @@
 package com.vbuser.genshin.blocks;
 
+import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -7,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -45,7 +47,7 @@ public class ShuMei extends FlowerBase {
             if (state.getValue(COUNT) != 1) {
                 //EntityItem entityitem = new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ModItems.SHUMEI, 1));
                 //worldIn.spawnEntity(entityitem);
-                //worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
+                worldIn.playSound(null,pos, SoundsHandler.PICK, SoundCategory.BLOCKS,5,1);
             }
             worldIn.setBlockState(pos, state.withProperty(COUNT, state.getValue(COUNT) == 1 ? 1 : state.getValue(COUNT) - 1));
             worldIn.scheduleUpdate(pos, this, 200);

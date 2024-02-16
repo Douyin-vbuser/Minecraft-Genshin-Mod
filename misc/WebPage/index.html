@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>MCI Server Index</title>
+    <script>
+        function fetchClientIP() {
+            fetch('https://httpbin.org/ip')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('client-ip').textContent = data.origin;
+                })
+                .catch(error => {
+                    console.error('Error fetching client IP:', error);
+                    document.getElementById('client-ip').textContent = 'Error fetching IP';
+                });
+        }
+
+        function fetchServerIP() {
+            fetch('https://api.ipify.org/?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('server-ip').textContent = data.ip;
+                })
+                .catch(error => {
+                    console.error('Error fetching server IP:', error);
+                    document.getElementById('server-ip').textContent = 'Error fetching IP';
+                });
+        }
+
+        window.onload = function() {
+            fetchClientIP();
+            fetchServerIP();
+        };
+    </script>
+</head>
+<body>
+    <h3>Client IP Address: <span id="client-ip">Fetching...</span></h3>
+    <h3>Server IP Address: <span id="server-ip">Fetching...</span></h3>
+</body>
+</html>

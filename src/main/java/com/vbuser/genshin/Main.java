@@ -2,13 +2,15 @@ package com.vbuser.genshin;
 
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
+import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("all")
 @Mod(modid = "genshin", name = "Minecraft Genshin Impact", version = "basic 1.1.45")
@@ -23,6 +25,11 @@ public class Main
     @SidedProxy(clientSide =  "com.vbuser.genshin.proxy.ClientProxy", serverSide = "com.vbuser.genshin.proxy.CommonProxy")
 
     public static CommonProxy proxy;
+
+    @Mod.EventHandler
+    public void onInit(FMLInitializationEvent event){
+        SoundsHandler.registerSounds();
+    }
 
 
     //CreativeTabs:
