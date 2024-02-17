@@ -1,5 +1,6 @@
 package com.vbuser.genshin.blocks;
 
+import com.vbuser.genshin.entity.organism.XianLing;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
 import net.minecraft.block.material.Material;
@@ -33,10 +34,11 @@ public class XianLingZhiTing extends BlockBase{
 
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        //todo:import XianLing judgement
-        worldIn.setBlockState(pos, state.withProperty(BACKED, true));
-        worldIn.scheduleUpdate(pos,this,10);
-        entityIn.setDead();
+        if(entityIn instanceof XianLing) {
+            worldIn.setBlockState(pos, state.withProperty(BACKED, true));
+            worldIn.scheduleUpdate(pos, this, 10);
+            entityIn.setDead();
+        }
     }
 
     @Override

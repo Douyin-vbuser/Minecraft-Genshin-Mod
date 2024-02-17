@@ -1,6 +1,7 @@
 package com.vbuser.genshin.blocks;
 
 import com.vbuser.genshin.Main;
+import com.vbuser.genshin.entity.element.Element;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
 import net.minecraft.block.material.Material;
@@ -54,17 +55,17 @@ public class ZhaDan extends BlockBase{
 
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        //todo:import element entity judgement
-        worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0, true);
-        worldIn.setBlockToAir(pos);
-        int i=0;
-        while(i<12){
-            if(worldIn.getBlockState(pos.down(i))== ModBlocks.PRE_STONE.getDefaultState()){
-                worldIn.setBlockState(pos.down(i), Blocks.REDSTONE_BLOCK.getDefaultState());
-                break;
-            }
-            else{
-                i=i+1;
+        if(entityIn instanceof Element) {
+            worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0, true);
+            worldIn.setBlockToAir(pos);
+            int i = 0;
+            while (i < 12) {
+                if (worldIn.getBlockState(pos.down(i)) == ModBlocks.PRE_STONE.getDefaultState()) {
+                    worldIn.setBlockState(pos.down(i), Blocks.REDSTONE_BLOCK.getDefaultState());
+                    break;
+                } else {
+                    i = i + 1;
+                }
             }
         }
     }

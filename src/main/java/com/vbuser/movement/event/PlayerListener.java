@@ -16,6 +16,7 @@ public class PlayerListener {
         FakePlayer fakePlayer = new FakePlayer(event.player.getEntityWorld(),event.player.getUniqueID());
         event.player.world.spawnEntity(fakePlayer);
         Storage_s.renderer.put(event.player,fakePlayer);
+        event.player.setInvisible(true);
     }
 
     @SubscribeEvent

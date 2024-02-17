@@ -1,13 +1,16 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
+import com.vbuser.genshin.util.handler.RegistryRenderer;
 import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,12 @@ public class Main
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event){
         SoundsHandler.registerSounds();
+    }
+
+    @Mod.EventHandler
+    public void onPreInit(FMLPreInitializationEvent event){
+        EntityInit.registerEntities();
+        RegistryRenderer.registry();
     }
 
 

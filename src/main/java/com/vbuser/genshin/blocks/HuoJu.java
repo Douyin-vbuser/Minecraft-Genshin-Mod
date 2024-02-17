@@ -1,8 +1,12 @@
 package com.vbuser.genshin.blocks;
 
 import com.vbuser.genshin.Main;
+import com.vbuser.genshin.entity.element.bing.Bing;
+import com.vbuser.genshin.entity.element.huo.Huo;
+import com.vbuser.genshin.entity.element.shui.Shui;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
+import com.vbuser.genshin.potion.ModPotions;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -10,6 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -105,13 +110,17 @@ public class HuoJu extends BlockBase{
 
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn){
-        //TODO:with Entity extended Huo
-        //TODO:with Entity extended Shui,Bing,Feng
+        if(entityIn instanceof Huo){
+            worldIn.setBlockState(pos,state.withProperty(FIRED,true));
+        }
+        //TODO:with Entity instanceof Feng
+        if(entityIn instanceof Shui || entityIn instanceof Bing){
+            worldIn.setBlockState(pos,state.withProperty(FIRED,false));
+        }
         if(state.getValue(FIRED)) {
             if (entityIn instanceof EntityPlayer) {
-                //TODO:damage to player
-                //entityIn.attackEntityFrom(ModDamageSource.HUO,1);
-                //((EntityPlayer) entityIn).addPotionEffect(new PotionEffect(ModPotions.HUO, 20, 1));
+                //todo:damage player's character
+                ((EntityPlayer) entityIn).addPotionEffect(new PotionEffect(ModPotions.HUO, 20, 1));
             }
         }
     }
