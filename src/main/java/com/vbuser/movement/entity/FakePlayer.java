@@ -60,13 +60,13 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
                 if (input.equals(Vec2f.ZERO)) {
                     if (!pre_moving) {
-                        yaw_temp = player.rotationYaw;
+                        yaw_temp = player.rotationYawHead;
                     }
                     rotationYaw = yaw_temp;
                     pre_moving = false;
                 } else {
                     double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
-                    rotationYaw = (float) (player.rotationYaw - delta)%360;
+                    rotationYaw = (float) (player.rotationYawHead - delta)%360;
                 }
                 x =player.posX;
                 y =player.posY;
