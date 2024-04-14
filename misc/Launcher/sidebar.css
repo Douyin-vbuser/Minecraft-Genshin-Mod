@@ -1,0 +1,41 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    background-color: #01050f;
+    color: #d6e0e0;
+    width: 200px;
+    height: 100%;
+    float: left;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar li {
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  .sidebar li:hover {
+    background-color: #295829;
+  }
+
+  .selected {
+    background-color: #0d630d;
+    }
+
+  .main-content {
+    background-color: #1a1a1a;
+    margin-left: 200px;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }

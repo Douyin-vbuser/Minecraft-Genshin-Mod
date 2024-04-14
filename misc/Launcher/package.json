@@ -1,0 +1,22 @@
+{
+  "name": "mci_luancher",
+  "version": "1.0.0",
+  "description": "Minecraft Luancher",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "Electron",
+    "Minecraft Luancher"
+  ],
+  "author": "MCI_vbuser",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^29.3.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.8"
+  }
+}
