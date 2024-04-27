@@ -17,6 +17,9 @@
     "electron": "^29.3.0"
   },
   "dependencies": {
-    "axios": "^1.6.8"
+    "axios": "^1.6.8",
+    "ipapi": "^4.0.0",
+    "public-ip": "^6.0.2",
+    "request": "^2.88.2"
   }
 }
