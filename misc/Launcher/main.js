@@ -1,11 +1,10 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow,screen } = require('electron')
 const path = require('node:path')
 const request = require('request');
 const fs = require('fs');
 const axios = require('axios');
 const { spawn } = require('child_process');
 const os = require('os');
-const { memoryUsage } = require('node:process');
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -19,20 +18,23 @@ function createWindow() {
 
   mainWindow.loadFile('index.html');
 
+  mainWindow.webContents.on('did-navigate', (event, newUrl) => {
+    if(newUrl.includes('code=')){
+      console.log(newUrl.toString());
+      mainWindow.loadFile('index.html');
+    }
+  })
 }
 
 app.on('ready', createWindow);
 
+//Exit listener.
 app.on('web-contents-created', (e, contents) => {
   contents.on('will-navigate', (event, navigationUrl) => {
     if (navigationUrl.endsWith('exit.html')) {
       app.quit();
     }
   })
-});
-
-app.on('ready', () => {
-  launcher_folder();
 });
 
 //Expose method through ipc to renderer thread.
@@ -56,6 +58,12 @@ app.on('ready', () => {
   ipcMain.handle('checkMinecraft',(event,item)=>{
     return checkMinecraft(item);
   })
+  ipcMain.handle('updateMCI',()=>{
+    return updateMCI();
+  })
+  ipcMain.handle('checkFinish',(event,item)=>{
+    return checkFinish(item);
+  })
 })
 
 //Check setting in config profile.
@@ -64,9 +72,6 @@ function launcher_folder(){
   if (!mapleFolderExists) {
     fs.mkdirSync(path.join(__dirname, 'Maple'));
     fs.writeFileSync(path.join(__dirname, 'Maple', 'setting.json'), '{}');
-  }
-  if(!checkSetting('version')){
-    writeSetting('version', 'beta_0.0.1');
   }
   if(!checkSetting('source_server')){
     writeSetting('source_server','https://proxy-gh.1l1.icu/https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/releases/download');
@@ -84,6 +89,22 @@ function launcher_folder(){
   }
   if(!checkSetting('version_name')){
     writeSetting("version_name",'1.12.2-Forge_14.23.5.2854-OptiFine_G5');
+  }
+  if(!checkSetting('accessToken')){
+    writeSetting("accessToken",'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+  }
+  if(!checkSetting('user_name')){
+    writeSetting('user_name','Traveller')
+  }
+  if(!checkSetting('uuid')){
+    writeSetting("uuid",genUUID());
+  }
+  var temp = screen.getPrimaryDisplay().size;
+  if(!checkSetting('width')){
+    writeSetting("width",temp.width);
+  }
+  if(!checkSetting('height')){
+    writeSetting("height",temp.height);
   }
 }
 
@@ -118,22 +139,43 @@ function checkSetting(key) {
   return value !== undefined && value !== null && value !== '';
 }
 
-//Download .minecraft.
+//Download .minecraft.7z.
 function download_environment() {
-  request(readSetting('source_server')+'/enviroment/default.minecraft.exe')
+  request(readSetting('source_server')+'/environment/default.minecraft.exe')
     .pipe(fs.createWriteStream('.minecraft.exe'))
     .on('finish', function () {
       console.log('Download completed.');
-      extract_environment();
+      getPath().then(() => extractArchive());
     });
 }
 
 //Extract .minecraft.7z.
-function extract_environment() {
-  const { spawn } = require('child_process');
+const selfExtractingArchivePath = './.minecraft.exe';
+let destinationPath;
 
-  const selfExtractingArchivePath = './.minecraft.exe';
-  const destinationPath = './';
+async function getPath() {
+  destinationPath = await readSetting('minecraft_path');
+}
+
+async function checkFileAvailability(filePath) {
+  return new Promise((resolve, reject) => {
+    const checkFile = setInterval(() => {
+      if (fs.existsSync(filePath)) {
+        fs.access(filePath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
+          if (!err) {
+            clearInterval(checkFile);
+            resolve();
+          }
+        });
+      }
+    }, 1000);
+  });
+}
+
+async function extractArchive() {
+  await checkFileAvailability(selfExtractingArchivePath);
+  
+  destinationPath = destinationPath.replace('\\.minecraft','')
 
   const sevenZipSpawn = spawn(selfExtractingArchivePath, [
     '-y', 
@@ -151,8 +193,9 @@ function extract_environment() {
 
   sevenZipSpawn.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
+    fs.unlinkSync(selfExtractingArchivePath);
+    count = count -1;
   });
-
 }
 
 //Get java path.
@@ -246,10 +289,67 @@ function checkMinecraft(item){
     a=true;
   }
   if(item=="resource"){
-    a=false;
+    a=true;
   }
   if(item=="all"){
     a=checkMinecraft("minecraft")&&checkMinecraft("mod")&&checkMinecraft("map")&&checkMinecraft("resource");
   }
+  if(item=='count'){
+    var count = 0;
+    if(!checkMinecraft("minecraft")){count++;}
+    if(!checkMinecraft("mod")){count++;}
+    if(!checkMinecraft("map")){count++;}
+    if(!checkMinecraft("resource")){count++;}
+    return count;
+  }
   return a;
 }
+
+//Check if update finished.
+function checkFinish(item){
+  if(item=="minecraft"){
+    const minecraft_path = readSetting('minecraft_path');
+    const version_name = readSetting('version_name');
+    return (fs.existsSync(minecraft_path+'\\versions\\'+version_name+'\\'+version_name+'.jar'));
+  }
+}
+
+//Update MCI.
+
+var count = 114514;
+
+function updateMCI(){
+  count = checkMinecraft('count');
+  if(count!=0){
+    const listener = setInterval(() =>{
+      if(count==0){
+        if(checkMinecraft('all')){
+          let win = BrowserWindow.getAllWindows()[0];
+          win.reload();
+          clearInterval(listener);
+        }
+      }
+    }, 1000);
+  }
+  if(!checkMinecraft('minecraft')){
+    download_environment();
+  }
+  if(!checkMinecraft('mod')){}
+  if(!checkMinecraft('map')){}
+  if(!checkMinecraft('resource')){}
+}
+
+function genUUID(){
+  var uuid = '';
+  for(var i=0;i<32;i++){
+    uuid+=Math.floor(Math.random()*16).toString(16);
+  }
+  return uuid;
+}
+
+function getPath(){
+  return 'file:///'+path.join(__dirname,"index.html").replace(/\\/g,'/');
+}
+
+//妈的傻逼Electron蒸蒸日上
+//还有你，Oauth2

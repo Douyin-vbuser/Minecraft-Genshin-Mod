@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld(
     writeSetting: (key, value) => ipcRenderer.invoke('writeSetting', key, value),
     readSetting: key => ipcRenderer.invoke('readSetting', key),
     checkSetting: key => ipcRenderer.invoke('checkSetting', key),
-    checkMinecraft: (item) => ipcRenderer.invoke('checkMinecraft',item)
+    checkMinecraft: (item) => ipcRenderer.invoke('checkMinecraft',item),
+    updateMCI: () => ipcRenderer.invoke('updateMCI'),
+    checkFinish: (item) => ipcRenderer.invoke('checkFinish',item)
   }
 );
