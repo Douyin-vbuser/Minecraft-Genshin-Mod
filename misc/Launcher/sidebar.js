@@ -77,7 +77,6 @@ function renderStart() {
 
 //Renderer Download page.
 function renderDownload() {
-    setInterval.disabled = true;
     mainContent.innerHTML = '';
 
     //Render:
@@ -126,10 +125,13 @@ function renderDownload() {
     button.style.fontSize = '30px';
     button.style.border = 'none';
     button.style.borderRadius = '5px';
+    button.disabled = false;
 
     mainContent.appendChild(button);
 
     //Event:
+    var intervalId;
+
     async function necessaryUpdate() {
         var isAllUpdated = await window.electronAPI.checkMinecraft("all");
         if (!isAllUpdated) {
@@ -137,7 +139,7 @@ function renderDownload() {
             count();
         } else {
             button.style.display = 'none';
-            intervalId.disabled = true;
+            clearInterval(intervalId);
         }
     }
     necessaryUpdate();
@@ -147,33 +149,52 @@ function renderDownload() {
         window.electronAPI.updateMCI();
         button.disabled = true;
         button.textContent = '更新中...';
-        intervalId.disabled = false;
+        intervalId = setInterval(function () {
+            if (download_left != 0) {
+                if (window.electronAPI.checkFinish('minecraft')) {
+                    download_left--;
+                    if(download_left==0){
+                        count();
+                        intervalId=null;
+                    }
+                }
+                if(window.electronAPI.checkFinish('mod')){
+                    download_left--;
+                    if(download_left==0){
+                        count();
+                        intervalId=null;
+                    }
+                }
+                if(window.electronAPI.checkFinish('map')){
+                    download_left--;
+                    if(download_left==0){
+                        count();
+                        intervalId=null;
+                    }
+                }
+                if(window.electronAPI.checkFinish('resource')){
+                    download_left--;
+                    if(download_left==0){
+                        count();
+                        intervalId=null;
+                    }
+                }
+                if(button.disabled){
+                    button.textContent = '更新中...';
+                    button.disabled = true;
+                }
+            }
+        }, 1000);
         count();
     });
 
     async function count() {
         download_left = await window.electronAPI.checkMinecraft('count');
         if (download_left == 0) {
-            clearInterval(intervalId);
-            renderDownload();
+            intervalId=null;
+            //renderDownload();
         }
     }
-
-    var intervalId = setInterval(function () {
-        if (download_left != 0) {
-            if (window.electronAPI.checkFinish('minecraft')) {
-                download_left--;
-                if(download_left==0){
-                    count();
-                    clearInterval(intervalId);
-                }
-            }
-            if(button.disabled){
-                button.textContent = '更新中...';
-                button.disabled = true;
-            }
-        }
-    }, 1000);
 }
 
 async function renderDownload2() {

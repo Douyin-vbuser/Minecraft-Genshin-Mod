@@ -5,6 +5,9 @@ const fs = require('fs');
 const axios = require('axios');
 const { spawn } = require('child_process');
 const os = require('os');
+const crypto = require('crypto');
+
+const launcher_version = 'beta 0.0.1';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -23,10 +26,24 @@ function createWindow() {
       console.log(newUrl.toString());
       mainWindow.loadFile('index.html');
     }
-  })
+  });
+
+  checkLauncherUpdate();
 }
 
-app.on('ready', createWindow);
+//Ready event.
+app.on('ready', () => {
+  launcher_folder();
+  if(!fs.existsSync(path.join(__dirname, 'Maple'))){
+    fs.mkdirSync(path.join(__dirname, 'Maple'));
+  }
+  request(readSetting('source_server') + '/version-check/version_check.json')
+    .pipe(fs.createWriteStream('Maple\\version_check.json'))
+    .on('finish', function () {
+      console.log('Download completed.');
+      createWindow();
+    });
+});
 
 //Exit listener.
 app.on('web-contents-created', (e, contents) => {
@@ -64,7 +81,17 @@ app.on('ready', () => {
   ipcMain.handle('checkFinish',(event,item)=>{
     return checkFinish(item);
   })
-})
+});
+
+//Update launcher.
+app.on('quit', () => {
+  const mapleExists = fs.existsSync(path.join(__dirname, 'Maple', 'Maple.exe'));
+  if (mapleExists) {
+    setTimeout(() => {
+      fs.copyFileSync(path.join(__dirname, 'Maple.exe'), path.join(__dirname, 'Maple', 'Maple.exe'));
+    })
+  }
+});
 
 //Check setting in config profile.
 function launcher_folder(){
@@ -145,7 +172,7 @@ function download_environment() {
     .pipe(fs.createWriteStream('.minecraft.exe'))
     .on('finish', function () {
       console.log('Download completed.');
-      getPath().then(() => extractArchive());
+      getPath1().then(() => extractArchive());
     });
 }
 
@@ -153,7 +180,7 @@ function download_environment() {
 const selfExtractingArchivePath = './.minecraft.exe';
 let destinationPath;
 
-async function getPath() {
+async function getPath1() {
   destinationPath = await readSetting('minecraft_path');
 }
 
@@ -274,32 +301,41 @@ function launchMinecraft(version_name,uuid,user_name,width,height,accessToken,mi
   })
 }
 
+//Analyze versionCheck.
+function analyze_versionCheck(item) {
+  data =JSON.parse(fs.readFileSync(path.join(__dirname, 'Maple', 'version_check.json')));
+  return data[item];
+}
+
 //Check if config is set.
-function checkMinecraft(item){
+function checkMinecraft(item) {
   var a = false;
-  if(item=="minecraft"){
+  if (item == "minecraft") {
     const minecraft_path = readSetting('minecraft_path');
     const version_name = readSetting('version_name');
-    a = (fs.existsSync(minecraft_path+'\\versions\\'+version_name+'\\'+version_name+'.jar'));
+    a = (fs.existsSync(minecraft_path + "\\versions\\"+version_name+ "\\"+version_name+'.jar'));
   }
-  if(item=="mod"){
-    a=true;
+  if (item == "mod" || item == "map" || item == "resource") {
+    a = analyze_versionCheck(item) == checkSHA(item);
   }
-  if(item=="map"){
-    a=true;
+  if(item=="launcher"){
+    a = analyze_versionCheck(item)==launcher_version;
   }
-  if(item=="resource"){
-    a=true;
+  if (item == "all") {
+    if(checkMinecraft('minecraft')){
+      a = checkMinecraft('mod') && checkMinecraft('map') && checkMinecraft('resource');
+    };
   }
-  if(item=="all"){
-    a=checkMinecraft("minecraft")&&checkMinecraft("mod")&&checkMinecraft("map")&&checkMinecraft("resource");
-  }
-  if(item=='count'){
+  if (item == 'count') {
     var count = 0;
-    if(!checkMinecraft("minecraft")){count++;}
-    if(!checkMinecraft("mod")){count++;}
-    if(!checkMinecraft("map")){count++;}
-    if(!checkMinecraft("resource")){count++;}
+    if (checkMinecraft('minecraft')) {
+      if (!checkMinecraft("minecraft")) { count++; }
+      if (!checkMinecraft("mod")) { count++; }
+      if (!checkMinecraft("map")) { count++; }
+      if (!checkMinecraft("resource")) { count++; }
+    }else{
+      count = 4;
+    }
     return count;
   }
   return a;
@@ -322,6 +358,7 @@ function updateMCI(){
   count = checkMinecraft('count');
   if(count!=0){
     const listener = setInterval(() =>{
+      count = checkMinecraft('count');
       if(count==0){
         if(checkMinecraft('all')){
           let win = BrowserWindow.getAllWindows()[0];
@@ -339,6 +376,7 @@ function updateMCI(){
   if(!checkMinecraft('resource')){}
 }
 
+//Generate UUID.
 function genUUID(){
   var uuid = '';
   for(var i=0;i<32;i++){
@@ -347,8 +385,66 @@ function genUUID(){
   return uuid;
 }
 
-function getPath(){
-  return 'file:///'+path.join(__dirname,"index.html").replace(/\\/g,'/');
+//Check version.
+function checkVersion(item){
+  var mod_path;
+  if(item=="mod"){
+    mod_path = path.join(readSetting('minecraft_path'),'versions','mods');
+  }
+  if(item=="map"){
+    mod_path = path.join(readSetting('minecraft_path'),'versions','saves','Teyvat');
+  }
+  if(item=="resource"){
+    mod_path = path.join(readSetting('minecraft_path'),'versions','resourcepacks','MCI');
+  }
+  return mod_path;
+}
+
+function calculateDirectorySHA256(dirPath) {
+  const sha256 = crypto.createHash('sha256');
+  
+  let totalHash = '';
+  
+  if(!fs.existsSync(dirPath)){
+    return 'null';
+  }
+  fs.readdirSync(dirPath).forEach((fileName) => {
+    const filePath = path.join(dirPath, fileName);
+    
+    if (fs.lstatSync(filePath).isFile()) {
+      const fileBuffer = fs.readFileSync(filePath);
+      const fileHash = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+      
+      totalHash += fileHash;
+    }
+  });
+
+  sha256.update(totalHash);
+  const directoryHash = sha256.digest('hex');
+  
+  return directoryHash;
+}
+
+function checkSHA(item) {
+  var mod_path = checkVersion(item);
+  
+  return calculateDirectorySHA256(mod_path);
+}
+
+//Download latest launcher.
+function checkLauncherUpdate(){
+  if(!fs.existsSync(path.join(__dirname,'Maple', 'version_check.json'))){
+    launcher_folder();
+    setTimeout(checkLauncherUpdate, 1000);
+  } else {
+    if (!checkMinecraft('launcher')) {
+      request(readSetting('source_server') + '/launcher/Maple.exe')
+        .pipe(fs.createWriteStream('Maple\\Maple.exe'))
+        .on('finish', function () {
+          console.log('Download completed.');
+        });
+    }
+  }
 }
 
 //妈的傻逼Electron蒸蒸日上
