@@ -26,6 +26,7 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     private boolean pre_moving;
     private double x,y,z;
 
+    @SuppressWarnings("all")
     public FakePlayer(World worldIn){
         super(worldIn);
         if(Minecraft.getMinecraft().player==null) {
@@ -59,9 +60,6 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
                 if (input.equals(Vec2f.ZERO)) {
-                    if (!pre_moving) {
-                        yaw_temp = player.rotationYawHead;
-                    }
                     rotationYaw = yaw_temp;
                     pre_moving = false;
                 } else {

@@ -1,6 +1,6 @@
 {
   "variants":{
-    "picked=false": {"model": "genshin:mo_gu"},
-    "picked=true": {"model": "genshin:air"}
+    "picked=1": {"model": "genshin:mo_gu"},
+    "picked=0": {"model": "genshin:air"}
   }
 }

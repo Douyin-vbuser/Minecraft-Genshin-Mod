@@ -1,6 +1,6 @@
 {
   "variants":{
-    "picked=false": {"model": "genshin:sai_xi_li_ya_hua"},
-    "picked=true": {"model": "genshin:air"}
+    "picked=1": {"model": "genshin:sai_xi_li_ya_hua"},
+    "picked=0": {"model": "genshin:air"}
   }
 }

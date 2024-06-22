@@ -6,7 +6,7 @@ import com.vbuser.movement.entity.FakePlayer;
 import com.vbuser.movement.entity.render.FakePlayerRender;
 import com.vbuser.movement.event.CameraTrack;
 import com.vbuser.movement.event.PlayerListener;
-import com.vbuser.movement.event.TS_TN;
+import com.vbuser.movement.network.TS_TN;
 import com.vbuser.movement.network.PacketCameraTrack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;

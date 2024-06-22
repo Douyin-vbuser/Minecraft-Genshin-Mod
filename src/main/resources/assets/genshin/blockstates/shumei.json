@@ -1,8 +1,8 @@
 {
   "variants":{
-    "count=1": {"model": "genshin:shumei_0"},
-    "count=2": {"model": "genshin:shumei_1"},
-    "count=3": {"model": "genshin:shumei_2"},
-    "count=4": {"model": "genshin:shumei_3"}
+    "count=0": {"model": "genshin:shumei_0"},
+    "count=1": {"model": "genshin:shumei_1"},
+    "count=2": {"model": "genshin:shumei_2"},
+    "count=3": {"model": "genshin:shumei_3"}
   }
 }

@@ -153,6 +153,8 @@ item.tian_tian_hua_niang_ji_good.name=美味的甜甜花酿鸡
 item.tian_tian_hua_niang_ji.name=甜甜花酿鸡
 item.tian_tian_hua_niang_ji_bad.name=奇怪的甜甜花酿鸡
 
+item.debug_stick.name=调试棒
+
 genshin.dj=等级
 genshin.jy=经验
 genshin.sm=生命值
@@ -178,6 +180,12 @@ genshin.yk=岩元素伤害抗性
 genshin.bnk=冰元素伤害抗性
 genshin.wk=物理伤害抗性
 genshin.ck=草元素伤害抗性
+
+genshin.syw.t=理之冠
+genshin.syw.b=空之杯
+genshin.syw.s=时之沙
+genshin.syw.h=生之花
+genshin.syw.m=死之羽
 
 key.category.genshin=原神模组
 
@@ -205,3 +213,4 @@ tile.huo_ju.name=火炬
 tile.ban.name=禁止方块
 tile.pre_stone.name=预设红石块
 tile.deng.name=灯
+tile.xian_ling_zhi_ting.name=仙灵之庭

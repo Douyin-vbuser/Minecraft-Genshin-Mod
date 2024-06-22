@@ -2,6 +2,7 @@ package com.vbuser.movement.event;
 
 import com.vbuser.movement.Movement;
 import com.vbuser.movement.Storage;
+import com.vbuser.movement.network.TS_TN;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -35,7 +36,7 @@ public class CameraTrack {
             if(current_time >= last_time){
                 Storage.is_performing = false;
                 current_time=0;last_time=0;
-                Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
+                //Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
                 Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(),true));
             }
         }
@@ -53,7 +54,6 @@ public class CameraTrack {
 
             Objects.requireNonNull(Minecraft.getMinecraft().getRenderViewEntity()).setPositionAndUpdate(current_x, current_y, current_z);
             Minecraft.getMinecraft().getRenderViewEntity().rotationYaw = current_yaw;
-            Minecraft.getMinecraft().getRenderViewEntity().rotationPitch = 0;
 
             current_time++;
         }

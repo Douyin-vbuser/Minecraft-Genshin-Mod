@@ -1,4 +1,4 @@
-package com.vbuser.movement.event;
+package com.vbuser.movement.network;
 
 import com.vbuser.movement.Storage_s;
 import io.netty.buffer.ByteBuf;

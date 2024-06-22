@@ -29,13 +29,13 @@ import java.util.Random;
 import static com.vbuser.inventory.CustomInventory.addItem;
 
 @SuppressWarnings("all")
-public class FlowerBase extends Block implements IHasModel {
+public class PlantBase extends Block implements IHasModel {
 
-    public static PropertyInteger PICKED = PropertyInteger.create("picked", 0, 1);
+    public static PropertyInteger PICKED = PropertyInteger.create("count", 0, 3);
 
     private String item;
 
-    public FlowerBase(String name, String item) {
+    public PlantBase(String name, String item) {
         super(Material.GRASS);
         setUnlocalizedName(name);
         setRegistryName(name);
@@ -45,7 +45,7 @@ public class FlowerBase extends Block implements IHasModel {
         setSoundType(SoundType.PLANT);
         this.item = "genshin:" + item;
 
-        setDefaultState(getDefaultState().withProperty(PICKED, 1));
+        setDefaultState(getDefaultState().withProperty(PICKED, 3));
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
@@ -85,12 +85,12 @@ public class FlowerBase extends Block implements IHasModel {
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return 1 - state.getValue(PICKED);
+        return 3 - state.getValue(PICKED);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(PICKED, 1 - meta);
+        return getDefaultState().withProperty(PICKED, 3 - meta);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class FlowerBase extends Block implements IHasModel {
         int range = 30;
         int playerCount = worldIn.getEntitiesWithinAABB(EntityPlayer.class,new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range))).size();
         if (playerCount == 0 && worldIn.getBlockState(pos).getValue(PICKED)==0) {
-            worldIn.setBlockState(pos,getDefaultState().withProperty(PICKED,1));
+            worldIn.setBlockState(pos,getDefaultState().withProperty(PICKED,3));
         }
         worldIn.scheduleUpdate(pos,this,1000);
     }
@@ -111,8 +111,8 @@ public class FlowerBase extends Block implements IHasModel {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            if (state.getValue(PICKED) == 1) {
-                addItem(playerIn.getUniqueID(), Item.getByNameOrId(item), 1);
+            if (state.getValue(PICKED) == 3) {
+                addItem(playerIn.getUniqueID(), Item.getByNameOrId(item), 3);
                 worldIn.setBlockState(pos, state.withProperty(PICKED, 0));
             }
         }

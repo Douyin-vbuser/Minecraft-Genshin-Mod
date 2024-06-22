@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        maven { url = 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         mavenCentral()
     }
@@ -13,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'com.vbuser.genshin' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.vbuser.genshin'
 archivesBaseName = 'genshin'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.

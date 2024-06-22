@@ -4,10 +4,10 @@ import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static net.minecraft.block.Block.FULL_BLOCK_AABB;
 
@@ -30,7 +31,6 @@ public class PlayerListener {
         FakePlayer fakePlayer = new FakePlayer(event.player.getEntityWorld(),event.player.getUniqueID());
         event.player.world.spawnEntity(fakePlayer);
         Storage_s.renderer.put(event.player,fakePlayer);
-        climbMap.put(event.player.getUniqueID().toString(),0);
     }
 
     @SubscribeEvent
@@ -38,7 +38,6 @@ public class PlayerListener {
         Storage_s.normal.remove(event.player);
         event.player.world.removeEntity(Storage_s.renderer.get(event.player));
         Storage_s.renderer.remove(event.player);
-        climbMap.remove(event.player.getUniqueID().toString());
     }
 
     @SubscribeEvent
@@ -50,8 +49,6 @@ public class PlayerListener {
 
     int y;
     final double wv = 0.11785904894762855,sv = 0.15321675646360336;
-    final double jv = sv;
-    final double ja = 0.1;
 
     @SubscribeEvent
     public void inWater(TickEvent.PlayerTickEvent event) {
@@ -65,11 +62,9 @@ public class PlayerListener {
                 y = pos.getY();
                 moveInWater(player,false);
             } else if (waterDepth >= 2) {
-                if (!world.isAirBlock(pos.down())) {
-                    player.setPosition(player.posX, y+0.15, player.posZ);
-                }
                 moveInWater(player,true);
             }
+            player.setPosition(player.posX, y+0.15, player.posZ);
         }
     }
 
@@ -101,148 +96,97 @@ public class PlayerListener {
 
     //Climbing logic:
 
-    private static final Map<String,Integer> climbMap = new HashMap<>();
-    private static final Map<String,Integer> timerMap = new HashMap<>();
-    private static final Map<String,Integer> facingMap = new HashMap<>();
+    public static Map<UUID,Boolean> climbMap = new HashMap<>();
+    public static Map<UUID,Double> yMap = new HashMap<>();
 
-    @SubscribeEvent
-    private void climb(TickEvent.PlayerTickEvent event){
-        EntityPlayer player =  event.player;
-        if(player.moveForward!=0 || player.moveStrafing!=0){
-            int state = climbMap.get(player.getUniqueID().toString());
-            if(state==0){
-                detect(event);
-            }
-            if(state==1){
-                if(timerMap.get(player.getUniqueID().toString())>0){
-                    jump(event);
-                    timerMap.put(player.getUniqueID().toString(),timerMap.get(player.getUniqueID().toString())-1);
-                }
-                else{
-                    climbMap.put(player.getUniqueID().toString(),2);
-                }
-            }
-            if(state==2){
-                listen(event);
-            }
-            if(state==3){
-                if(timerMap.get(player.getUniqueID().toString())>0){
-                    endClimb(event);
-                    timerMap.put(player.getUniqueID().toString(),timerMap.get(player.getUniqueID().toString())-1);
-                }
-                else{
-                    climbMap.put(player.getUniqueID().toString(),0);
-                }
-            }
+    private boolean climbOK(EntityPlayer player,BlockPos pos){
+        Block block = player.world.getBlockState(pos).getBlock();
+        return block.getDefaultState().isFullBlock() && block.getDefaultState().getCollisionBoundingBox(player.world, pos) == FULL_BLOCK_AABB && block != Blocks.BARRIER;
+    }
+
+    private boolean inJump(EntityPlayer player){
+        return player.world.getBlockState(new BlockPos(player.posX,player.posY-0.2,player.posZ)).getBlock().equals(Blocks.AIR);
+    }
+
+    public static IntArray detectFacing(EntityPlayer player,boolean includeMotion){
+        double yaw = includeMotion? getYaw(player) : player.rotationYawHead;
+        if(yaw >-45&& yaw <=45){
+            return new IntArray(2);
+        } else if(yaw >45&& yaw <=135) {
+            return new IntArray(3);
+        } else if(yaw >-135&& yaw <=-45){
+            return new IntArray(1);
+        } else{
+            return new IntArray(4);
         }
     }
 
-    public void detect(TickEvent.PlayerTickEvent event){
+    public static double getYaw(EntityPlayer player){
+        Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
+        double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
+        return (player.rotationYawHead - delta)%360;
+    }
+
+    @SubscribeEvent
+    public void climbMainMethod(TickEvent.PlayerTickEvent event){
         EntityPlayer player = event.player;
-        double moveYaw = ((player.rotationYawHead+Math.atan2(player.moveStrafing,player.moveForward)%360)*Math.PI/360);
-        BlockPos pos = new BlockPos(player.posX,player.posY,player.posZ);
-        BlockPos pos1 = new BlockPos(pos.getX(), pos.getY(), pos.getZ()+(Math.cos(moveYaw)>0?0.4:-0.4));
-        BlockPos pos2 = new BlockPos(pos.getX()+Math.sin(moveYaw)>0?0.4:-0.4,pos.getY(),pos.getZ());
-        if(Math.abs(Math.tan(moveYaw))>1){
-            if(judgeBlock(player,pos1) && judgeBlock(player,pos1.up())){
-                climbMap.put(player.getUniqueID().toString(),1);
-                facingMap.put(player.getUniqueID().toString(),(Math.sin(moveYaw)>0) ?1:3);
-                timerMap.put(player.getUniqueID().toString(),15);
-                player.rotationYawHead = facingMap.get(player.getUniqueID().toString())*90;
-                player.motionX = Math.cos(player.rotationYawHead /180 *Math.PI)*wv;
-                player.motionZ = Math.sin(player.rotationYawHead /180 *Math.PI)*wv;
-            }
+        if(!climbMap.containsKey(player.getUniqueID())){
+            climbMap.put(player.getUniqueID(),false);
         }
-        else{
-            if(judgeBlock(player,pos2) && judgeBlock(player,pos2.up())){
-                climbMap.put(player.getUniqueID().toString(),1);
-                facingMap.put(player.getUniqueID().toString(),(Math.cos(moveYaw)>0 ?0:2));
-                timerMap.put(player.getUniqueID().toString(),15);
-                player.rotationYawHead = facingMap.get(player.getUniqueID().toString())*90;
-                player.motionX = Math.cos(player.rotationYawHead /180 *Math.PI)*wv;
-                player.motionZ = Math.sin(player.rotationYawHead /180 *Math.PI)*wv;
+        if(player.moveForward != 0 || player.moveStrafing != 0){
+            IntArray intArray = detectFacing(player,!climbMap.get(player.getUniqueID()));
+            BlockPos pos = new BlockPos(player.posX+intArray.getX(), player.posY, player.posZ+ intArray.getZ());
+            performClimb(player,pos,intArray);
+        }
+        if(player.moveForward==0 && player.moveStrafing==0){
+            if(climbMap.get(player.getUniqueID())) {
+                if(yMap.containsKey(player.getUniqueID()))player.setPosition(player.posX, yMap.get(player.getUniqueID()), player.posZ);
+            }
+        } else{
+            yMap.put(player.getUniqueID(),player.posY);
+        }
+    }
+
+    public void performClimb(EntityPlayer player,BlockPos pos,IntArray intArray){
+        if(!climbMap.get(player.getUniqueID())){
+            if((climbOK(player, pos)) && climbOK(player, pos.up())){
+                if(climbOK(player,pos.up(2))&&inJump(player)){
+                    climbMap.put(player.getUniqueID(),true);
+                }else if(inJump(player)){
+                    jumpOver(player,intArray);
+                }
+            }
+        }else{
+            if(climbOK(player,pos)&&climbOK(player,pos.up())){
+                if(climbOK(player,pos.up(2))){
+                    if(!inJump(player)){
+                        climbMap.put(player.getUniqueID(),false);
+                    }else{
+                        if(intArray.getX()>0){
+                            player.motionY = wv*player.moveForward;
+                            player.motionZ = wv*player.moveStrafing*-0.6;
+                        }else if(intArray.getX()<0){
+                            player.motionY = wv*player.moveForward;
+                            player.motionZ = wv*player.moveStrafing*0.6;
+                        }else if(intArray.getZ()>0){
+                            player.motionY = wv*player.moveForward;
+                            player.motionX = wv*player.moveStrafing*0.6;
+                        }else{
+                            player.motionY = wv*player.moveForward;
+                            player.motionX = wv*player.moveStrafing*-0.6;
+                        }
+                        player.motionY = Math.max(player.motionY,0);
+                    }
+                }else{
+                    jumpOver(player,intArray);
+                }
+            }else{
+                climbMap.put(player.getUniqueID(),false);
             }
         }
     }
 
-    public boolean judgeBlock(EntityPlayer player,BlockPos pos){
-        World world = player.world;
-        Block block = world.getBlockState(pos).getBlock();
-        return block.getDefaultState().isFullBlock() && block.getDefaultState().getCollisionBoundingBox(world, pos) == FULL_BLOCK_AABB && block != Blocks.BARRIER;
-    }
+    public void jumpOver(EntityPlayer player,IntArray intArray){
 
-    public void jump(TickEvent.PlayerTickEvent event){
-        EntityPlayer player =  event.player;
-        player.motionY = jv - timerMap.get(player.getUniqueID().toString())*ja;
-        Storage_s.renderer.get(player).rotationYaw=facingMap.get(player.getUniqueID().toString());
-        player.motionX=0;
-        player.motionZ=0;
-    }
-
-    public void endClimb(TickEvent.PlayerTickEvent event){
-        EntityPlayer player =  event.player;
-        if(timerMap.get(player.getUniqueID().toString())>0) {
-            player.motionY = timerMap.get(player.getUniqueID().toString()) * 0.1;
-            int a = facingMap.get(player.getUniqueID().toString());
-            if(a==0)player.motionX = 0.1;
-            if(a==1)player.motionZ = 0.1;
-            if(a==2)player.motionX = -0.1;
-            if(a==3)player.motionZ = -0.1;
-        }
-    }
-
-    public void listen(TickEvent.PlayerTickEvent event){
-        EntityPlayer player =  event.player;
-        if(facingMap.get(player.getUniqueID().toString())==0){
-            player.motionY = 0.8*wv*player.moveForward/0.98;
-            player.motionZ = 0.8*wv*player.moveStrafing/0.98;
-            player.motionX = 0;
-            BlockPos pos = new BlockPos(player);
-            if(!judgeBlock(player,(new BlockPos(pos.getX()+1,pos.getY()+1,pos.getZ())))){
-                climbMap.put(player.getUniqueID().toString(),3);
-                timerMap.put(player.getUniqueID().toString(),20);
-            }
-        }
-        if(facingMap.get(player.getUniqueID().toString())==2){
-            player.motionY = 0.8*wv*player.moveForward/0.98;
-            player.motionZ = -0.8*wv*player.moveStrafing/0.98;
-            player.motionX = 0;
-            BlockPos pos = new BlockPos(player);
-            if(!judgeBlock(player,(new BlockPos(pos.getX()-1,pos.getY()+1,pos.getZ())))){
-                climbMap.put(player.getUniqueID().toString(),3);
-                timerMap.put(player.getUniqueID().toString(),20);
-            }
-        }
-        if(facingMap.get(player.getUniqueID().toString())==1){
-            player.motionY = 0.8*wv*player.moveForward/0.98;
-            player.motionX = 0.8*wv*player.moveStrafing/0.98;
-            player.motionZ = 0;
-            BlockPos pos = new BlockPos(player);
-            if(!judgeBlock(player,(new BlockPos(pos.getX(),pos.getY()+1,pos.getZ()+1)))){
-                climbMap.put(player.getUniqueID().toString(),3);
-                timerMap.put(player.getUniqueID().toString(),20);
-            }
-        }
-        if(facingMap.get(player.getUniqueID().toString())==3){
-            player.motionY = 0.8*wv*player.moveForward/0.98;
-            player.motionX = -0.8*wv*player.moveStrafing/0.98;
-            player.motionZ = 0;
-            BlockPos pos = new BlockPos(player);
-            if(!judgeBlock(player,(new BlockPos(pos.getX(),pos.getY()+1,pos.getZ()-1)))){
-                climbMap.put(player.getUniqueID().toString(),3);
-                timerMap.put(player.getUniqueID().toString(),20);
-            }
-        }
-    }
-
-    //Remember to remove the method below in release version:
-
-    @SubscribeEvent
-    public void tickCheck(TickEvent.ClientTickEvent event){
-        EntityPlayer player = Minecraft.getMinecraft().player;
-        if(player!=null) {
-            String message = "v=" + Math.sqrt(Math.pow(player.motionX, 2) + Math.pow(player.motionZ, 2)) + "m/s";
-            Minecraft.getMinecraft().ingameGUI.setOverlayMessage(message, false);
-        }
     }
 }
