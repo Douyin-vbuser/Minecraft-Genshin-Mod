@@ -64,7 +64,6 @@ public class PlayerListener {
             } else if (waterDepth >= 2) {
                 moveInWater(player,true);
             }
-            player.setPosition(player.posX, y+0.15, player.posZ);
         }
     }
 
@@ -91,13 +90,25 @@ public class PlayerListener {
             double v = (player.isSprinting() ? sv : wv) * (deep ? 0.8 : 1);
             player.motionX = Math.cos(movementInput) * v;
             player.motionZ = Math.sin(movementInput) * v;
+            IntArray intArray = detectFacing(player,!climbMap.get(player.getUniqueID()));
+            BlockPos pos = new BlockPos(player.posX+intArray.getX(), player.posY, player.posZ+ intArray.getZ());
+            if(climbOK(player,pos)){
+                jumpCountdown.put(player.getUniqueID(),20);
+                jumpOver(player,intArray,0.15f);
+            }else{
+                player.setPosition(player.posX, y+0.15, player.posZ);
+            }
+        }else{
+            player.setPosition(player.posX, y+0.15, player.posZ);
         }
     }
 
     //Climbing logic:
 
     public static Map<UUID,Boolean> climbMap = new HashMap<>();
-    public static Map<UUID,Double> yMap = new HashMap<>();
+    public static Map<UUID,PrecisePos> posMap = new HashMap<>();
+    public static Map<UUID,IntArray> stateMap = new HashMap<>();
+    public static Map<UUID,Integer> jumpCountdown = new HashMap<>();
 
     private boolean climbOK(EntityPlayer player,BlockPos pos){
         Block block = player.world.getBlockState(pos).getBlock();
@@ -109,7 +120,7 @@ public class PlayerListener {
     }
 
     public static IntArray detectFacing(EntityPlayer player,boolean includeMotion){
-        double yaw = includeMotion? getYaw(player) : player.rotationYawHead;
+        double yaw = includeMotion? getYaw(player) : getClimbYaw(player);
         if(yaw >-45&& yaw <=45){
             return new IntArray(2);
         } else if(yaw >45&& yaw <=135) {
@@ -121,10 +132,29 @@ public class PlayerListener {
         }
     }
 
+    public static double getClimbYaw(EntityPlayer player){
+        IntArray intArray = stateMap.get(player.getUniqueID());
+        if(intArray.getX()==0.35f){
+            return -90d;
+        }else if(intArray.getX()==-0.35f){
+            return 90d;
+        }else{
+            if(intArray.getZ()==0.35f){
+                return 0d;
+            }else{
+                return 180d;
+            }
+        }
+    }
+
     public static double getYaw(EntityPlayer player){
         Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
         double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
         return (player.rotationYawHead - delta)%360;
+    }
+
+    public static boolean isMoving(EntityPlayer player){
+        return player.moveStrafing != 0 || player.moveForward != 0;
     }
 
     @SubscribeEvent
@@ -133,6 +163,10 @@ public class PlayerListener {
         if(!climbMap.containsKey(player.getUniqueID())){
             climbMap.put(player.getUniqueID(),false);
         }
+        if(!stateMap.containsKey(player.getUniqueID())){
+            stateMap.put(player.getUniqueID(),new IntArray(114514));
+        }
+        player.setNoGravity(climbMap.get(player.getUniqueID())&&!isMoving(player));
         if(player.moveForward != 0 || player.moveStrafing != 0){
             IntArray intArray = detectFacing(player,!climbMap.get(player.getUniqueID()));
             BlockPos pos = new BlockPos(player.posX+intArray.getX(), player.posY, player.posZ+ intArray.getZ());
@@ -140,10 +174,10 @@ public class PlayerListener {
         }
         if(player.moveForward==0 && player.moveStrafing==0){
             if(climbMap.get(player.getUniqueID())) {
-                if(yMap.containsKey(player.getUniqueID()))player.setPosition(player.posX, yMap.get(player.getUniqueID()), player.posZ);
+                if(posMap.containsKey(player.getUniqueID()))player.setPosition(posMap.get(player.getUniqueID()).getX(), posMap.get(player.getUniqueID()).getY(), posMap.get(player.getUniqueID()).getZ());
             }
         } else{
-            yMap.put(player.getUniqueID(),player.posY);
+            posMap.put(player.getUniqueID(),new PrecisePos(player));
         }
     }
 
@@ -152,8 +186,10 @@ public class PlayerListener {
             if((climbOK(player, pos)) && climbOK(player, pos.up())){
                 if(climbOK(player,pos.up(2))&&inJump(player)){
                     climbMap.put(player.getUniqueID(),true);
+                    stateMap.put(player.getUniqueID(),intArray);
                 }else if(inJump(player)){
-                    jumpOver(player,intArray);
+                    jumpCountdown.put(player.getUniqueID(),20);
+                    jumpOver(player,intArray,0.25f);
                 }
             }
         }else{
@@ -161,6 +197,7 @@ public class PlayerListener {
                 if(climbOK(player,pos.up(2))){
                     if(!inJump(player)){
                         climbMap.put(player.getUniqueID(),false);
+                        stateMap.put(player.getUniqueID(),new IntArray(114514));
                     }else{
                         if(intArray.getX()>0){
                             player.motionY = wv*player.moveForward;
@@ -178,15 +215,23 @@ public class PlayerListener {
                         player.motionY = Math.max(player.motionY,0);
                     }
                 }else{
-                    jumpOver(player,intArray);
+                    jumpCountdown.put(player.getUniqueID(),20);
+                    jumpOver(player,intArray,0.25f);
                 }
             }else{
                 climbMap.put(player.getUniqueID(),false);
+                stateMap.put(player.getUniqueID(),new IntArray(114514));
             }
         }
     }
 
-    public void jumpOver(EntityPlayer player,IntArray intArray){
+    public void jumpOver(EntityPlayer player,IntArray intArray,float param){
+        if(jumpCountdown.get(player.getUniqueID())>0) {
+            player.motionY = wv * param *jumpCountdown.get(player.getUniqueID());
+            player.motionZ = intArray.getZ() * 0.0030162615090425808;
+            player.motionX = intArray.getX() * 0.0030162615090425808;
 
+            jumpCountdown.put(player.getUniqueID(),jumpCountdown.get(player.getUniqueID())-1);
+        }
     }
 }
