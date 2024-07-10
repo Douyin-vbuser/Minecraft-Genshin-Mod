@@ -1,4 +1,4 @@
-package com.vbuser.inventory.database;
+package com.vbuser.database.operate;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -20,11 +20,11 @@ public class Update {
         List<Integer> rowsToUpdate = findRowsToUpdate(lines, conditions, headerMap);
 
         for (Integer rowIndex : rowsToUpdate) {
-            String[] row = lines.get(rowIndex).split("#");
+            String[] row = lines.get(rowIndex).split(">");
             for (int i = 0; i < columns.length; i++) {
                 row[headerMap.get(columns[i])] = values[i];
             }
-            lines.set(rowIndex, String.join("#", row));
+            lines.set(rowIndex, String.join(">", row));
         }
 
         writeLines(tableFile, lines);
@@ -43,7 +43,7 @@ public class Update {
 
     private static Map<String, Integer> parseHeader(String headerLine) {
         Map<String, Integer> headerMap = new HashMap<>();
-        String[] headers = headerLine.split("#");
+        String[] headers = headerLine.split(">");
         for (int i = 0; i < headers.length; i++) {
             headerMap.put(headers[i], i);
         }
@@ -53,7 +53,7 @@ public class Update {
     private static List<Integer> findRowsToUpdate(List<String> lines, String[] conditions, Map<String, Integer> headerMap) {
         List<Integer> rowsToUpdate = new ArrayList<>();
         for (int i = 1; i < lines.size(); i++) {
-            String[] row = lines.get(i).split("#");
+            String[] row = lines.get(i).split(">");
             if (matchesConditions(row, conditions, headerMap)) {
                 rowsToUpdate.add(i);
             }

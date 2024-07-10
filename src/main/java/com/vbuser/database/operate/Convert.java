@@ -1,4 +1,4 @@
-package com.vbuser.inventory.database;
+package com.vbuser.database.operate;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -57,14 +57,14 @@ public class Convert {
             while ((line = reader.readLine()) != null) {
                 if (isHeader) {
                     htmlBuilder.append("<tr>");
-                    for (String header : line.split("#")) {
+                    for (String header : line.split(">")) {
                         htmlBuilder.append("<th>").append(header).append("</th>");
                     }
                     htmlBuilder.append("</tr>");
                     isHeader = false;
                 } else {
                     htmlBuilder.append("<tr>");
-                    for (String data : line.split("#")) {
+                    for (String data : line.split(">")) {
                         htmlBuilder.append("<td>").append(data).append("</td>");
                     }
                     htmlBuilder.append("</tr>");

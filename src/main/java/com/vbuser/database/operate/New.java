@@ -1,4 +1,4 @@
-package com.vbuser.inventory.database;
+package com.vbuser.database.operate;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ public class New {
             for (int i = 0; i < columns.length; i++) {
                 writer.write(columns[i]);
                 if (i != columns.length - 1) {
-                    writer.write("#");
+                    writer.write(">");
                 }
             }
             writer.write("\n");
@@ -33,7 +33,7 @@ public class New {
         Map<String, Integer> columnIndices = new HashMap<>();
         try {
             String headerLine = new String(java.nio.file.Files.readAllBytes(new File(dataBase, "\\tables\\"+name + ".txt").toPath())).split("\n")[0];
-            String[] allColumns = headerLine.split("#");
+            String[] allColumns = headerLine.split(">");
             for (int i = 0; i < allColumns.length; i++) {
                 columnIndices.put(allColumns[i], i);
             }
@@ -47,9 +47,9 @@ public class New {
                             line.append(values[valueIndex]);
                         }
                     }
-                    line.append("#");
+                    line.append(">");
                 }
-                line.setLength(line.length() - "#".length());
+                line.setLength(line.length() - ">".length());
                 line.append(System.lineSeparator());
                 writer.write(line.toString());
             }

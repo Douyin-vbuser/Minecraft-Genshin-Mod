@@ -1,5 +1,6 @@
 package com.vbuser.genshin.blocks;
 
+import com.vbuser.database.DataBase;
 import com.vbuser.genshin.Main;
 import com.vbuser.genshin.init.ModBlocks;
 import com.vbuser.genshin.init.ModItems;
@@ -25,8 +26,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.Random;
-
-import static com.vbuser.inventory.CustomInventory.addItem;
 
 @SuppressWarnings("all")
 public class PlantBase extends Block implements IHasModel {
@@ -112,7 +111,7 @@ public class PlantBase extends Block implements IHasModel {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             if (state.getValue(PICKED) == 3) {
-                addItem(playerIn.getUniqueID(), Item.getByNameOrId(item), 3);
+                DataBase.addItem(Item.getByNameOrId(item),3, playerIn);
                 worldIn.setBlockState(pos, state.withProperty(PICKED, 0));
             }
         }

@@ -1,4 +1,4 @@
-package com.vbuser.inventory.database;
+package com.vbuser.database.operate;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ public class Select {
     private static final Map<String, Integer> columnIndices = new HashMap<>();
 
     private static void initColumnIndices(String headerLine) {
-        String[] headers = headerLine.split("#");
+        String[] headers = headerLine.split(">");
         for (int i = 0; i < headers.length; i++) {
             columnIndices.put(headers[i].trim(), i);
         }
@@ -25,7 +25,7 @@ public class Select {
             throw new IllegalStateException("Column indices have not been initialized.");
         }
 
-        String[] fields = line.split("#");
+        String[] fields = line.split(">");
         for (String condition : conditions) {
             String[] parts = condition.split("=");
             String columnName = parts[0].trim();

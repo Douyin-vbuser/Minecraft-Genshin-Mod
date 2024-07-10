@@ -1,4 +1,4 @@
-package com.vbuser.inventory.database;
+package com.vbuser.database.operate;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +46,7 @@ public class Console {
             New.insert(tableName, columns, values,dataBase);
         }
         else if(commands[0].equals("select") && commands[1].equals("*") && commands[2].equals("from")){
+            lock = false;
             String tableName = commands[3];
             Pattern wherePattern = Pattern.compile("where\\s+(.*)");
             Matcher whereMatcher = wherePattern.matcher(command);
@@ -53,7 +54,8 @@ public class Console {
             if (whereMatcher.find()) {
                 conditions = whereMatcher.group(1).split("and\\s+");
             }
-            Select.queryTable(dataBase, tableName, conditions);
+            results = Select.queryTable(dataBase, tableName, conditions).toArray(new String[0]);
+            lock = true;
         }
         else if(commands[0].equals("delete") && commands[1].equals("from")){
             String tableName = commands[2];
@@ -86,9 +88,26 @@ public class Console {
             Update.updateTable(dataBase, tableName, columnValues.keySet().toArray(new String[0]), columnValues.values().toArray(new String[0]), conditions);
         }
         else{
-            System.out.println("[!] Invalid command");
+            System.out.println("[!] Invalid command \\[ o_x ]/");
         }
     }
 
+    public static void setDataBase(File file){
+        dataBase = file;
+    }
+
     private static File dataBase;
+
+    private static String[] results = new String[0];
+    private static boolean lock = false;
+
+    public static String[] getResult() throws InterruptedException {
+        if(lock) {
+            lock = false;
+            return results;
+        }else{
+            Thread.sleep(50);
+            return getResult();
+        }
+    }
 }
