@@ -55,6 +55,7 @@ public class Convert {
             boolean isHeader = true;
 
             while ((line = reader.readLine()) != null) {
+                line = line.replace("@"," ");
                 if (isHeader) {
                     htmlBuilder.append("<tr>");
                     for (String header : line.split(">")) {

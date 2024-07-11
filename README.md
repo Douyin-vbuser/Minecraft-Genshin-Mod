@@ -54,17 +54,3 @@
 
 - [1.1] 世界任务的配音补齐
 - [1.2] 可视化低代码剧情制作(启动器)，用于征集现存剧情修订稿
-
-私货：
-```
-[15:50:24] [Client thread/INFO]: [CHAT] 回合：7/7
-[15:50:36] [Client thread/INFO]: [CHAT] 初窥门径 §b[MVP§d+§b] slepboii§f: L builder
-[15:50:42] [Client thread/INFO]: [CHAT] 建筑大师 §b[MVP§c+§b] ellieemiller§f: oh leave them alone
-[15:50:42] [Client thread/INFO]: [CHAT] 炉火纯青 §b[MVP§4+§b] SpookyEvent§f: ye im an L builder
-[15:50:45] [Client thread/INFO]: [CHAT] 初窥门径 §b[MVP§d+§b] slepboii§f: glasses
-[15:50:45] [Client thread/INFO]: [CHAT] 初窥门径 §7ratking344§7: go back to genshin impact
-[15:50:47] [Client thread/INFO]: [CHAT] 炉火纯青 §b[MVP§4+§b] SpookyEvent§f: glasses
-[15:50:56] [Client thread/INFO]: [CHAT] 初窥门径 §7ratking344§7: pointing
-[15:51:02] [Client thread/INFO]: [CHAT] 建筑大师 §b[MVP§c+§b] ellieemiller§f: why dont u go back to genshin impact
-[15:51:09] [Client thread/INFO]: [CHAT] 初窥门径 §b[MVP§d+§b] slepboii§f: profile
-```

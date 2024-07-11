@@ -36,6 +36,7 @@ public class OperateServer implements IMessage {
         public IMessage onMessage(OperateServer message, MessageContext ctx) {
             Console.setDataBase(new File(ctx.getServerHandler().player.getServerWorld().getSaveHandler().getWorldDirectory(),"genshin_data"));
             try {
+                System.out.println("[] executing command:"+message.command);
                 Console.executeCommand(message.command);
             } catch (Exception e) {
                 throw new RuntimeException(e);

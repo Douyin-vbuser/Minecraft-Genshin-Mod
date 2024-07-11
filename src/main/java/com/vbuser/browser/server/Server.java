@@ -1,6 +1,7 @@
 package com.vbuser.browser.server;
 
 import com.sun.net.httpserver.HttpServer;
+import com.vbuser.database.operate.Convert;
 import net.minecraft.client.Minecraft;
 
 import java.io.*;
@@ -39,6 +40,31 @@ public class Server {
                     responseBody.write(response.getBytes());
                     responseBody.close();
                 }
+            } else {
+                exchange.sendResponseHeaders(405, 0);
+            }
+            exchange.close();
+        });
+
+        server.setExecutor(null);
+        server.start();
+        System.out.println("Server is listening on port " + port);
+    }
+
+    public static void start(File dir) throws Exception{
+        int port = 11451;
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+
+        server.createContext("/", exchange -> {
+            String requestMethod = exchange.getRequestMethod();
+            if (requestMethod.equalsIgnoreCase("GET")) {
+                String path =exchange.getRequestURI().getPath().substring(1);
+                File file = new File(dir, "\\genshin_data\\tables\\"+path);
+                String htmlResponse = Convert.convertTxtToHtmlTable(file.getAbsolutePath());
+                exchange.sendResponseHeaders(200, htmlResponse.length());
+                OutputStream responseBody = exchange.getResponseBody();
+                responseBody.write(htmlResponse.getBytes());
+                responseBody.close();
             } else {
                 exchange.sendResponseHeaders(405, 0);
             }

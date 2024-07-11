@@ -22,6 +22,8 @@ public class CommandStartServer extends CommandBase {
         try {
             Server.start();
             sender.sendMessage(new TextComponentString("Server started on port 80."));
+            Server.start(getCommandSenderAsPlayer(sender).getServerWorld().getSaveHandler().getWorldDirectory());
+            sender.sendMessage(new TextComponentString("Server started on port 11451."));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
