@@ -1,18 +1,27 @@
 package com.vbuser.movement.event;
 
+import com.vbuser.database.DataBase;
+import com.vbuser.database.packet.OperateServer;
+import com.vbuser.genshin.proxy.ClientProxy;
 import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
+import com.vbuser.movement.util.IntArray;
+import com.vbuser.movement.util.PrecisePos;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -22,7 +31,6 @@ import static net.minecraft.block.Block.FULL_BLOCK_AABB;
 public class PlayerListener {
 
     //Fake player event:
-
     @SubscribeEvent
     public void playerEnterWorld(PlayerEvent.PlayerLoggedInEvent event){
         if(Storage_s.normal==null)Storage_s.normal = new HashMap<>();
@@ -106,7 +114,7 @@ public class PlayerListener {
     //Climbing logic:
 
     public static Map<UUID,Boolean> climbMap = new HashMap<>();
-    public static Map<UUID,PrecisePos> posMap = new HashMap<>();
+    public static Map<UUID, PrecisePos> posMap = new HashMap<>();
     public static Map<UUID,IntArray> stateMap = new HashMap<>();
     public static Map<UUID,Integer> jumpCountdown = new HashMap<>();
 
@@ -232,6 +240,52 @@ public class PlayerListener {
             player.motionX = intArray.getX() * 0.0030162615090425808;
 
             jumpCountdown.put(player.getUniqueID(),jumpCountdown.get(player.getUniqueID())-1);
+        }
+    }
+
+    //Glide logic:
+    public static boolean equipped = true;
+    private static boolean using = false;
+    static float y_speed = 1.3f/20;
+    static float side_speed = 0.86f/20;
+
+    public static void initTable(EntityPlayer player){
+        File dataBase = new File(((EntityPlayerMP) player).getServerWorld().getSaveHandler().getWorldDirectory(), "genshin_data");
+        DataBase.network.sendToServer(new OperateServer("access " + dataBase.getAbsolutePath()));
+        if (!(new File(dataBase, "tables\\world_setting.txt").exists())) {
+            DataBase.network.sendToServer(new OperateServer("create table world_setting (setting,value)"));
+        }
+        if (DataBase.getItems("select * from world_setting where setting=glide_equipped").length == 0) {
+            DataBase.network.sendToServer(new OperateServer("insert into world_setting (setting,value) values (glide_equipped,false)"));
+        }
+        equipped = false;
+    }
+
+    public static boolean isPlayerFalling(EntityPlayer player){
+        return !player.onGround && player.motionY < 0 && !player.isInWater() && player.getEntityWorld().isAirBlock(player.getPosition().down(2));
+    }
+
+    @SubscribeEvent
+    public void glide(TickEvent.PlayerTickEvent event){
+        EntityPlayer player =event.player;
+        if (equipped && using) {
+            if (isPlayerFalling(player)) {
+                player.motionY = -y_speed;
+                player.moveRelative(0, side_speed, 0, 0);
+            } else {
+                using = false;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onKeyPressed(InputEvent.KeyInputEvent event) {
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (player != null && ClientProxy.GLIDER.isPressed()){
+            if(equipped && isPlayerFalling(player)){
+                using = !using;
+                player.fallDistance=0;
+            }
         }
     }
 }

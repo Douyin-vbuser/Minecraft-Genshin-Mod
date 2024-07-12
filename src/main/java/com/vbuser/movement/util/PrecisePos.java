@@ -1,4 +1,4 @@
-package com.vbuser.movement.event;
+package com.vbuser.movement.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 

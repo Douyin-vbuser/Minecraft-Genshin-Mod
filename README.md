@@ -22,13 +22,13 @@
 
 ### Minecraft模组代码、资源方向：
 
-2024.02.16版:
+2024.02.16版(2024.07.12修订):
 
 - [1.1] 向com.vbuser.genshin中引入完整的Idealland Framework，支持geckolib实体和维度
 - [1.2] 制作怪物等实体的geckolib模型贴图和动画、AI逻辑
-- [2.1] 用com.vbuser.database替代com.vbuser.inventory
+- [完成] 用com.vbuser.database替代com.vbuser.inventory
 - [2.2] 完成生产环境的背包GUI、角色系统、Web查看
-- [3.1] 向com.vbuser.movement中引入自定义玩家实体运动规则(最好不使用Mixin)
+- [完成] 向com.vbuser.movement中引入自定义玩家实体运动规则(最好不使用Mixin)
 - [3.2] 制作用于com.vbuser.movement的模型、动画、贴图
 - [4.1] 整理常用接口
 - [4.2] 向com.vbuser.genshin中引入低代码剧情实现
@@ -38,7 +38,7 @@
 ### Web前后端方向：
 
 - [1.1] 制作1.0时期活动GUI(div+css实现,不计划使用GuiScreen)
-- [1.2] 制作基于json的网页-Minecraft数据同步实现
+- [1.2] 制作基于简易数据库的网页-Minecraft数据同步实现
 
 ### Electron开发方向：
 

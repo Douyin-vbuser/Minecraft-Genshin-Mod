@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import java.io.File;
 import java.util.UUID;
 
-@Mod(modid = "database",version = "basic 1.0.0")
+@Mod(modid = "database",name = "Database",version = "basic 1.0.0")
 public class DataBase {
 
     @Mod.EventHandler

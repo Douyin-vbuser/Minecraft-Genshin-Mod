@@ -23,7 +23,6 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     private UUID player_uuid;
     private World world;
     private float yaw_temp;
-    private boolean pre_moving;
     private double x,y,z;
 
     @SuppressWarnings("all")
@@ -59,12 +58,12 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         if(player != null) {
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
-                if (input.equals(Vec2f.ZERO)) {
+                if (input.x == 0 && input.y == 0){
                     rotationYaw = yaw_temp;
-                    pre_moving = false;
                 } else {
                     double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
                     rotationYaw = (float) (player.rotationYawHead - delta)%360;
+                    yaw_temp = rotationYaw;
                 }
                 x =player.posX;
                 y =player.posY;

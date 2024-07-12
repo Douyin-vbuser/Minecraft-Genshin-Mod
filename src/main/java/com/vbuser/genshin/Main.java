@@ -1,6 +1,8 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.command.CommandInit;
 import com.vbuser.genshin.init.EntityInit;
+import com.vbuser.genshin.init.KeyboardManager;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
 import com.vbuser.genshin.util.handler.RegistryRenderer;
@@ -11,6 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ public class Main
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event){
         SoundsHandler.registerSounds();
+        KeyboardManager.init();
     }
 
     @Mod.EventHandler
@@ -40,6 +44,10 @@ public class Main
         RegistryRenderer.registry();
     }
 
+    @Mod.EventHandler
+    public static void serverInit(FMLServerStartingEvent event){
+        event.registerServerCommand(new CommandInit());
+    }
 
     //CreativeTabs:
 

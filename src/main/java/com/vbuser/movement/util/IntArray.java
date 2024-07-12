@@ -1,4 +1,4 @@
-package com.vbuser.movement.event;
+package com.vbuser.movement.util;
 
 public class IntArray{
     private static float a,b;
