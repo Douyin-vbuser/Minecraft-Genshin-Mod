@@ -1,7 +1,10 @@
 package com.vbuser.genshin;
 
 import com.vbuser.genshin.command.CommandInit;
+import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.init.EntityInit;
+import com.vbuser.genshin.init.InitBiome;
+import com.vbuser.genshin.init.InitDimension;
 import com.vbuser.genshin.init.KeyboardManager;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
@@ -42,11 +45,14 @@ public class Main
     public void onPreInit(FMLPreInitializationEvent event){
         EntityInit.registerEntities();
         RegistryRenderer.registry();
+        InitBiome.registerBiomes();
+        InitDimension.registerDimensions();
     }
 
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event){
         event.registerServerCommand(new CommandInit());
+        event.registerServerCommand(new CommandTpDim());
     }
 
     //CreativeTabs:
