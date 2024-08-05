@@ -3,11 +3,6 @@ package com.vbuser.movement.util;
 public class IntArray{
     private static float a,b;
 
-    public IntArray(float a,float b){
-        IntArray.a = a;
-        IntArray.b = b;
-    }
-
     public IntArray(int code){
         switch (code){
             default:a=0;b=0;break;

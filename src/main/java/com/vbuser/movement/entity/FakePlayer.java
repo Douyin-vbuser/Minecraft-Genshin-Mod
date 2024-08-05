@@ -1,6 +1,8 @@
 package com.vbuser.movement.entity;
 
 import com.vbuser.movement.Storage_s;
+import com.vbuser.movement.event.PlayerListener;
+import com.vbuser.movement.util.IntArray;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -58,12 +60,21 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         if(player != null) {
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
-                if (input.x == 0 && input.y == 0){
-                    rotationYaw = yaw_temp;
-                } else {
-                    double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
-                    rotationYaw = (float) (player.rotationYawHead - delta)%360;
-                    yaw_temp = rotationYaw;
+                if(PlayerListener.climbMap.get(player.getUniqueID())){
+                    IntArray intArray = PlayerListener.stateMap.get(player.getUniqueID());
+                    if(intArray.getZ()==0){
+                        rotationYaw = intArray.getX()>=0?90:-90;
+                    }else{
+                        rotationYaw = intArray.getZ()>=0?0:180;
+                    }
+                }else {
+                    if (input.x == 0 && input.y == 0) {
+                        rotationYaw = yaw_temp;
+                    } else {
+                        double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
+                        rotationYaw = (float) (player.rotationYawHead - delta) % 360;
+                        yaw_temp = rotationYaw;
+                    }
                 }
                 x =player.posX;
                 y =player.posY;

@@ -174,6 +174,15 @@ public class PlayerListener {
         if(!stateMap.containsKey(player.getUniqueID())){
             stateMap.put(player.getUniqueID(),new IntArray(114514));
         }
+        if(climbMap.get(player.getUniqueID())){
+            IntArray intArray = PlayerListener.stateMap.get(player.getUniqueID());
+            if(intArray.getZ()==0){
+                player.rotationYaw = intArray.getX()>=0?90:-90;
+            }else{
+                player.rotationYaw = intArray.getZ()>=0?0:180;
+            }
+            player.rotationYawHead = player.rotationYaw;
+        }
         player.setNoGravity(climbMap.get(player.getUniqueID())&&!isMoving(player));
         if(player.moveForward != 0 || player.moveStrafing != 0){
             IntArray intArray = detectFacing(player,!climbMap.get(player.getUniqueID()));
