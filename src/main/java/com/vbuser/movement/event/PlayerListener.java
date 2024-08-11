@@ -142,17 +142,13 @@ public class PlayerListener {
 
     public static double getClimbYaw(EntityPlayer player){
         IntArray intArray = stateMap.get(player.getUniqueID());
-        if(intArray.getX()==0.35f){
-            return -90d;
-        }else if(intArray.getX()==-0.35f){
-            return 90d;
+        double result;
+        if(intArray.getZ()==0){
+            result = intArray.getX()<=0?90:-90;
         }else{
-            if(intArray.getZ()==0.35f){
-                return 0d;
-            }else{
-                return 180d;
-            }
+            result = intArray.getZ()>=0?0:180;
         }
+        return result;
     }
 
     public static double getYaw(EntityPlayer player){
@@ -173,15 +169,6 @@ public class PlayerListener {
         }
         if(!stateMap.containsKey(player.getUniqueID())){
             stateMap.put(player.getUniqueID(),new IntArray(114514));
-        }
-        if(climbMap.get(player.getUniqueID())){
-            IntArray intArray = PlayerListener.stateMap.get(player.getUniqueID());
-            if(intArray.getZ()==0){
-                player.rotationYaw = intArray.getX()>=0?90:-90;
-            }else{
-                player.rotationYaw = intArray.getZ()>=0?0:180;
-            }
-            player.rotationYawHead = player.rotationYaw;
         }
         player.setNoGravity(climbMap.get(player.getUniqueID())&&!isMoving(player));
         if(player.moveForward != 0 || player.moveStrafing != 0){

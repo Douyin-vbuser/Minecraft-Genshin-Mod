@@ -1,4 +1,6 @@
-啊哈哈哈哈哈哈开学延期了哈哈哈哈哈哈哈哈哈
+[老项目](https://github.com/66hh/Minecraft-Genshin-Mod) 的链接在此，至今其中未移植的内容为攻击状态判定(普攻/下落攻击/重击/技能)。
+
+有空会看pr和issue(但估计不太会上线修)，可[邮件](mailto:douyin_vbuser@outlook.com)加急
 
 # 写在离别之前：一个互联网透明人的自述
 

@@ -63,7 +63,7 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
                 if(PlayerListener.climbMap.get(player.getUniqueID())){
                     IntArray intArray = PlayerListener.stateMap.get(player.getUniqueID());
                     if(intArray.getZ()==0){
-                        rotationYaw = intArray.getX()>=0?90:-90;
+                        rotationYaw = intArray.getX()<=0?90:-90;
                     }else{
                         rotationYaw = intArray.getZ()>=0?0:180;
                     }

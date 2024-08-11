@@ -1,13 +1,12 @@
 package com.vbuser.particulate.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ExpressionParser {
     private static final Pattern PATTERN = Pattern.compile(
-            "\\s*([a-zA-Z]+|\\d+(?:\\.\\d+)?|[+\\-*/()^]|sin|cos)\\s*");
+            "\\s*([a-zA-Z_][a-zA-Z0-9_]*(?:\\.?[a-zA-Z0-9_]+)*|\\d+(?:\\.\\d+)?|[+\\-*/()^]|sin|cos)\\s*");
 
     private final Map<String, Double> variables = new HashMap<>();
 
@@ -18,7 +17,7 @@ public class ExpressionParser {
 
     private String[] tokenize(String expression) {
         Matcher matcher = PATTERN.matcher(expression);
-        java.util.List<String> tokenList = new java.util.ArrayList<>();
+        List<String> tokenList = new ArrayList<>();
         while (matcher.find()) {
             tokenList.add(matcher.group(1));
         }
@@ -74,26 +73,33 @@ public class ExpressionParser {
         }
         String token = tokens[index[0]];
         index[0]++;
+        double result;
         if (token.equals("(")) {
-            double result = parseExpression(tokens, index);
+            result = parseExpression(tokens, index);
             if (index[0] >= tokens.length || !tokens[index[0]].equals(")")) {
                 throw new IllegalArgumentException("Mismatched parentheses");
             }
             index[0]++;
-            return result;
         } else if (token.equals("sin")) {
-            return Math.sin(parseFactor(tokens, index));
+            result = Math.sin(parseFactor(tokens, index));
         } else if (token.equals("cos")) {
-            return Math.cos(parseFactor(tokens, index));
-        } else if (token.matches("[a-zA-Z]+")) {
-            return variables.getOrDefault(token, 0.0);
+            result = Math.cos(parseFactor(tokens, index));
+        } else if (token.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+            result = variables.getOrDefault(token, 0.0);
         } else {
             try {
-                return Double.parseDouble(token);
+                result = Double.parseDouble(token);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Invalid token: " + token);
             }
         }
+        if (index[0] < tokens.length && tokens[index[0]].equals("^")) {
+            index[0]++;
+            double exponent = parseFactor(tokens, index);
+            result = Math.pow(result, exponent);
+        }
+
+        return result;
     }
 
     public void setVariable(String name, double value) {
@@ -110,8 +116,12 @@ public class ExpressionParser {
         //Bind variables to parser:
         parser.setVariable("x", x);
         parser.setVariable("y", y);
+        parser.setVariable("A_1", 5.5);
+        parser.setVariable("PI", Math.PI);
         //Parse expression:
-        String expr3 = "sin(x) + (cos(y) * (2 + 3 * x)) / (1 + x * y)";
-        System.out.println("sin(x) + (cos(y) * (2 + 3 * x)) / (1 + x * y) = " + parser.parse(expr3));
+        String expr = "sin(0 - A_1) + PI * (cos(y) * (2 + 3 * x^2)) / (1 + x^y)";
+        System.out.println(expr + " = " + parser.parse(expr));
+        double result = Math.sin(-5.5) + Math.PI * (Math.cos(y) * (2 + 3 * Math.pow(x, 2))) / (1 + Math.pow(x, y));
+        System.out.println("Expected: " + result);
     }
 }
