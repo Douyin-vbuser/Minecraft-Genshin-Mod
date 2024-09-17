@@ -1,7 +1,7 @@
 package com.vbuser.movement.entity;
 
 import com.vbuser.movement.Storage_s;
-import com.vbuser.movement.event.PlayerListener;
+import com.vbuser.movement.event.PlayerMovement;
 import com.vbuser.movement.util.IntArray;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLiving;
@@ -60,8 +60,8 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         if(player != null) {
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
-                if(PlayerListener.climbMap.get(player.getUniqueID())){
-                    IntArray intArray = PlayerListener.stateMap.get(player.getUniqueID());
+                if(PlayerMovement.climbMap.get(player.getUniqueID())){
+                    IntArray intArray = PlayerMovement.stateMap.get(player.getUniqueID());
                     if(intArray.getZ()==0){
                         rotationYaw = intArray.getX()<=0?90:-90;
                     }else{

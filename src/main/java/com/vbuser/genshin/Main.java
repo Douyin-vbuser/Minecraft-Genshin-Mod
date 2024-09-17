@@ -1,6 +1,5 @@
 package com.vbuser.genshin;
 
-import com.vbuser.genshin.command.CommandInit;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
@@ -51,7 +50,6 @@ public class Main
 
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandInit());
         event.registerServerCommand(new CommandTpDim());
     }
 

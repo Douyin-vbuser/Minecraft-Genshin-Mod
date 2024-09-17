@@ -5,7 +5,7 @@ public class ExpressionList {
             "A1 * sin(w1 * t) + A2 * sin(w2 * t) + v_x * t + W_x * sin(w_wt)",
             "B1 * sin(w3 * t) + B2 * sin(w4 * t) + v_y * t + W_y * sin(w_wt)",
             "H - (g * t^2 / 2) * (1 - e^(0 - k_zt)) + C1 * sin(w5 * t) * e^(0 - k_zt) + C2 * cos(w6 * t) * e^(0 - k_zt)",
-            "sita0 + ¦Ø_sita * t + D * sin(¦Ø_sita * t)"
+            "sita0 + w_sita * t + D * sin(w_sita * t)"
     };
 
     public static double[] get_leave_pos(double time){

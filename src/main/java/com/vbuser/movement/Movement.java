@@ -5,7 +5,7 @@ import com.vbuser.movement.entity.EntityInit;
 import com.vbuser.movement.entity.FakePlayer;
 import com.vbuser.movement.entity.render.FakePlayerRender;
 import com.vbuser.movement.event.CameraTrack;
-import com.vbuser.movement.event.PlayerListener;
+import com.vbuser.movement.event.PlayerMovement;
 import com.vbuser.movement.network.TS_TN;
 import com.vbuser.movement.network.PacketCameraTrack;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,7 +44,7 @@ public class Movement {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event){
         MinecraftForge.EVENT_BUS.register(new CameraTrack());
-        MinecraftForge.EVENT_BUS.register(new PlayerListener());
+        MinecraftForge.EVENT_BUS.register(new PlayerMovement());
     }
 
     @Mod.EventHandler

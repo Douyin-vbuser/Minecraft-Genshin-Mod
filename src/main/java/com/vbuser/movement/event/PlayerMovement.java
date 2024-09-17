@@ -1,7 +1,5 @@
 package com.vbuser.movement.event;
 
-import com.vbuser.database.DataBase;
-import com.vbuser.database.packet.OperateServer;
 import com.vbuser.genshin.proxy.ClientProxy;
 import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
@@ -11,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -21,14 +18,13 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import static net.minecraft.block.Block.FULL_BLOCK_AABB;
 
-public class PlayerListener {
+public class PlayerMovement {
 
     //Fake player event:
     @SubscribeEvent
@@ -244,18 +240,6 @@ public class PlayerListener {
     private static boolean using = false;
     static float y_speed = 1.3f/20;
     static float side_speed = 0.86f/20;
-
-    public static void initTable(EntityPlayer player){
-        File dataBase = new File(((EntityPlayerMP) player).getServerWorld().getSaveHandler().getWorldDirectory(), "genshin_data");
-        DataBase.network.sendToServer(new OperateServer("access " + dataBase.getAbsolutePath()));
-        if (!(new File(dataBase, "tables\\world_setting.txt").exists())) {
-            DataBase.network.sendToServer(new OperateServer("create table world_setting (setting,value)"));
-        }
-        if (DataBase.getItems("select * from world_setting where setting=glide_equipped").length == 0) {
-            DataBase.network.sendToServer(new OperateServer("insert into world_setting (setting,value) values (glide_equipped,false)"));
-        }
-        equipped = false;
-    }
 
     public static boolean isPlayerFalling(EntityPlayer player){
         return !player.onGround && player.motionY < 0 && !player.isInWater() && player.getEntityWorld().isAirBlock(player.getPosition().down(2));

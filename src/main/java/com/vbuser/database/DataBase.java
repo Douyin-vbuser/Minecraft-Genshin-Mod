@@ -56,7 +56,7 @@ public class DataBase {
         if(!new File(worldDirectory,"genshin_data\\tables\\"+table+".txt").exists()){
             network.sendToServer(new OperateServer("create table "+table+" (player,item,number)"));
         }
-        String[] temp = getItems("select * from "+table+" where player="+player.getUniqueID()+" and item="+name);
+        String[] temp = getContent("select * from "+table+" where player="+player.getUniqueID()+" and item="+name);
         if(temp.length==0){
             network.sendToServer(new OperateServer("insert into "+table+" (player,item,number) values ("+player.getUniqueID()+","+name+","+number+")"));
             network.sendToServer(new OperateServer("update "+table+" set number="+number+" where player="+player.getUniqueID()+" and item="+name));
@@ -110,7 +110,7 @@ public class DataBase {
         }
     }
 
-    public static String[] getItems(String command){
+    public static String[] getContent(String command){
         network.sendToServer(new OperateServer(command));
         try {
             return Console.getResult();
