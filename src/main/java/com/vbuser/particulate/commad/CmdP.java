@@ -9,15 +9,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
-public class CmdLeave extends CommandBase {
+public class CmdP extends CommandBase {
     @Override
     public String getName() {
-        return "cmdl";
+        return "cmdp";
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "cmdl <id> <x> <y> <z>";
+        return "cmdp <id> <x> <y> <z>";
     }
 
     @Override

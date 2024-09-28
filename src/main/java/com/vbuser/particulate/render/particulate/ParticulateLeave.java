@@ -1,5 +1,6 @@
 package com.vbuser.particulate.render.particulate;
 
+import com.vbuser.particulate.math.ExpressionParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
@@ -18,6 +19,7 @@ import static com.vbuser.particulate.math.ExpressionList.get_leave_pos;
 public class ParticulateLeave extends Particle {
     private final long startTime;
     private final double initialX, initialY, initialZ;
+    ExpressionParser parser = new ExpressionParser();
     ResourceLocation rl = new ResourceLocation("particulate","particle/leave.png");
 
     public ParticulateLeave(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
@@ -27,6 +29,19 @@ public class ParticulateLeave extends Particle {
         this.initialY = yCoordIn;
         this.initialZ = zCoordIn;
         this.particleScale *= 1.1F;
+        bindValue();
+    }
+
+    public void bindValue(){
+        parser.setVariable("A",Math.random()*4-2);
+        parser.setVariable("w_x",Math.random()*0.4-0.2);
+        parser.setVariable("v_wx",Math.random()*4-2);
+        parser.setVariable("g",Math.random()*0.4+0.4);
+        parser.setVariable("B",Math.random()*4-2);
+        parser.setVariable("w_z",Math.random()*0.4-0.2);
+        parser.setVariable("v_wz",Math.random()*4-2);
+        parser.setVariable("phi_z",0);
+        parser.setVariable("phi_x",0);
     }
 
     @Override
@@ -80,7 +95,7 @@ public class ParticulateLeave extends Particle {
 
         long currentTime = System.currentTimeMillis();
         long elapsedTime = currentTime - startTime;
-        double[] deltaPos = get_leave_pos(elapsedTime / 1000.0);
+        double[] deltaPos = get_leave_pos(elapsedTime / 1000.0, this.parser);
 
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;

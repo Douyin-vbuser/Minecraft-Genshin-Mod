@@ -1,5 +1,8 @@
 package com.vbuser.movement.event;
 
+import com.vbuser.database.DataBase;
+import com.vbuser.database.operate.Console;
+import com.vbuser.database.packet.OperateServer;
 import com.vbuser.genshin.proxy.ClientProxy;
 import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
@@ -9,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -18,6 +22,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -247,6 +252,12 @@ public class PlayerMovement {
 
     @SubscribeEvent
     public void glide(TickEvent.PlayerTickEvent event){
+        if(Console.getDataBase()==null){
+            File worldDirectory =((EntityPlayerMP) event.player).getServerWorld().getSaveHandler().getWorldDirectory();
+            File database = new File(worldDirectory,"genshin_data");
+            Console.setDataBase(database);
+            DataBase.network.sendToServer(new OperateServer("access "+database.getAbsolutePath()));
+        }
         EntityPlayer player =event.player;
         if (equipped && using) {
             if (isPlayerFalling(player)) {
@@ -258,14 +269,23 @@ public class PlayerMovement {
         }
     }
 
+    long time;
+    double y1;
+
     @SubscribeEvent
     public void onKeyPressed(InputEvent.KeyInputEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
         if (player != null && ClientProxy.GLIDER.isPressed()){
+            if(player.posY<=y1 && System.currentTimeMillis()-time>2000) {
+                DataBase.network.sendToServer(new OperateServer("select * from world_setting where setting=glide_equipped"));
+                equipped = Console.getResult("select * from world_setting where setting=glide_equipped")[0].split(">")[1].equals("true");
+            }
             if(equipped && isPlayerFalling(player)){
                 using = !using;
                 player.fallDistance=0;
             }
+            time = System.currentTimeMillis();
+            y1 = player.posY;
         }
     }
 }

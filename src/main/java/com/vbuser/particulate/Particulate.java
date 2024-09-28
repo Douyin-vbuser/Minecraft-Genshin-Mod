@@ -1,7 +1,7 @@
 package com.vbuser.particulate;
 
 import com.vbuser.particulate.commad.CmdB;
-import com.vbuser.particulate.commad.CmdLeave;
+import com.vbuser.particulate.commad.CmdP;
 import com.vbuser.particulate.network.block.PacketBlock;
 import com.vbuser.particulate.network.block.PacketTCB;
 import com.vbuser.particulate.network.block.PacketTSB;
@@ -49,7 +49,7 @@ public class Particulate
     @Mod.EventHandler
     public void serverInit(FMLServerStartingEvent event){
         event.registerServerCommand(new CmdB());
-        event.registerServerCommand(new CmdLeave());
+        event.registerServerCommand(new CmdP());
     }
 
     //APIs:

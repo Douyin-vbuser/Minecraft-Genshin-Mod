@@ -46,16 +46,7 @@ public class Console {
             New.insert(tableName, columns, values,dataBase);
         }
         else if(commands[0].equals("select") && commands[1].equals("*") && commands[2].equals("from")){
-            lock = false;
-            String tableName = commands[3];
-            Pattern wherePattern = Pattern.compile("where\\s+(.*)");
-            Matcher whereMatcher = wherePattern.matcher(command);
-            String[] conditions = new String[0];
-            if (whereMatcher.find()) {
-                conditions = whereMatcher.group(1).split("and\\s+");
-            }
-            results = Select.queryTable(dataBase, tableName, conditions).toArray(new String[0]);
-            lock = true;
+            getResult(command);
         }
         else if(commands[0].equals("delete") && commands[1].equals("from")){
             String tableName = commands[2];
@@ -96,18 +87,23 @@ public class Console {
         dataBase = file;
     }
 
+    public static File getDataBase(){
+        return dataBase;
+    }
+
     private static File dataBase;
 
-    private static String[] results = new String[0];
-    private static boolean lock = false;
+    public static String[] getResult(String command){
+        command = command.toLowerCase();
 
-    public static String[] getResult() throws InterruptedException {
-        if(lock) {
-            lock = false;
-            return results;
-        }else{
-            Thread.sleep(50);
-            return getResult();
+        String[] commands = command.split(" ");
+        String tableName = commands[3];
+        Pattern wherePattern = Pattern.compile("where\\s+(.*)");
+        Matcher whereMatcher = wherePattern.matcher(command);
+        String[] conditions = new String[0];
+        if (whereMatcher.find()) {
+            conditions = whereMatcher.group(1).split("and\\s+");
         }
+        return Select.queryTable(dataBase, tableName, conditions).toArray(new String[0]);
     }
 }

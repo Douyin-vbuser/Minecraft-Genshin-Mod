@@ -112,10 +112,6 @@ public class DataBase {
 
     public static String[] getContent(String command){
         network.sendToServer(new OperateServer(command));
-        try {
-            return Console.getResult();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        return Console.getResult(command);
     }
 }
