@@ -36,7 +36,7 @@ public class ParticulateLeave extends Particle {
         parser.setVariable("A",Math.random()*4-2);
         parser.setVariable("w_x",Math.random()*0.4-0.2);
         parser.setVariable("v_wx",Math.random()*4-2);
-        parser.setVariable("g",Math.random()*0.4+0.4);
+        parser.setVariable("g",Math.random()*4+3);
         parser.setVariable("B",Math.random()*4-2);
         parser.setVariable("w_z",Math.random()*0.4-0.2);
         parser.setVariable("v_wz",Math.random()*4-2);

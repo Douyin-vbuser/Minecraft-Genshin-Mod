@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class Console {
     public static void main(String[] args) throws Exception{
         Scanner sc = new Scanner(System.in);
+        System.out.println("Hello,SQL Boy.");
         while(true){
             System.out.print("> ");
             String command = sc.nextLine();

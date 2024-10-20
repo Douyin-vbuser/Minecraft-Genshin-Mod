@@ -1,6 +1,8 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.command.CommandChar;
 import com.vbuser.genshin.command.CommandTpDim;
+import com.vbuser.genshin.event.Character;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
 import com.vbuser.genshin.init.InitDimension;
@@ -11,6 +13,7 @@ import com.vbuser.genshin.util.handler.RegistryRenderer;
 import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -38,6 +41,7 @@ public class Main
     public void onInit(FMLInitializationEvent event){
         SoundsHandler.registerSounds();
         KeyboardManager.init();
+        MinecraftForge.EVENT_BUS.register(new Character());
     }
 
     @Mod.EventHandler
@@ -51,6 +55,7 @@ public class Main
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event){
         event.registerServerCommand(new CommandTpDim());
+        event.registerServerCommand(new CommandChar());
     }
 
     //CreativeTabs:
