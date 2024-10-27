@@ -17,7 +17,7 @@ public class CommandChar extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "char player slot character";
+        return "char <player> <slot> <character>";
     }
 
     @Override

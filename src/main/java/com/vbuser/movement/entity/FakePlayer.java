@@ -53,32 +53,41 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     }
 
     //Correction of yaw and position:
-
     @Override
     public void onLivingUpdate(){
         EntityPlayer player = world.getPlayerEntityByUUID(player_uuid);
         if(player != null) {
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
+                float targetYaw;
+
                 if(PlayerMovement.climbMap.get(player.getUniqueID())){
                     IntArray intArray = PlayerMovement.stateMap.get(player.getUniqueID());
                     if(intArray.getZ()==0){
-                        rotationYaw = intArray.getX()<=0?90:-90;
+                        targetYaw = intArray.getX()<=0?90:-90;
                     }else{
-                        rotationYaw = intArray.getZ()>=0?0:180;
+                        targetYaw = intArray.getZ()>=0?0:180;
                     }
                 }else {
                     if (input.x == 0 && input.y == 0) {
-                        rotationYaw = yaw_temp;
+                        targetYaw = yaw_temp;
                     } else {
                         double delta = Math.atan2(input.y, input.x) * 180 / Math.PI;
-                        rotationYaw = (float) (player.rotationYawHead - delta) % 360;
-                        yaw_temp = rotationYaw;
+                        targetYaw = (float) (player.rotationYawHead - delta) % 360;
+                        yaw_temp = targetYaw;
                     }
                 }
-                x =player.posX;
-                y =player.posY;
-                z =player.posZ;
+
+                this.rotationYaw = targetYaw;
+                this.prevRotationYaw = targetYaw;
+                this.rotationYawHead = targetYaw;
+                this.prevRotationYawHead = targetYaw;
+                this.renderYawOffset = targetYaw;
+                this.prevRenderYawOffset = targetYaw;
+
+                x = player.posX;
+                y = player.posY;
+                z = player.posZ;
             }
             this.setPosition(x,y,z);
         }
