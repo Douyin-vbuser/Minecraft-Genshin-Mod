@@ -1,6 +1,6 @@
 package com.vbuser.genshin.command;
 
-import com.vbuser.genshin.event.Character;
+import com.vbuser.genshin.event.CharacterChoice;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -23,12 +23,12 @@ public class CommandChar extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if(args.length==0){
-            sender.sendMessage(new TextComponentString(Character.get().toString()));
+            sender.sendMessage(new TextComponentString(CharacterChoice.get().toString()));
         }else{
             UUID player = getPlayer(server,sender,args[0]).getUniqueID();
             int slot = Integer.parseInt(args[1]);
             int character = Integer.parseInt(args[2]);
-            Character.set(player,slot,character);
+            CharacterChoice.set(player,slot,character);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.vbuser.movement.event;
 import com.vbuser.database.DataBase;
 import com.vbuser.database.operate.Console;
 import com.vbuser.database.packet.OperateServer;
+import com.vbuser.genshin.event.AttackState;
 import com.vbuser.genshin.proxy.ClientProxy;
 import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
@@ -250,6 +251,10 @@ public class PlayerMovement {
         return !player.onGround && player.motionY < 0 && !player.isInWater() && player.getEntityWorld().isAirBlock(player.getPosition().down(2));
     }
 
+    public static void setUsingGlider(boolean value){
+        using = value;
+    }
+
     @SubscribeEvent
     public void glide(TickEvent.PlayerTickEvent event){
         if(Console.getDataBase()==null){
@@ -280,7 +285,7 @@ public class PlayerMovement {
                 DataBase.network.sendToServer(new OperateServer("select * from world_setting where setting=glide_equipped"));
                 equipped = Console.getResult("select * from world_setting where setting=glide_equipped")[0].split(">")[1].equals("true");
             }
-            if(equipped && isPlayerFalling(player)){
+            if(equipped && isPlayerFalling(player) && AttackState.getState(player.getUniqueID())==0){
                 using = !using;
                 player.fallDistance=0;
             }

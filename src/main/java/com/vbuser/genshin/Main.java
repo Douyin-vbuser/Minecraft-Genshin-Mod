@@ -2,7 +2,8 @@ package com.vbuser.genshin;
 
 import com.vbuser.genshin.command.CommandChar;
 import com.vbuser.genshin.command.CommandTpDim;
-import com.vbuser.genshin.event.Character;
+import com.vbuser.genshin.event.AttackState;
+import com.vbuser.genshin.event.CharacterChoice;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
 import com.vbuser.genshin.init.InitDimension;
@@ -41,7 +42,9 @@ public class Main
     public void onInit(FMLInitializationEvent event){
         SoundsHandler.registerSounds();
         KeyboardManager.init();
-        MinecraftForge.EVENT_BUS.register(new Character());
+        MinecraftForge.EVENT_BUS.register(new CharacterChoice());
+        MinecraftForge.EVENT_BUS.register(new AttackState());
+        AttackState.Character.init();
     }
 
     @Mod.EventHandler

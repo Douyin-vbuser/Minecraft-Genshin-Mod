@@ -1,6 +1,0 @@
-inventory.error.add=[原神模组运行时错误]:玩家仓库文件流错误,添加物品失败
-inventory.error.item=[原神模组运行时错误]:错误的仓库操作命令,物品名称错误
-inventory.error.performance=[原神模组运行时错误]:错误的仓库操作命令,未定义操作
-inventory.error.min=[原神模组运行时错误]:仓库物品数量低于所需数量
-
-key.inventory.b=打开/关闭背包

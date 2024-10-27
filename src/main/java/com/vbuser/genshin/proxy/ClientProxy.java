@@ -22,4 +22,10 @@ public class ClientProxy extends CommonProxy{
 
     public static final KeyBinding GLIDER = new ModKeyBinding("glider", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_SPACE,"key.category.genshin");
 
+    public static final KeyBinding PG = new ModKeyBinding("pg",KeyConflictContext.IN_GAME,KeyModifier.NONE,-100,"key.category.genshin");
+
+    public static final KeyBinding E = new ModKeyBinding("e",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_E,"key.category.genshin");
+
+    public static final KeyBinding Q = new ModKeyBinding("q",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_Q,"key.category.genshin");
+
 }
