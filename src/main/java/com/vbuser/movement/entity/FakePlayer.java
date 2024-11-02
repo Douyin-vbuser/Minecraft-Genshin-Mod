@@ -54,21 +54,21 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
 
     //Correction of yaw and position:
     @Override
-    public void onLivingUpdate(){
+    public void onLivingUpdate() {
         EntityPlayer player = world.getPlayerEntityByUUID(player_uuid);
-        if(player != null) {
+        if (player != null) {
             if (Storage_s.normal.get(player)) {
                 Vec2f input = new Vec2f(player.moveForward, player.moveStrafing);
                 float targetYaw;
 
-                if(PlayerMovement.climbMap.get(player.getUniqueID())){
+                if (PlayerMovement.climbMap.get(player.getUniqueID())) {
                     IntArray intArray = PlayerMovement.stateMap.get(player.getUniqueID());
-                    if(intArray.getZ()==0){
-                        targetYaw = intArray.getX()<=0?90:-90;
-                    }else{
-                        targetYaw = intArray.getZ()>=0?0:180;
+                    if (intArray.getZ() == 0) {
+                        targetYaw = intArray.getX() <= 0 ? 90 : -90;
+                    } else {
+                        targetYaw = intArray.getZ() >= 0 ? 0 : 180;
                     }
-                }else {
+                } else {
                     if (input.x == 0 && input.y == 0) {
                         targetYaw = yaw_temp;
                     } else {
@@ -78,18 +78,26 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
                     }
                 }
 
-                this.rotationYaw = targetYaw;
-                this.prevRotationYaw = targetYaw;
-                this.rotationYawHead = targetYaw;
-                this.prevRotationYawHead = targetYaw;
-                this.renderYawOffset = targetYaw;
-                this.prevRenderYawOffset = targetYaw;
+                float yawDiff = (targetYaw - this.rotationYaw) % 360;
+                if (yawDiff > 180) yawDiff -= 360;
+                if (yawDiff < -180) yawDiff += 360;
+
+                float fact = 0.4f;
+
+                this.rotationYaw += yawDiff * fact;
+
+                this.rotationYawHead = this.rotationYaw;
+                this.renderYawOffset = this.rotationYaw;
+
+                this.prevRotationYaw += (this.rotationYaw - this.prevRotationYaw) * fact;
+                this.prevRotationYawHead += (this.rotationYawHead - this.prevRotationYawHead) * fact;
+                this.prevRenderYawOffset += (this.renderYawOffset - this.prevRenderYawOffset) * fact;
 
                 x = player.posX;
                 y = player.posY;
                 z = player.posZ;
             }
-            this.setPosition(x,y,z);
+            this.setPosition(x, y, z);
         }
     }
 
