@@ -4,7 +4,6 @@ import com.vbuser.genshin.command.CommandChar;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.event.AttackState;
 import com.vbuser.genshin.event.CharacterChoice;
-import com.vbuser.genshin.event.FOVHandler;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
 import com.vbuser.genshin.init.InitDimension;
@@ -45,7 +44,6 @@ public class Main
         KeyboardManager.init();
         MinecraftForge.EVENT_BUS.register(new CharacterChoice());
         MinecraftForge.EVENT_BUS.register(new AttackState());
-        MinecraftForge.EVENT_BUS.register(new FOVHandler());
         AttackState.Character.init();
     }
 

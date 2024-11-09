@@ -1,4 +1,4 @@
-package com.vbuser.genshin.event;
+package com.vbuser.movement.event;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
