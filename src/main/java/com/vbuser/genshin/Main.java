@@ -1,9 +1,11 @@
 package com.vbuser.genshin;
 
 import com.vbuser.genshin.command.CommandChar;
+import com.vbuser.genshin.command.CommandTask;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.event.AttackState;
 import com.vbuser.genshin.event.CharacterChoice;
+import com.vbuser.genshin.event.Task;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
 import com.vbuser.genshin.init.InitDimension;
@@ -44,6 +46,7 @@ public class Main
         KeyboardManager.init();
         MinecraftForge.EVENT_BUS.register(new CharacterChoice());
         MinecraftForge.EVENT_BUS.register(new AttackState());
+        MinecraftForge.EVENT_BUS.register(new Task());
         AttackState.Character.init();
     }
 
@@ -59,6 +62,7 @@ public class Main
     public static void serverInit(FMLServerStartingEvent event){
         event.registerServerCommand(new CommandTpDim());
         event.registerServerCommand(new CommandChar());
+        event.registerServerCommand(new CommandTask());
     }
 
     //CreativeTabs:
