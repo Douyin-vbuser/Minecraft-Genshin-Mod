@@ -1,6 +1,7 @@
 package com.vbuser.genshin;
 
 import com.vbuser.genshin.command.CommandChar;
+import com.vbuser.genshin.command.CommandSetBiome;
 import com.vbuser.genshin.command.CommandTask;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.event.AttackState;
@@ -16,15 +17,21 @@ import com.vbuser.genshin.util.handler.RegistryRenderer;
 import com.vbuser.genshin.util.handler.SoundsHandler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.vbuser.genshin.init.InitBiome.BIOME_TEST;
 
 @SuppressWarnings("all")
 @Mod(modid = "genshin", name = "Minecraft Genshin Impact", version = "basic 1.1.45")
@@ -63,6 +70,13 @@ public class Main
         event.registerServerCommand(new CommandTpDim());
         event.registerServerCommand(new CommandChar());
         event.registerServerCommand(new CommandTask());
+        event.registerServerCommand(new CommandSetBiome());
+    }
+
+    @SubscribeEvent
+    public static void onEvent(final RegistryEvent.Register<Biome> event){
+        final IForgeRegistry<Biome> registry = event.getRegistry();
+        registry.register(BIOME_TEST.setRegistryName("genshin","biome_test"));
     }
 
     //CreativeTabs:

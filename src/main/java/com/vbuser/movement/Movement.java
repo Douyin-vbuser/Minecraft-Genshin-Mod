@@ -6,6 +6,7 @@ import com.vbuser.movement.entity.FakePlayer;
 import com.vbuser.movement.entity.render.FakePlayerRender;
 import com.vbuser.movement.event.CameraTrack;
 import com.vbuser.movement.event.FOVHandler;
+import com.vbuser.movement.event.FakePlayerEvent;
 import com.vbuser.movement.event.PlayerMovement;
 import com.vbuser.movement.network.TS_TN;
 import com.vbuser.movement.network.PacketCameraTrack;
@@ -47,6 +48,7 @@ public class Movement {
         MinecraftForge.EVENT_BUS.register(new CameraTrack());
         MinecraftForge.EVENT_BUS.register(new PlayerMovement());
         MinecraftForge.EVENT_BUS.register(new FOVHandler());
+        MinecraftForge.EVENT_BUS.register(new FakePlayerEvent());
     }
 
     @Mod.EventHandler

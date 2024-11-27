@@ -40,7 +40,7 @@ public class TS_TN implements IMessage {
         @Override
         public IMessage onMessage(TS_TN message, MessageContext ctx) {
             if(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid))!=null) {
-                Storage_s.normal.put(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid)), message.option);
+                if(Storage_s.normal!=null) Storage_s.normal.put(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid)), message.option);
             }
             return null;
         }

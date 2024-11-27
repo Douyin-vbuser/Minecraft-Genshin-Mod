@@ -36,7 +36,7 @@ public class CameraTrack {
             if(current_time >= last_time){
                 Storage.is_performing = false;
                 current_time=0;last_time=0;
-                //Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
+                Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
                 Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(),true));
             }
         }

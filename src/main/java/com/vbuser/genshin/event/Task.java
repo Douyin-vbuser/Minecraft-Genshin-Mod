@@ -20,13 +20,7 @@ public class Task {
 
     public static void setTask(String name,EntityPlayer player){
         if(!task.isEmpty()){
-            try{
-                reader.close();
-            }catch (IOException e){
-                throw new RuntimeException(e);
-            }
-            thread.stop();
-            thread = null;
+            terminateTask();
         }
         task = name;
         if(!name.isEmpty()){
@@ -94,6 +88,8 @@ public class Task {
                 if (await.isEmpty()) {
                     String line = reader.readLine();
                     if (line == null) {
+                        System.out.println("Task "+task+" ended.");
+                        task="";
                         break;
                     }
 

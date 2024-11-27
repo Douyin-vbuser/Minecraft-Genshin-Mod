@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class InitBiome {
 
-    public static final Biome BIOME_TEST = new TestBiome();
+    public static final Biome BIOME_TEST = new TestBiome();     //biome_id:40
 
     public static void registerBiomes()
     {
