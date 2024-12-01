@@ -10,15 +10,15 @@ public class SoundsHandler {
 
     public static SoundEvent XDC;
 
-    public static void registerSounds(){
+    public static void registerSounds() {
         TEST = registerSound("test");
         PICK = registerSound("pick");
 
-        XDC=registerSound("xiao_deng_cao");
+        XDC = registerSound("xiao_deng_cao");
     }
 
-    private static SoundEvent registerSound(String name){
-        ResourceLocation location = new ResourceLocation("genshin",name);
+    private static SoundEvent registerSound(String name) {
+        ResourceLocation location = new ResourceLocation("genshin", name);
         SoundEvent event = new SoundEvent(location);
         event.setRegistryName(name);
         ForgeRegistries.SOUND_EVENTS.register(event);

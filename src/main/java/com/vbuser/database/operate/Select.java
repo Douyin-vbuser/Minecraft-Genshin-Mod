@@ -52,7 +52,7 @@ public class Select {
         } catch (IOException e) {
             System.out.println("[!] Error reading file: " + e.getMessage());
         }
-        System.out.println(result.size()+" result(s) found from the table "+tableName);
+        System.out.println(result.size() + " result(s) found from the table " + tableName);
         return result;
     }
 }

@@ -18,7 +18,7 @@ public class RegistryHandler {
     }
 
     @SubscribeEvent
-    public static void onBlockRegister(RegistryEvent.Register<Block> event){
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
     }
 
@@ -30,8 +30,8 @@ public class RegistryHandler {
             }
         }
 
-        for(Block block:ModBlocks.BLOCKS){
-            if(block instanceof IHasModel){
+        for (Block block : ModBlocks.BLOCKS) {
+            if (block instanceof IHasModel) {
                 ((IHasModel) block).registerModels();
             }
         }

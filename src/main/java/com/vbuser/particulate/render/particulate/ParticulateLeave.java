@@ -20,7 +20,7 @@ public class ParticulateLeave extends Particle {
     private final long startTime;
     private final double initialX, initialY, initialZ;
     ExpressionParser parser = new ExpressionParser();
-    ResourceLocation rl = new ResourceLocation("particulate","particle/leave.png");
+    ResourceLocation rl = new ResourceLocation("particulate", "particle/leave.png");
 
     public ParticulateLeave(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);
@@ -32,16 +32,16 @@ public class ParticulateLeave extends Particle {
         bindValue();
     }
 
-    public void bindValue(){
-        parser.setVariable("A",Math.random()*4-2);
-        parser.setVariable("w_x",Math.random()*0.4-0.2);
-        parser.setVariable("v_wx",Math.random()*4-2);
-        parser.setVariable("g",Math.random()*4+3);
-        parser.setVariable("B",Math.random()*4-2);
-        parser.setVariable("w_z",Math.random()*0.4-0.2);
-        parser.setVariable("v_wz",Math.random()*4-2);
-        parser.setVariable("phi_z",0);
-        parser.setVariable("phi_x",0);
+    public void bindValue() {
+        parser.setVariable("A", Math.random() * 4 - 2);
+        parser.setVariable("w_x", Math.random() * 0.4 - 0.2);
+        parser.setVariable("v_wx", Math.random() * 4 - 2);
+        parser.setVariable("g", Math.random() * 4 + 3);
+        parser.setVariable("B", Math.random() * 4 - 2);
+        parser.setVariable("w_z", Math.random() * 0.4 - 0.2);
+        parser.setVariable("v_wz", Math.random() * 4 - 2);
+        parser.setVariable("phi_z", 0);
+        parser.setVariable("phi_x", 0);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ParticulateLeave extends Particle {
 
     @Override
     public void onUpdate() {
-        if (world.getBlockState(new BlockPos(this.posX, this.posY-1, this.posZ)).getBlock() != Blocks.AIR) {
+        if (world.getBlockState(new BlockPos(this.posX, this.posY - 1, this.posZ)).getBlock() != Blocks.AIR) {
             this.setExpired();
             return;
         }

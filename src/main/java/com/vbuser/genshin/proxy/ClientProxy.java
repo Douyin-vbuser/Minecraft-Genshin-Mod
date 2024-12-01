@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ClientProxy extends CommonProxy{
-    public void registerItemRenderer(Item item, int meta, String id){
-        ModelLoader.setCustomModelResourceLocation(item,meta,new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()),id));
+public class ClientProxy extends CommonProxy {
+    public void registerItemRenderer(Item item, int meta, String id) {
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), id));
     }
 
     public static final List<KeyBinding> KEY_BINDINGS = new ArrayList<>();
 
-    public static final KeyBinding GLIDER = new ModKeyBinding("glider", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_SPACE,"key.category.genshin");
+    public static final KeyBinding GLIDER = new ModKeyBinding("glider", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_SPACE, "key.category.genshin");
 
-    public static final KeyBinding PG = new ModKeyBinding("pg",KeyConflictContext.IN_GAME,KeyModifier.NONE,-100,"key.category.genshin");
+    public static final KeyBinding PG = new ModKeyBinding("pg", KeyConflictContext.IN_GAME, KeyModifier.NONE, -100, "key.category.genshin");
 
-    public static final KeyBinding E = new ModKeyBinding("e",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_E,"key.category.genshin");
+    public static final KeyBinding E = new ModKeyBinding("e", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_E, "key.category.genshin");
 
-    public static final KeyBinding Q = new ModKeyBinding("q",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_Q,"key.category.genshin");
+    public static final KeyBinding Q = new ModKeyBinding("q", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_Q, "key.category.genshin");
 
 }

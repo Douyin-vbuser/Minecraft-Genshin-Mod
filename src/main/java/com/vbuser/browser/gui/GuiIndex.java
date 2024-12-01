@@ -10,7 +10,7 @@ public class GuiIndex extends GuiScreen {
 
     private final boolean isCG;
 
-    public GuiIndex(){
+    public GuiIndex() {
         isCG = Browser.isCG;
     }
 
@@ -18,10 +18,9 @@ public class GuiIndex extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
         drawDefaultBackground();
-        if(isCG){
+        if (isCG) {
             mc.displayGuiScreen(new GuiCG(Browser.path));
-        }
-        else{
+        } else {
             mc.displayGuiScreen(new GuiWeb(Browser.path));
         }
     }

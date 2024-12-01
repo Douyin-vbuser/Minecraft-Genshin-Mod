@@ -20,6 +20,6 @@ public class CommandCameraTrack extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-        Movement.network.sendToAll(new PacketCameraTrack(Integer.parseInt(args[0]),Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), Integer.parseInt(args[6]), Integer.parseInt(args[7]),Integer.parseInt(args[8])));
+        Movement.network.sendToAll(new PacketCameraTrack(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), Integer.parseInt(args[6]), Integer.parseInt(args[7]), Integer.parseInt(args[8])));
     }
 }

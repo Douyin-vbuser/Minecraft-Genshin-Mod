@@ -19,7 +19,7 @@ import static com.vbuser.database.operate.ToTP.validateTOTP;
 
 public class Server {
 
-    public static void start() throws Exception{
+    public static void start() throws Exception {
         int port = 80;
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
@@ -27,7 +27,7 @@ public class Server {
             String requestMethod = exchange.getRequestMethod();
             if (requestMethod.equalsIgnoreCase("GET")) {
                 String mcDir = Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
-                String root = mcDir.substring(0,mcDir.length()-2)+"\\web\\";
+                String root = mcDir.substring(0, mcDir.length() - 2) + "\\web\\";
                 String path = exchange.getRequestURI().getPath();
                 if (path.equals("/")) {
                     path = "index.html";
@@ -71,7 +71,7 @@ public class Server {
     public static void start(File dir) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
         setHTMLContent();
-        db = new File(dir,"genshin_data");
+        db = new File(dir, "genshin_data");
 
         File file = new File(dir, "genshin_data/totp.txt");
         key = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
@@ -79,7 +79,7 @@ public class Server {
         new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(60*1000);
+                    Thread.sleep(60 * 1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -135,15 +135,15 @@ public class Server {
         }
     }
 
-    private static String generateToken(){
+    private static String generateToken() {
         String uuid = UUID.randomUUID().toString();
-        tokenStore.put(uuid, System.currentTimeMillis()+5*60*1000);
+        tokenStore.put(uuid, System.currentTimeMillis() + 5 * 60 * 1000);
         return uuid;
     }
 
     private static void handlePostRequest(HttpExchange exchange) throws IOException {
-        if(exchange.getRequestURI().getPath().equals("/totp")) {
-            String totpCode = getString(exchange,"code");
+        if (exchange.getRequestURI().getPath().equals("/totp")) {
+            String totpCode = getString(exchange, "code");
             if (!validateTOTP(key, totpCode)) {
                 exchange.getResponseHeaders().set("Location", "/totp");
                 exchange.sendResponseHeaders(302, -1);
@@ -154,26 +154,26 @@ public class Server {
                 exchange.sendResponseHeaders(302, -1);
             }
             exchange.close();
-        }else if(exchange.getRequestURI().getPath().contains("terminal")){
+        } else if (exchange.getRequestURI().getPath().contains("terminal")) {
             String token = exchange.getRequestURI().getQuery().replace("token=", "");
-            if(isTokenValid(token)){
+            if (isTokenValid(token)) {
                 exchange.getResponseHeaders().set("Location", "/totp");
                 exchange.sendResponseHeaders(302, -1);
                 exchange.close();
-            }else{
-                executeCommand("access "+db.getAbsolutePath());
-                String command = getString(exchange,"command");
+            } else {
+                executeCommand("access " + db.getAbsolutePath());
+                String command = getString(exchange, "command");
                 command = command.replaceAll("%20", " ").replaceAll("%3D", "=");
                 executeCommand(command);
-                System.out.println("executing:"+command);
+                System.out.println("executing:" + command);
             }
-        }else {
+        } else {
             exchange.sendResponseHeaders(404, -1);
             exchange.close();
         }
     }
 
-    private static String getString(HttpExchange exchange,String key) throws IOException {
+    private static String getString(HttpExchange exchange, String key) throws IOException {
         StringBuilder requestBody = new StringBuilder();
         try (InputStream inputStream = exchange.getRequestBody();
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
@@ -184,10 +184,10 @@ public class Server {
         }
         String totpCode = null;
         String body = requestBody.toString();
-        if (body.startsWith(key+"=")) {
-            totpCode = body.substring((key+"=").length());
+        if (body.startsWith(key + "=")) {
+            totpCode = body.substring((key + "=").length());
         }
-        System.out.println(key+": "+totpCode);
+        System.out.println(key + ": " + totpCode);
         return totpCode;
     }
 
@@ -203,8 +203,8 @@ public class Server {
         outputStream.close();
     }
 
-    public static void setHTMLContent(){
-        TOTP_PAGE="<!DOCTYPE html>\n" +
+    public static void setHTMLContent() {
+        TOTP_PAGE = "<!DOCTYPE html>\n" +
                 "<html lang=\"zh-CN\">\n" +
                 "<head>\n" +
                 "    <meta charset=\"UTF-8\">\n" +

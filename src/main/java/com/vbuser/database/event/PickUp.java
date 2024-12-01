@@ -12,17 +12,17 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PickUp {
     @SubscribeEvent
-    public void onPlayPickItem(PlayerEvent.ItemPickupEvent event){
+    public void onPlayPickItem(PlayerEvent.ItemPickupEvent event) {
         ItemStack stack = event.getStack();
         Item item = stack.getItem();
         int count = stack.getCount();
         CreativeTabs tabs = item.getCreativeTab();
         InventoryPlayer inventory = event.player.inventory;
-        if(tabs instanceof TabBase){
-            inventory.clearMatchingItems(item,0, count,stack.getTagCompound());
-            if(tabs == Main.SHENG_YI_WU){
+        if (tabs instanceof TabBase) {
+            inventory.clearMatchingItems(item, 0, count, stack.getTagCompound());
+            if (tabs == Main.SHENG_YI_WU) {
                 DataBase.addArtifact(stack, event.player);
-            }else{
+            } else {
                 DataBase.addItem(item, count, event.player);
             }
         }

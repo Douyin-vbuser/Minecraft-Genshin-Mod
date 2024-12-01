@@ -13,9 +13,10 @@ public class OperateServer implements IMessage {
 
     private String command;
 
-    public OperateServer(){}
+    public OperateServer() {
+    }
 
-    public OperateServer(String command){
+    public OperateServer(String command) {
         this.command = command;
     }
 
@@ -34,7 +35,7 @@ public class OperateServer implements IMessage {
     public static class Handler implements IMessageHandler<OperateServer, IMessage> {
         @Override
         public IMessage onMessage(OperateServer message, MessageContext ctx) {
-            Console.setDataBase(new File(ctx.getServerHandler().player.getServerWorld().getSaveHandler().getWorldDirectory(),"genshin_data"));
+            Console.setDataBase(new File(ctx.getServerHandler().player.getServerWorld().getSaveHandler().getWorldDirectory(), "genshin_data"));
             try {
                 Console.executeCommand(message.command);
             } catch (Exception e) {

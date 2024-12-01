@@ -23,6 +23,7 @@ public class GuiCG extends GuiScreen {
     public GuiCG(String url) {
         this.urlToLoad = url;
     }
+
     public void initGui() {
         if (this.browser == null) {
             API api = MCEFApi.getAPI();
@@ -58,10 +59,11 @@ public class GuiCG extends GuiScreen {
         }
 
     }
+
     public void onGuiClosed() {
         this.browser.close();
-        Browser.path =null;
-        Browser.video="";
+        Browser.path = null;
+        Browser.video = "";
         Keyboard.enableRepeatEvents(false);
     }
 

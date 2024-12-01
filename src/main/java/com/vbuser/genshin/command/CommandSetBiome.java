@@ -28,7 +28,7 @@ public class CommandSetBiome extends CommandBase {
         Chunk chunk = world.getChunkFromBlockCoords(player.getPosition());
 
         byte[] biomeArray = new byte[256];
-        byte biomeId = (byte)Integer.parseInt(args[0]);
+        byte biomeId = (byte) Integer.parseInt(args[0]);
         Arrays.fill(biomeArray, biomeId);
         chunk.setBiomeArray(biomeArray);
         chunk.setModified(true);

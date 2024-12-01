@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class New {
 
-    public static void createTable(String name,String[] columns, File dataBase){
-        try (FileWriter writer = new FileWriter(new File(dataBase, "\\tables\\"+name + ".txt"), true))  {
+    public static void createTable(String name, String[] columns, File dataBase) {
+        try (FileWriter writer = new FileWriter(new File(dataBase, "\\tables\\" + name + ".txt"), true)) {
             for (int i = 0; i < columns.length; i++) {
                 writer.write(columns[i]);
                 if (i != columns.length - 1) {
@@ -21,23 +21,23 @@ public class New {
         } catch (IOException e) {
             System.out.println("[!] An error occurred while creating the table.");
         }
-        try (FileWriter writer = new FileWriter(new File(dataBase, "tables.txt"), true))  {
+        try (FileWriter writer = new FileWriter(new File(dataBase, "tables.txt"), true)) {
             writer.write(name + "\n");
-        }catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("[!] An error occurred while creating the table.");
         }
         System.out.println("[] Table " + name + " created");
     }
 
-    public static void insert(String name,String[]columns, String[] values,File dataBase){
+    public static void insert(String name, String[] columns, String[] values, File dataBase) {
         Map<String, Integer> columnIndices = new HashMap<>();
         try {
-            String headerLine = new String(java.nio.file.Files.readAllBytes(new File(dataBase, "\\tables\\"+name + ".txt").toPath())).split("\n")[0];
+            String headerLine = new String(java.nio.file.Files.readAllBytes(new File(dataBase, "\\tables\\" + name + ".txt").toPath())).split("\n")[0];
             String[] allColumns = headerLine.split(">");
             for (int i = 0; i < allColumns.length; i++) {
                 columnIndices.put(allColumns[i], i);
             }
-            try (FileWriter writer = new FileWriter(new File(dataBase, "\\tables\\"+name + ".txt"), true)) {
+            try (FileWriter writer = new FileWriter(new File(dataBase, "\\tables\\" + name + ".txt"), true)) {
                 StringBuilder line = new StringBuilder();
                 for (String column : allColumns) {
                     if (columnIndices.containsKey(column)) {

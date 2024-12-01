@@ -21,14 +21,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = "particulate", name = "Custom Renderer Mod", version = "basic 0.0.1")
-public class Particulate
-{
+public class Particulate {
 
     //Registry Events:
     public static SimpleNetworkWrapper networkWrapper;
 
     @Mod.EventHandler
-    public void PreInit(FMLPreInitializationEvent event){
+    public void PreInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new BlockRenderer());
     }
 
@@ -38,22 +37,22 @@ public class Particulate
         ParticleUtil.init();
     }
 
-    public static void registerNetwork(){
+    public static void registerNetwork() {
         networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("SSLChannel");
-        networkWrapper.registerMessage(PacketBlock.Handler.class, PacketBlock.class,0, Side.CLIENT);
-        networkWrapper.registerMessage(PacketTCB.Handler.class, PacketTCB.class,1,Side.CLIENT);
-        networkWrapper.registerMessage(PacketTSB.Handler.class, PacketTSB.class,2,Side.SERVER);
-        networkWrapper.registerMessage(PacketLeave.Handle.class, PacketLeave.class,3,Side.CLIENT);
+        networkWrapper.registerMessage(PacketBlock.Handler.class, PacketBlock.class, 0, Side.CLIENT);
+        networkWrapper.registerMessage(PacketTCB.Handler.class, PacketTCB.class, 1, Side.CLIENT);
+        networkWrapper.registerMessage(PacketTSB.Handler.class, PacketTSB.class, 2, Side.SERVER);
+        networkWrapper.registerMessage(PacketLeave.Handle.class, PacketLeave.class, 3, Side.CLIENT);
     }
 
     @Mod.EventHandler
-    public void serverInit(FMLServerStartingEvent event){
+    public void serverInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CmdB());
         event.registerServerCommand(new CmdP());
     }
 
     //APIs:
-    public static void renderBlock(EntityPlayerMP player, BlockPos pos, Block block, int meta){
-        networkWrapper.sendTo(new PacketBlock(block,meta,pos),player);
+    public static void renderBlock(EntityPlayerMP player, BlockPos pos, Block block, int meta) {
+        networkWrapper.sendTo(new PacketBlock(block, meta, pos), player);
     }
 }

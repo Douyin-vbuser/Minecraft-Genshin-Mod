@@ -70,20 +70,22 @@ dependencies {
 }
 
 jar {
-    manifest {
-        attributes([
-            "Specification-Title": "MCI",
-            "Specification-Vendor": "MCI-vbuser",
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"MCI-vbuser",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
+    from {
+        configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude 'LICENSE.txt', 'META-INF/MANIFSET.MF', 'META-INF/maven/**', 'META-INF/*.RSA', 'META-INF/*.SF'
     }
+
+    manifest.attributes(
+            'ForceLoadAsMod': 'true',
+            'FMLCorePluginContainsFMLMod': 'true',
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'TweakOrder': '0'
+    )
 }
 
-jar.finalizedBy('reobfJar') 
+jar.finalizedBy('reobfJar')
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

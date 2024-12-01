@@ -6,14 +6,10 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.common.util.EnumHelper;
 
-public class ParticleUtil
-{
-    public static EnumParticleTypes registerParticleSystem(String enumName, String name, int id, boolean ignoreRange, int argumentCount, IParticleFactory factory)
-    {
-        for (EnumParticleTypes existingParticle : EnumParticleTypes.values())
-        {
-            if (existingParticle.getParticleID() == id)
-            {
+public class ParticleUtil {
+    public static EnumParticleTypes registerParticleSystem(String enumName, String name, int id, boolean ignoreRange, int argumentCount, IParticleFactory factory) {
+        for (EnumParticleTypes existingParticle : EnumParticleTypes.values()) {
+            if (existingParticle.getParticleID() == id) {
                 throw new RuntimeException("Something attempted to register a particle with the same integer ID as " + existingParticle.getParticleName() + " (" + existingParticle + ").");
             }
         }
@@ -28,7 +24,7 @@ public class ParticleUtil
 
     public static EnumParticleTypes LEAVE;
 
-    public static void init(){
+    public static void init() {
         LEAVE = registerParticleSystem("PARTICULATE_LEAVE", "leave", 49, true, 0, new ParticulateLeave.Factory());
     }
 }

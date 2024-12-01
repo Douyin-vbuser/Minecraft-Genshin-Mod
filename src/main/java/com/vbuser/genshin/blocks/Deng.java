@@ -19,27 +19,23 @@ public class Deng extends BlockBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
+    public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
     @Override
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
     }
 }

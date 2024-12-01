@@ -7,8 +7,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "genshin")
 public class KeyboardManager {
-    public static void init(){
-        for(KeyBinding keyBinding: ClientProxy.KEY_BINDINGS){
+    public static void init() {
+        for (KeyBinding keyBinding : ClientProxy.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);
         }
     }

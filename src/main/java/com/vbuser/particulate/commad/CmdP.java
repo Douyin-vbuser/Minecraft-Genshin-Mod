@@ -35,11 +35,11 @@ public class CmdP extends CommandBase {
             EnumParticleTypes particle = EnumParticleTypes.values()[particleId];
             World world = sender.getEntityWorld();
             world.spawnParticle(particle, x, y, z, 0.0, 0.0, 0.0);
-            Particulate.networkWrapper.sendToAll(new PacketLeave( x, y, z,particleId));
+            Particulate.networkWrapper.sendToAll(new PacketLeave(x, y, z, particleId));
         } catch (NumberFormatException e) {
             throw new CommandException("Invalid number format. Usage: " + getUsage(sender));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CommandException("Invalid particle ID. Usage: "+ getUsage(sender));
+            throw new CommandException("Invalid particle ID. Usage: " + getUsage(sender));
         }
     }
 }

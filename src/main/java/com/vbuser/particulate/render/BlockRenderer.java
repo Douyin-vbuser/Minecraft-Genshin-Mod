@@ -19,7 +19,9 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -68,12 +70,12 @@ public class BlockRenderer {
             World world = mc.world;
 
             Map<BlockPos, IBlockState> copyMap = new HashMap<>(map);
-            if(!copyMap.isEmpty()) {
+            if (!copyMap.isEmpty()) {
                 for (Map.Entry<BlockPos, IBlockState> entry : copyMap.entrySet()) {
                     BlockPos pos = entry.getKey();
                     IBlockState state = entry.getValue();
 
-                    if (isBlockInFrustum(pos) && isBlockVisible(pos)) {
+                    if (isBlockVisible(pos)) {
                         dispatcher.renderBlock(state, pos, world, bufferBuilder);
                     }
                 }
@@ -84,12 +86,15 @@ public class BlockRenderer {
         }
     }
 
-    private boolean isBlockInFrustum(BlockPos pos) {
+    private static boolean isBlockInFrustum(BlockPos pos) {
         AxisAlignedBB aabb = new AxisAlignedBB(pos);
         return frustum.isBoundingBoxInFrustum(aabb);
     }
 
     private static boolean isBlockVisible(BlockPos blockPos) {
+        if(!isBlockInFrustum(blockPos)){
+            return false;
+        }
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayerSP player = mc.player;
 
@@ -98,9 +103,11 @@ public class BlockRenderer {
 
         RayTraceResult result = mc.world.rayTraceBlocks(playerEyes, blockCenter, false, true, false);
 
-        boolean visibleInWorld = result == null || result.getBlockPos().equals(blockPos);
+        if(!(result == null || result.getBlockPos().equals(blockPos))){
+            return false;
+        }
 
-        return visibleInWorld && visibleInMap(playerEyes,blockCenter);
+        return visibleInMap(playerEyes, blockCenter);
     }
 
     private static class VisibilityCache {

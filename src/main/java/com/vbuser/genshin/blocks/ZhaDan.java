@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class ZhaDan extends BlockBase{
+public class ZhaDan extends BlockBase {
     public ZhaDan(String name, Material material) {
         super(name, material);
         setCreativeTab(Main.JIAN_CAI);
@@ -29,33 +29,29 @@ public class ZhaDan extends BlockBase{
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
+    public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
     @Override
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
     }
 
     @Override
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        if(entityIn instanceof Element) {
+        if (entityIn instanceof Element) {
             worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0, true);
             worldIn.setBlockToAir(pos);
             int i = 0;
@@ -72,17 +68,16 @@ public class ZhaDan extends BlockBase{
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(playerIn.getHeldItemMainhand().getItem()== ModItems.DEBUG_STICK){
-            worldIn.createExplosion(null,pos.getX(),pos.getY(),pos.getZ(),0,true);
+        if (playerIn.getHeldItemMainhand().getItem() == ModItems.DEBUG_STICK) {
+            worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 0, true);
             worldIn.setBlockToAir(pos);
-            int i=0;
-            while(i<12){
-                if(worldIn.getBlockState(pos.down(i))== ModBlocks.PRE_STONE.getDefaultState()){
+            int i = 0;
+            while (i < 12) {
+                if (worldIn.getBlockState(pos.down(i)) == ModBlocks.PRE_STONE.getDefaultState()) {
                     worldIn.setBlockState(pos.down(i), Blocks.REDSTONE_BLOCK.getDefaultState());
                     break;
-                }
-                else{
-                    i=i+1;
+                } else {
+                    i = i + 1;
                 }
             }
         }

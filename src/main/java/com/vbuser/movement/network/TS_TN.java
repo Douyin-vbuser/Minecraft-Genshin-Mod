@@ -14,9 +14,10 @@ public class TS_TN implements IMessage {
     private String uuid;
     private boolean option;
 
-    public TS_TN(){}
+    public TS_TN() {
+    }
 
-    public TS_TN(UUID uuid,boolean option){
+    public TS_TN(UUID uuid, boolean option) {
         this.uuid = uuid.toString();
         this.option = option;
     }
@@ -35,12 +36,13 @@ public class TS_TN implements IMessage {
         packetBuffer.writeBoolean(option);
     }
 
-    public static class Handler implements IMessageHandler<TS_TN,IMessage>{
+    public static class Handler implements IMessageHandler<TS_TN, IMessage> {
 
         @Override
         public IMessage onMessage(TS_TN message, MessageContext ctx) {
-            if(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid))!=null) {
-                if(Storage_s.normal!=null) Storage_s.normal.put(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid)), message.option);
+            if (ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid)) != null) {
+                if (Storage_s.normal != null)
+                    Storage_s.normal.put(ctx.getServerHandler().player.getEntityWorld().getPlayerEntityByUUID(UUID.fromString(message.uuid)), message.option);
             }
             return null;
         }

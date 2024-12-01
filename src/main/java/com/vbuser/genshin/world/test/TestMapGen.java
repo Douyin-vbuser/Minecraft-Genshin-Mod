@@ -20,20 +20,20 @@ import java.util.Random;
 @SuppressWarnings("all")
 public class TestMapGen extends MapGenStructure {
 
-    public static List<Biome> villageSpawnBiomes = Arrays.<Biome>asList(new Biome[] {InitBiome.BIOME_TEST});
-    /** World terrain type, 0 for normal, 1 for flat map */
+    public static List<Biome> villageSpawnBiomes = Arrays.<Biome>asList(new Biome[]{InitBiome.BIOME_TEST});
+    /**
+     * World terrain type, 0 for normal, 1 for flat map
+     */
     private int terrainType;
     private int field_82665_g;
     private int field_82666_h;
 
-    public TestMapGen()
-    {
+    public TestMapGen() {
         field_82665_g = 32;
         field_82666_h = 8;
     }
 
-    public TestMapGen(Map<String, String> p_i2093_1_)
-    {
+    public TestMapGen(Map<String, String> p_i2093_1_) {
         this();
 
         for (Map.Entry<String, String> entry : p_i2093_1_.entrySet())
@@ -44,37 +44,33 @@ public class TestMapGen extends MapGenStructure {
     }
 
     @Override
-    public String getStructureName()
-    {
+    public String getStructureName() {
         return null;
     }
 
     @Override
-    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ)
-    {
-        if(chunkX == 0 && chunkZ == 0) return true;
+    protected boolean canSpawnStructureAtCoords(int chunkX, int chunkZ) {
+        if (chunkX == 0 && chunkZ == 0) return true;
 
         return false;
     }
 
     @Override
-    protected StructureStart getStructureStart(int chunkX, int chunkZ)
-    {
+    protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new Start(world, rand, chunkX, chunkZ, terrainType);
     }
 
-    public static class Start extends StructureStart
-    {
-        /** well ... thats what it does */
+    public static class Start extends StructureStart {
+        /**
+         * well ... thats what it does
+         */
         private boolean hasMoreThanTwoComponents;
 
-        public Start()
-        {
+        public Start() {
         }
 
 
-        public Start(World worldIn, Random random, int chunkX, int chunkZ, int p_i2092_5_)
-        {
+        public Start(World worldIn, Random random, int chunkX, int chunkZ, int p_i2092_5_) {
             super(chunkX, chunkZ);
             StructureStrongholdPieces.prepareStructurePieces();
             StructureStrongholdPieces.Stairs2 structurestrongholdpieces$stairs2 = new StructureStrongholdPieces.Stairs2(0, random, (chunkX << 4) + 2, (chunkZ << 4) + 2);
@@ -82,8 +78,7 @@ public class TestMapGen extends MapGenStructure {
             structurestrongholdpieces$stairs2.buildComponent(structurestrongholdpieces$stairs2, this.components, random);
             List<StructureComponent> list = structurestrongholdpieces$stairs2.pendingChildren;
 
-            while (!list.isEmpty())
-            {
+            while (!list.isEmpty()) {
                 int i = random.nextInt(list.size());
                 StructureComponent structurecomponent = list.remove(i);
                 structurecomponent.buildComponent(structurestrongholdpieces$stairs2, this.components, random);
@@ -92,25 +87,23 @@ public class TestMapGen extends MapGenStructure {
             this.updateBoundingBox();
             this.markAvailableHeight(worldIn, random, 10);
         }
+
         /**
          * currently only defined for Villages, returns true if Village has more than 2 non-road components
          */
         @Override
-        public boolean isSizeableStructure()
-        {
+        public boolean isSizeableStructure() {
             return hasMoreThanTwoComponents;
         }
 
         @Override
-        public void writeToNBT(NBTTagCompound tagCompound)
-        {
+        public void writeToNBT(NBTTagCompound tagCompound) {
             super.writeToNBT(tagCompound);
             tagCompound.setBoolean("Valid", hasMoreThanTwoComponents);
         }
 
         @Override
-        public void readFromNBT(NBTTagCompound tagCompound)
-        {
+        public void readFromNBT(NBTTagCompound tagCompound) {
             super.readFromNBT(tagCompound);
             hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
         }

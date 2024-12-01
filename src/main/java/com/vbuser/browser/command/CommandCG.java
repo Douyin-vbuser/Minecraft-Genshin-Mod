@@ -21,7 +21,7 @@ public class CommandCG extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        EntityPlayerMP player = getPlayer(server,sender,args[0]);
+        EntityPlayerMP player = getPlayer(server, sender, args[0]);
         String video = args[1];
         Browser.video = video;
         Browser.network.sendTo(new PacketVideo(video), player);

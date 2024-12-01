@@ -10,65 +10,115 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@SuppressWarnings("unused")
 public class AttackState {
 
-    public static class Character{
+    public static class Character {
 
         private final int e_cd;
         private final int q_cd;
         private final int q_enr;
         private int q_en;
-        private long e_time,q_time;
-        private boolean q=false,e=false;
+        private long e_time, q_time;
+        private boolean q = false, e = false;
+        private final int att_category;
 
-        public Character(int id,int e_cd,int q_cd,int q_enr){
-            character.put(id,this);
+        public Character(int id, int e_cd, int q_cd, int q_enr, int att_category) {
+            character.put(id, this);
             this.e_cd = e_cd;
             this.q_cd = q_cd;
             this.q_enr = q_enr;
             this.q_en = 0;
+            this.att_category = att_category;
         }
 
-        public Character(){
-            character.put(0,this);
+        public Character() {
+            character.put(0, this);
             e_cd = 50;
             q_cd = 50;
             q_enr = 0;
             this.q_en = 0;
+            this.att_category = 0;
         }
 
-        public int get_e_cd(){return e_cd;}
-        public int get_q_cd(){return q_cd;}
-        public int get_q_enr(){return q_enr;}
-        public int get_q_en(){return q_en;}
-        public void set_q_en(int value){q_en=value;}
-        public long get_q_time(){return q_time;}
-        public void set_q_time(){q_time = System.currentTimeMillis();}
-        public void set_e_time(){e_time = System.currentTimeMillis();}
-        public long get_e_time(){return e_time;}
-        public static Character getById(int id){return character.get(id);}
-        public boolean isQ(){return q;}
-        public boolean isE(){return e;}
-        public void setE(boolean value){e=value;}
-        public void setQ(boolean value){q=value;}
+        public int get_e_cd() {
+            return e_cd;
+        }
 
-        public boolean e(){
+        public int get_q_cd() {
+            return q_cd;
+        }
+
+        public int get_q_enr() {
+            return q_enr;
+        }
+
+        public int get_q_en() {
+            return q_en;
+        }
+
+        public void set_q_en(int value) {
+            q_en = value;
+        }
+
+        public long get_q_time() {
+            return q_time;
+        }
+
+        public void set_q_time() {
+            q_time = System.currentTimeMillis();
+        }
+
+        public void set_e_time() {
+            e_time = System.currentTimeMillis();
+        }
+
+        public long get_e_time() {
+            return e_time;
+        }
+
+        public static Character getById(int id) {
+            return character.get(id);
+        }
+
+        public boolean isQ() {
+            return q;
+        }
+
+        public boolean isE() {
+            return e;
+        }
+
+        public void setE(boolean value) {
+            e = value;
+        }
+
+        public void setQ(boolean value) {
+            q = value;
+        }
+
+        public int getAtt_category() {
+            return att_category;
+        }
+
+        public boolean e() {
             boolean result = false;
             long time = System.currentTimeMillis();
-            int interval = (int)((time - get_e_time())/100);
-            if(interval>=get_e_cd()){
+            int interval = (int) ((time - get_e_time()) / 100);
+            if (interval >= get_e_cd()) {
                 set_e_time();
                 setE(true);
                 result = true;
             }
             return result;
         }
-        public boolean q(){
+
+        public boolean q() {
             boolean result = false;
             long time = System.currentTimeMillis();
-            int interval = (int)((time - get_q_time())/100);
-            if(interval>=get_q_cd()){
-                if(get_q_en()==get_q_enr()){
+            int interval = (int) ((time - get_q_time()) / 100);
+            if (interval >= get_q_cd()) {
+                if (get_q_en() == get_q_enr()) {
                     set_q_en(0);
                     set_q_time();
                     setQ(true);
@@ -78,33 +128,41 @@ public class AttackState {
             return result;
         }
 
-        public static void init(){
+        public void normal_attack(int state) {
+
+        }
+
+        public void sward() {
+
+        }
+
+        public static void init() {
             new Character();
         }
 
     }
 
-    static ConcurrentMap<UUID,Integer> state = new ConcurrentHashMap<>();
+    public static ConcurrentMap<UUID, Integer> state = new ConcurrentHashMap<>();
 
-    public static int getState(UUID player){
+    public static int getState(UUID player) {
         return state.get(player);
     }
 
     static ConcurrentMap<Integer, Character> character = new ConcurrentHashMap<>();
 
-    int time_press=0;
-    int time_interval=0;
-    int animation_time=0;
+    int time_press = 0;
+    int time_interval = 0;
+    int animation_time = 0;
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event){
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
-        if(player != null){
-            if(!player.isRiding()){
+        if (player != null) {
+            if (!player.isRiding()) {
                 int attack_state;
                 attack_state = state.getOrDefault(player.getUniqueID(), 0);
 
-                if(state.containsKey(player.getUniqueID())) {
+                if (state.containsKey(player.getUniqueID())) {
                     //e&q attack.
                     int slot = CharacterChoice.getChoice(player.getUniqueID());
                     int character = CharacterChoice.get().get(player.getUniqueID()).get(slot);
@@ -140,7 +198,6 @@ public class AttackState {
                     }
 
                     if (!Character.getById(character).isE() && !Character.getById(character).isQ()) {
-
                         //normal attack and swack.
                         if (player.onGround) {
                             if (attack_state < 8) {
@@ -153,9 +210,9 @@ public class AttackState {
                                 } else {
                                     time_press = 0;
                                     time_interval = time_interval + 1;
-                                    if (time_interval > 40) {
+                                    if (time_interval > (Character.getById(character).att_category == 1 ? 400 : 40)) {
                                         attack_state = 0;
-                                        time_interval = 41;
+                                        time_interval = time_interval + 1;
                                     }
                                 }
                                 if (ClientProxy.PG.isPressed() && time_press < 30) {
@@ -170,7 +227,6 @@ public class AttackState {
                                 attack_state = 0;
                             }
                         } else {
-
                             //falling attack.
                             if (!player.isInWater()) {
                                 if (ClientProxy.PG.isPressed()) {
@@ -188,7 +244,7 @@ public class AttackState {
                         }
                     }
                 }
-                state.put(player.getUniqueID(),attack_state);
+                state.put(player.getUniqueID(), attack_state);
             }
         }
     }

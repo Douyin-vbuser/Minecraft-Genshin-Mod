@@ -9,25 +9,25 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class FakePlayerEvent {
     @SubscribeEvent
-    public void playerEvent(TickEvent.PlayerTickEvent event){
+    public void playerEvent(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         FakePlayer fakePlayer;
         World world = player.world;
 
-        if(Storage_s.renderer.containsKey(player)){
+        if (Storage_s.renderer.containsKey(player)) {
             fakePlayer = Storage_s.renderer.get(player);
-        }else{
-            fakePlayer = new FakePlayer(world,player.getUniqueID());
+        } else {
+            fakePlayer = new FakePlayer(world, player.getUniqueID());
             world.spawnEntity(fakePlayer);
-            Storage_s.renderer.put(player,fakePlayer);
+            Storage_s.renderer.put(player, fakePlayer);
         }
 
         int distance = (int) player.getDistance(fakePlayer);
-        if(distance>16){
+        if (distance > 16) {
             fakePlayer.setDead();
             Storage_s.renderer.remove(player);
-            world.spawnEntity(new FakePlayer(world,player.getUniqueID()));
-            Storage_s.renderer.put(player,fakePlayer);
+            world.spawnEntity(new FakePlayer(world, player.getUniqueID()));
+            Storage_s.renderer.put(player, fakePlayer);
         }
 
     }

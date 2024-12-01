@@ -4,7 +4,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeVoidDecorator;
 
 public class TestBiome extends Biome {
-    public TestBiome(){
+    public TestBiome() {
         super(new BiomeProperties("biome_test"));
         spawnableMonsterList.clear();
         spawnableCreatureList.clear();

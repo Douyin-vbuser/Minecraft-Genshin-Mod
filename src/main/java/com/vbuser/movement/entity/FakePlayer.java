@@ -25,31 +25,31 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     private UUID player_uuid;
     private World world;
     private float yaw_temp;
-    private double x,y,z;
+    private double x, y, z;
 
     @SuppressWarnings("all")
-    public FakePlayer(World worldIn){
+    public FakePlayer(World worldIn) {
         super(worldIn);
-        if(Minecraft.getMinecraft().player==null) {
+        if (Minecraft.getMinecraft().player == null) {
             this.setDead();
             return;
         }
         player_uuid = Minecraft.getMinecraft().player.getUniqueID();
         world = worldIn;
-        Storage_s.renderer.put(worldIn.getPlayerEntityByUUID(player_uuid),this);
-        setSize(0.6f,1.8f);
-        BlockPos pos  = new BlockPos(Objects.requireNonNull(worldIn.getPlayerEntityByUUID(player_uuid)));
-        setPosition(pos.getX(),pos.getY(),pos.getZ());
+        Storage_s.renderer.put(worldIn.getPlayerEntityByUUID(player_uuid), this);
+        setSize(0.6f, 1.8f);
+        BlockPos pos = new BlockPos(Objects.requireNonNull(worldIn.getPlayerEntityByUUID(player_uuid)));
+        setPosition(pos.getX(), pos.getY(), pos.getZ());
     }
 
-    public FakePlayer(World worldIn, UUID uuid){
+    public FakePlayer(World worldIn, UUID uuid) {
         super(worldIn);
         player_uuid = uuid;
         world = worldIn;
-        Storage_s.renderer.put(worldIn.getPlayerEntityByUUID(uuid),this);
-        setSize(0.6f,1.8f);
-        BlockPos pos  = new BlockPos(Objects.requireNonNull(worldIn.getPlayerEntityByUUID(player_uuid)));
-        setPosition(pos.getX(),pos.getY(),pos.getZ());
+        Storage_s.renderer.put(worldIn.getPlayerEntityByUUID(uuid), this);
+        setSize(0.6f, 1.8f);
+        BlockPos pos = new BlockPos(Objects.requireNonNull(worldIn.getPlayerEntityByUUID(player_uuid)));
+        setPosition(pos.getX(), pos.getY(), pos.getZ());
     }
 
     //Correction of yaw and position:
@@ -104,7 +104,8 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     //GeckoLib methods:
 
     @Override
-    public void tick() {}
+    public void tick() {
+    }
 
     @Override
     public int tickTimer() {

@@ -11,14 +11,14 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.Objects;
 
 public class CameraTrack {
-    private int start_x,start_y,start_z,end_x,end_y,end_z,start_yaw,end_yaw,last_time;
+    private int start_x, start_y, start_z, end_x, end_y, end_z, start_yaw, end_yaw, last_time;
     private int current_time;
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if(event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().player != null){
-            if(Storage.pack_received){
-                Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(),false));
+        if (event.phase == TickEvent.Phase.END && Minecraft.getMinecraft().player != null) {
+            if (Storage.pack_received) {
+                Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(), false));
                 Minecraft.getMinecraft().gameSettings.thirdPersonView = 0;
                 start_x = Storage.start_x;
                 start_y = Storage.start_y;
@@ -33,19 +33,20 @@ public class CameraTrack {
                 Storage.pack_received = false;
                 Storage.is_performing = true;
             }
-            if(current_time >= last_time){
+            if (current_time >= last_time) {
                 Storage.is_performing = false;
-                current_time=0;last_time=0;
+                current_time = 0;
+                last_time = 0;
                 Minecraft.getMinecraft().gameSettings.thirdPersonView = 1;
-                Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(),true));
+                Movement.network.sendToServer(new TS_TN(Minecraft.getMinecraft().player.getUniqueID(), true));
             }
         }
     }
 
     @SubscribeEvent
-    public void cameraSetup(EntityViewRenderEvent.CameraSetup event){
-        if(Minecraft.getMinecraft().player != null && current_time < last_time){
-            float progress = (float)current_time / last_time;
+    public void cameraSetup(EntityViewRenderEvent.CameraSetup event) {
+        if (Minecraft.getMinecraft().player != null && current_time < last_time) {
+            float progress = (float) current_time / last_time;
 
             float current_x = start_x + (end_x - start_x) * progress;
             float current_y = start_y + (end_y - start_y) * progress;

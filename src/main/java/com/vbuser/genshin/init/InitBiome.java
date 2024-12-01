@@ -10,8 +10,7 @@ public class InitBiome {
 
     public static final Biome BIOME_TEST = new TestBiome();     //biome_id:40
 
-    public static void registerBiomes()
-    {
+    public static void registerBiomes() {
         initBiome(BIOME_TEST, "biome_test", BiomeManager.BiomeType.WARM, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.DENSE);
     }
 

@@ -9,8 +9,7 @@ import net.minecraft.server.MinecraftServer;
 public class CommandTpDim extends CommandBase {
 
     @Override
-    public int getRequiredPermissionLevel()
-    {
+    public int getRequiredPermissionLevel() {
         return 2;
     }
 
@@ -34,19 +33,17 @@ public class CommandTpDim extends CommandBase {
         if (args.length < 1) {
             return;
         }
-        int d,x,y,z;
-        try{
+        int d, x, y, z;
+        try {
             d = Integer.parseInt(args[0]);
-            x=Integer.parseInt(args[1]);
-            y=Integer.parseInt(args[2]);
-            z=Integer.parseInt(args[3]);
-        }catch (NumberFormatException e)
-        {
+            x = Integer.parseInt(args[1]);
+            y = Integer.parseInt(args[2]);
+            z = Integer.parseInt(args[3]);
+        } catch (NumberFormatException e) {
             return;
         }
 
-        if (sender instanceof EntityPlayer)
-        {
+        if (sender instanceof EntityPlayer) {
             Teleport.teleportToDim((EntityPlayer) sender, d, x, y, z);
         }
     }

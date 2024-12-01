@@ -19,10 +19,9 @@ public class CommandTask extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if(args[0].equals("start")){
-            Task.setTask(args[1],getCommandSenderAsPlayer(sender));
-        }
-        else if(args[0].equals("terminate")){
+        if (args[0].equals("start")) {
+            Task.setTask(args[1], getCommandSenderAsPlayer(sender));
+        } else if (args[0].equals("terminate")) {
             Task.terminateTask();
         }
     }

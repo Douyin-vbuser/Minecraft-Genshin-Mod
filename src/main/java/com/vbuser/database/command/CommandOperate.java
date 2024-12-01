@@ -21,9 +21,9 @@ public class CommandOperate extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if(args[0].equals("add")){
+        if (args[0].equals("add")) {
             EntityPlayer player = getPlayer(server, sender, args[1]);
-            Item item = Item.getByNameOrId("genshin:"+args[2]);
+            Item item = Item.getByNameOrId("genshin:" + args[2]);
             assert item != null;
             DataBase.addItem(item, Integer.parseInt(args[3]), player);
         }

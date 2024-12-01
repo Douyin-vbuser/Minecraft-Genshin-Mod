@@ -14,34 +14,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SuppressWarnings("all")
 public class HeChengTai extends BlockBase {
-    public HeChengTai(String name,Material material){
-        super(name,material);
+    public HeChengTai(String name, Material material) {
+        super(name, material);
         setCreativeTab(Main.JIAN_CAI);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
+    public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
     @Override
-    public boolean isFullCube(IBlockState state)
-    {
+    public boolean isFullCube(IBlockState state) {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state)
-    {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        if (!worldIn.isRemote)
-        {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!worldIn.isRemote) {
             //todo:interactable gui logic
         }
         return true;

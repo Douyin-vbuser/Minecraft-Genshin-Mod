@@ -24,10 +24,10 @@ public class CommandWeb extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        EntityPlayerMP player = getPlayer(server,sender,args[0]);
+        EntityPlayerMP player = getPlayer(server, sender, args[0]);
         String url = args[1];
         String ip = "127.0.0.1";
-        if(server.getServer() !=null && url.contains("server_ip")) {
+        if (server.getServer() != null && url.contains("server_ip")) {
             try {
                 InetAddress inetAddress = InetAddress.getLocalHost();
                 ip = inetAddress.getHostAddress();
@@ -35,8 +35,9 @@ public class CommandWeb extends CommandBase {
                 throw new RuntimeException(e);
             }
         }
-        if(args[1].contains("server_ip"))player.sendMessage(new net.minecraft.util.text.TextComponentString("redirecting \"server_ip\" to " + ip));
-        url = url.replace("server_ip",ip);
+        if (args[1].contains("server_ip"))
+            player.sendMessage(new net.minecraft.util.text.TextComponentString("redirecting \"server_ip\" to " + ip));
+        url = url.replace("server_ip", ip);
         Browser.network.sendTo(new PacketWebPage(url), player);
     }
 }

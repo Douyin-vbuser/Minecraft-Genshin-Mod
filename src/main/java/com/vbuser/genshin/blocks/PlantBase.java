@@ -94,24 +94,24 @@ public class PlantBase extends Block implements IHasModel {
 
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.scheduleUpdate(pos,this,1000);
+        worldIn.scheduleUpdate(pos, this, 1000);
     }
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
         int range = 30;
-        int playerCount = worldIn.getEntitiesWithinAABB(EntityPlayer.class,new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range))).size();
-        if (playerCount == 0 && worldIn.getBlockState(pos).getValue(PICKED)==0) {
-            worldIn.setBlockState(pos,getDefaultState().withProperty(PICKED,3));
+        int playerCount = worldIn.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range))).size();
+        if (playerCount == 0 && worldIn.getBlockState(pos).getValue(PICKED) == 0) {
+            worldIn.setBlockState(pos, getDefaultState().withProperty(PICKED, 3));
         }
-        worldIn.scheduleUpdate(pos,this,1000);
+        worldIn.scheduleUpdate(pos, this, 1000);
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
             if (state.getValue(PICKED) == 3) {
-                DataBase.addItem(Item.getByNameOrId(item),3, playerIn);
+                DataBase.addItem(Item.getByNameOrId(item), 3, playerIn);
                 worldIn.setBlockState(pos, state.withProperty(PICKED, 0));
             }
         }

@@ -10,8 +10,8 @@ public class Init {
         File file = new File(directory, name);
         file.mkdir();
         new File(directory, name + "\\tables.txt").createNewFile();
-        new File(directory, name+"\\tables").mkdir();
-        new File(directory, name+"\\backups").mkdir();
+        new File(directory, name + "\\tables").mkdir();
+        new File(directory, name + "\\backups").mkdir();
         new File(directory, name + "\\totp.txt").createNewFile();
 
         FileWriter fileWriter = new FileWriter(new File(directory, name + "\\totp.txt"));

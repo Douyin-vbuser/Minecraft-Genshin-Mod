@@ -18,7 +18,7 @@ public class CommandStartServer extends CommandBase {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args){
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         try {
             Server.start();
             sender.sendMessage(new TextComponentString("Server started on port 80."));

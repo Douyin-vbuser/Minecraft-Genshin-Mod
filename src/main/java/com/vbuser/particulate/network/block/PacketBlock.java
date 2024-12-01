@@ -22,9 +22,10 @@ public class PacketBlock implements IMessage {
     public int meta;
     public BlockPos pos;
 
-    public PacketBlock(){}
+    public PacketBlock() {
+    }
 
-    public PacketBlock(Block block,int meta,BlockPos pos){
+    public PacketBlock(Block block, int meta, BlockPos pos) {
         this.block = block;
         this.meta = meta;
         this.pos = pos;
@@ -49,21 +50,21 @@ public class PacketBlock implements IMessage {
         buf.writeInt(this.pos.getZ());
     }
 
-    public static class Handler implements IMessageHandler<PacketBlock,IMessage>{
+    public static class Handler implements IMessageHandler<PacketBlock, IMessage> {
         @Override
         public IMessage onMessage(PacketBlock message, MessageContext ctx) {
 
             Map<BlockPos, IBlockState> stateMap = BlockRenderer.getMap();
 
-            if(message.block.equals(Blocks.AIR)){
-                if(ctx.side == Side.CLIENT){
+            if (message.block.equals(Blocks.AIR)) {
+                if (ctx.side == Side.CLIENT) {
                     Particulate.networkWrapper.sendToServer(new PacketTSB(message.pos));
                 }
                 stateMap.remove(message.pos);
-            }else{
+            } else {
                 IBlockState state = message.block.getStateFromMeta(message.meta);
-                stateMap.put(message.pos,state);
-                if(ctx.side == Side.CLIENT){
+                stateMap.put(message.pos, state);
+                if (ctx.side == Side.CLIENT) {
                     World world = Minecraft.getMinecraft().world;
                     world.setBlockToAir(message.pos);
                 }

@@ -16,9 +16,10 @@ public class PacketTCB implements IMessage {
     public IBlockState state;
     public BlockPos pos;
 
-    public PacketTCB(){}
+    public PacketTCB() {
+    }
 
-    public PacketTCB(IBlockState state, BlockPos pos){
+    public PacketTCB(IBlockState state, BlockPos pos) {
         this.state = state;
         this.pos = pos;
     }
@@ -43,10 +44,10 @@ public class PacketTCB implements IMessage {
         buf.writeInt(state.getBlock().getMetaFromState(state));
     }
 
-    public static class Handler implements IMessageHandler<PacketTCB,IMessage>{
+    public static class Handler implements IMessageHandler<PacketTCB, IMessage> {
         @Override
         public IMessage onMessage(PacketTCB message, MessageContext ctx) {
-            if(ctx.side == Side.CLIENT){
+            if (ctx.side == Side.CLIENT) {
                 World world = Minecraft.getMinecraft().world;
                 world.setBlockState(message.pos, message.state);
             }

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemBlock;
 
 @SuppressWarnings("all")
 public class BlockBase extends Block implements IHasModel {
-    public BlockBase(String name , Material material){
+    public BlockBase(String name, Material material) {
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
@@ -22,7 +22,7 @@ public class BlockBase extends Block implements IHasModel {
     }
 
     @Override
-    public void registerModels(){
-        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this),0,"inventory");
+    public void registerModels() {
+        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 }

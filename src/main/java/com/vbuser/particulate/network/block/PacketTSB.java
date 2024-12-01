@@ -14,9 +14,10 @@ public class PacketTSB implements IMessage {
 
     public BlockPos pos;
 
-    public PacketTSB(){}
+    public PacketTSB() {
+    }
 
-    public PacketTSB(BlockPos pos){
+    public PacketTSB(BlockPos pos) {
         this.pos = pos;
     }
 
@@ -35,13 +36,13 @@ public class PacketTSB implements IMessage {
         buf.writeInt(this.pos.getZ());
     }
 
-    public static class Handler implements IMessageHandler<PacketTSB,IMessage>{
+    public static class Handler implements IMessageHandler<PacketTSB, IMessage> {
         @Override
         public IMessage onMessage(PacketTSB message, MessageContext ctx) {
-            if(ctx.side == Side.SERVER){
+            if (ctx.side == Side.SERVER) {
                 World world = ctx.getServerHandler().player.world;
                 IBlockState state = world.getBlockState(message.pos);
-                Particulate.networkWrapper.sendToAll(new PacketTCB(state,message.pos));
+                Particulate.networkWrapper.sendToAll(new PacketTCB(state, message.pos));
             }
             return null;
         }

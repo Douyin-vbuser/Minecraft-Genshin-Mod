@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 public class ModPotionType extends PotionType {
     public ModPotionType(@Nullable String name, PotionEffect... effects) {
-        super(name,effects);
+        super(name, effects);
         setRegistryName("genshin", name);
         ModPotions.TYPE_INSTANCES.add(this);
     }

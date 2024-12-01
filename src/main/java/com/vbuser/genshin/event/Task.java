@@ -11,31 +11,34 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Task {
 
     private static String task = "";
     public static volatile String await = "";
 
-    public static void setTask(String name,EntityPlayer player){
-        if(!task.isEmpty()){
+    public static void setTask(String name, EntityPlayer player) {
+        if (!task.isEmpty()) {
             terminateTask();
         }
         task = name;
-        if(!name.isEmpty()){
-            thread = new Thread(()->readScript(name,player));
+        if (!name.isEmpty()) {
+            thread = new Thread(() -> readScript(name, player));
             thread.start();
         }
     }
 
-    public static void terminateTask(){
+    public static void terminateTask() {
         try {
             reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        reader=null;
+        reader = null;
         thread.stop();
         thread = null;
         task = "";
@@ -45,42 +48,42 @@ public class Task {
     private static Thread thread;
 
     @SubscribeEvent
-    public void tickEvent(TickEvent.WorldTickEvent event){
-        if(event.phase != TickEvent.Phase.START) return;
-        if(Minecraft.getMinecraft().world==null) return;
+    public void tickEvent(TickEvent.WorldTickEvent event) {
+        if (event.phase != TickEvent.Phase.START) return;
+        if (Minecraft.getMinecraft().world == null) return;
 
-        String[] set = await.replaceAll("await ","").split(" ");
-        if(set[0].equals("block_meta")){
+        String[] set = await.replaceAll("await ", "").split(" ");
+        if (set[0].equals("block_meta")) {
             int x = Integer.parseInt(set[1].split(",")[0]);
             int y = Integer.parseInt(set[1].split(",")[1]);
             int z = Integer.parseInt(set[1].split(",")[2]);
             int meta = Integer.parseInt(set[2]);
-            IBlockState state = event.world.getBlockState(new BlockPos(x,y,z));
-            if(state.getBlock().getMetaFromState(state)==meta){
-                await="";
+            IBlockState state = event.world.getBlockState(new BlockPos(x, y, z));
+            if (state.getBlock().getMetaFromState(state) == meta) {
+                await = "";
             }
-        }else if(set[0].equals("block")){
+        } else if (set[0].equals("block")) {
             int x = Integer.parseInt(set[1].split(",")[0]);
             int y = Integer.parseInt(set[1].split(",")[1]);
             int z = Integer.parseInt(set[1].split(",")[2]);
             Block block = Block.getBlockFromName(set[2]);
-            if(event.world.getBlockState(new BlockPos(x,y,z)).getBlock().equals(block)){
-                await="";
+            if (event.world.getBlockState(new BlockPos(x, y, z)).getBlock().equals(block)) {
+                await = "";
             }
         }
     }
 
-    private static void execute(String command,EntityPlayer player){
+    private static void execute(String command, EntityPlayer player) {
         MinecraftServer server = player.getServer();
         if (server != null) {
             CommandHandler handler = (CommandHandler) server.getCommandManager();
-            handler.executeCommand(player,command);
+            handler.executeCommand(player, command);
         }
     }
 
-    public static void readScript(String name,EntityPlayer player){
-        File worldDirectory =((EntityPlayerMP) player).getServerWorld().getSaveHandler().getWorldDirectory();
-        File script = new File(worldDirectory, "\\tasks\\"+name+"\\script.txt");
+    public static void readScript(String name, EntityPlayer player) {
+        File worldDirectory = ((EntityPlayerMP) player).getServerWorld().getSaveHandler().getWorldDirectory();
+        File script = new File(worldDirectory, "\\tasks\\" + name + "\\script.txt");
         String path = script.getAbsolutePath();
         try {
             reader = new BufferedReader(new FileReader(path));
@@ -88,8 +91,8 @@ public class Task {
                 if (await.isEmpty()) {
                     String line = reader.readLine();
                     if (line == null) {
-                        System.out.println("Task "+task+" ended.");
-                        task="";
+                        System.out.println("Task " + task + " ended.");
+                        task = "";
                         break;
                     }
 
@@ -97,6 +100,12 @@ public class Task {
                         System.out.println(line.replaceAll("@", ""));
                     } else if (line.startsWith("await")) {
                         await = line;
+                    } else if (line.startsWith("sleep")) {
+                        try {
+                            Thread.sleep(Integer.parseInt(line.replace("sleep ", "")));
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else {
                         execute(line, player);
                     }

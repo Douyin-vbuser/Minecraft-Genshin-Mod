@@ -7,12 +7,12 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 public class FakePlayerModel extends AnimatedGeoModel<FakePlayer> {
     @Override
     public ResourceLocation getModelLocation(FakePlayer fakePlayerModel) {
-        return new ResourceLocation("movement","geo/fake_player.geo.json");
+        return new ResourceLocation("movement", "geo/fake_player.geo.json");
     }
 
     @Override
     public ResourceLocation getTextureLocation(FakePlayer fakePlayerModel) {
-        return new ResourceLocation("movement","textures/fake_player.png");
+        return new ResourceLocation("movement", "textures/fake_player.png");
     }
 
     @Override

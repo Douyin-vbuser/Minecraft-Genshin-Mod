@@ -23,6 +23,7 @@ public class GuiWeb extends GuiScreen {
     public GuiWeb(String url) {
         this.urlToLoad = url;
     }
+
     public void initGui() {
         if (this.browser == null) {
             API api = MCEFApi.getAPI();
@@ -64,6 +65,7 @@ public class GuiWeb extends GuiScreen {
         }
 
     }
+
     public void onGuiClosed() {
         this.browser.close();
         Keyboard.enableRepeatEvents(false);

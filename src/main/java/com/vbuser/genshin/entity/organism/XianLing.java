@@ -21,19 +21,19 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class XianLing extends EntityFlying implements IAnimatable, IAnimationTickable {
 
-    public int dx,dy,dz;
+    public int dx, dy, dz;
 
     public XianLing(World worldIn) {
         super(worldIn);
-        setSize(0.6f,0.6f);
+        setSize(0.6f, 0.6f);
     }
 
-    public XianLing(World worldIn,int dx,int dy,int dz) {
+    public XianLing(World worldIn, int dx, int dy, int dz) {
         super(worldIn);
-        setSize(0.6f,0.6f);
-        this.dx=dx;
-        this.dy=dy;
-        this.dz=dz;
+        setSize(0.6f, 0.6f);
+        this.dx = dx;
+        this.dy = dy;
+        this.dz = dz;
     }
 
     @Override
@@ -54,8 +54,8 @@ public class XianLing extends EntityFlying implements IAnimatable, IAnimationTic
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if(dx*dy*dz!=0){
-            BlockPos targetPos = new BlockPos(dx,dy,dz);
+        if (dx * dy * dz != 0) {
+            BlockPos targetPos = new BlockPos(dx, dy, dz);
 
             EntityAIMoveToLocation moveToTarget = new EntityAIMoveToLocation(this, targetPos, 0.1D, 5.0D);
 
@@ -95,16 +95,16 @@ public class XianLing extends EntityFlying implements IAnimatable, IAnimationTic
 
         XianLing entity;
         BlockPos targetPos;
-        double speed,tolerance;
+        double speed, tolerance;
 
-        public EntityAIMoveToLocation(XianLing xianLing, BlockPos targetPos, double speed, double tolerance){
-            this.entity=xianLing;
-            this.targetPos=targetPos;
-            this.tolerance=tolerance;
-            this.speed=speed;
+        public EntityAIMoveToLocation(XianLing xianLing, BlockPos targetPos, double speed, double tolerance) {
+            this.entity = xianLing;
+            this.targetPos = targetPos;
+            this.tolerance = tolerance;
+            this.speed = speed;
         }
 
-        public int nonAirBlockCount(Entity entity,int radius) {
+        public int nonAirBlockCount(Entity entity, int radius) {
             World world = entity.world;
             BlockPos entityPos = entity.getPosition();
             int nonAirBlockCount = 0;
@@ -127,16 +127,16 @@ public class XianLing extends EntityFlying implements IAnimatable, IAnimationTic
         @Override
         public boolean shouldExecute() {
             int range = 5;
-            int playerCount = entity.world.getEntitiesWithinAABB(EntityPlayer.class,new AxisAlignedBB((new BlockPos(entity)).add(-range, -range, -range), (new BlockPos(entity).add(range, range, range)))).size();
-            return playerCount > 0 || !targetPos.equals(new BlockPos(0,0,0));
+            int playerCount = entity.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((new BlockPos(entity)).add(-range, -range, -range), (new BlockPos(entity).add(range, range, range)))).size();
+            return playerCount > 0 || !targetPos.equals(new BlockPos(0, 0, 0));
         }
 
         @Override
         public boolean shouldContinueExecuting() {
             int range = 10;
-            int nonAirBlockCount = nonAirBlockCount(entity,range);
-            int playerCount = entity.world.getEntitiesWithinAABB(EntityPlayer.class,new AxisAlignedBB((new BlockPos(entity)).add(-range, -range, -range), (new BlockPos(entity).add(range, range, range)))).size();
-            return playerCount > 0 || nonAirBlockCount ==0;
+            int nonAirBlockCount = nonAirBlockCount(entity, range);
+            int playerCount = entity.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((new BlockPos(entity)).add(-range, -range, -range), (new BlockPos(entity).add(range, range, range)))).size();
+            return playerCount > 0 || nonAirBlockCount == 0;
         }
 
         @Override
@@ -151,7 +151,7 @@ public class XianLing extends EntityFlying implements IAnimatable, IAnimationTic
         public void updateTask() {
             if (!targetPos.equals(new BlockPos(0, 0, 0))) {
                 int range = 10;
-                int nonAirBlockCount = nonAirBlockCount(entity,range);
+                int nonAirBlockCount = nonAirBlockCount(entity, range);
                 int playerCount = entity.world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB((new BlockPos(entity)).add(-range, -range, -range), (new BlockPos(entity).add(range, range, range)))).size();
 
                 if (playerCount == 0 && nonAirBlockCount != 0) {

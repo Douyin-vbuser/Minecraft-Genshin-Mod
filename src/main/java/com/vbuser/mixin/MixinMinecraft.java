@@ -14,9 +14,11 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraft {
 
-    @Shadow private boolean fullscreen;
+    @Shadow
+    private boolean fullscreen;
     @Final
-    @Shadow private static final Logger LOGGER = LogManager.getLogger();
+    @Shadow
+    private static final Logger LOGGER = LogManager.getLogger();
 
 
     /**
@@ -24,29 +26,22 @@ public abstract class MixinMinecraft {
      * @reason for Mixin testing
      */
     @Overwrite
-    private void createDisplay() throws LWJGLException
-    {
+    private void createDisplay() throws LWJGLException {
         Display.setResizable(true);
         Display.setTitle("Minecraft Impact");
 
-        try
-        {
+        try {
             Display.create((new PixelFormat()).withDepthBits(24));
-        }
-        catch (LWJGLException lwjglexception)
-        {
+        } catch (LWJGLException lwjglexception) {
             LOGGER.error("Couldn't set pixel format", lwjglexception);
 
-            try
-            {
+            try {
                 Thread.sleep(1000L);
-            }
-            catch (InterruptedException var3) {
+            } catch (InterruptedException var3) {
                 throw new RuntimeException(var3);
             }
 
-            if (this.fullscreen)
-            {
+            if (this.fullscreen) {
                 this.updateDisplayMode();
             }
 
@@ -55,5 +50,6 @@ public abstract class MixinMinecraft {
     }
 
     @Shadow
-    private void updateDisplayMode() throws LWJGLException {}
+    private void updateDisplayMode() throws LWJGLException {
+    }
 }

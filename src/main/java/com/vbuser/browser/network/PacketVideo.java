@@ -13,9 +13,10 @@ public class PacketVideo implements IMessage {
 
     String video;
 
-    public PacketVideo(){}
+    public PacketVideo() {
+    }
 
-    public PacketVideo(String video){
+    public PacketVideo(String video) {
         this.video = video;
     }
 
@@ -31,17 +32,17 @@ public class PacketVideo implements IMessage {
         packetBuffer.writeString(video);
     }
 
-    public static class PacketVideoHandler implements IMessageHandler<PacketVideo,IMessage>{
+    public static class PacketVideoHandler implements IMessageHandler<PacketVideo, IMessage> {
         @Override
         public IMessage onMessage(PacketVideo message, MessageContext ctx) {
             String mcDir = Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
-            String temp = (mcDir.endsWith("\\")?mcDir:mcDir+"\\").replace("\\","/");
-            temp = temp.substring(0,temp.length()-3);
-            Browser.path = "file:///"+temp+"/cg/"+ Browser.video+".webm";
+            String temp = (mcDir.endsWith("\\") ? mcDir : mcDir + "\\").replace("\\", "/");
+            temp = temp.substring(0, temp.length() - 3);
+            Browser.path = "file:///" + temp + "/cg/" + Browser.video + ".webm";
             System.out.println(Browser.path);
             Browser.isCG = true;
             BlockPos pos = Minecraft.getMinecraft().player.getPosition();
-            Minecraft.getMinecraft().player.openGui(Browser.instance,13,Minecraft.getMinecraft().world,pos.getX(),pos.getY(),pos.getZ());
+            Minecraft.getMinecraft().player.openGui(Browser.instance, 13, Minecraft.getMinecraft().world, pos.getX(), pos.getY(), pos.getZ());
             return null;
         }
     }

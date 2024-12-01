@@ -8,11 +8,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketCameraTrack implements IMessage {
 
-    private int start_x,start_y,start_z,end_x,end_y,end_z,time_last,start_yaw,end_yaw;
+    private int start_x, start_y, start_z, end_x, end_y, end_z, time_last, start_yaw, end_yaw;
 
-    public PacketCameraTrack() {}
+    public PacketCameraTrack() {
+    }
 
-    public PacketCameraTrack(int start_x,int start_y,int start_z,int end_x,int end_y,int end_z,int time_last,int start_yaw,int end_yaw){
+    public PacketCameraTrack(int start_x, int start_y, int start_z, int end_x, int end_y, int end_z, int time_last, int start_yaw, int end_yaw) {
         this.start_x = start_x;
         this.start_y = start_y;
         this.start_z = start_z;

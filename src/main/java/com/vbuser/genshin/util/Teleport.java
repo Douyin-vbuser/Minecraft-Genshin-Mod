@@ -11,7 +11,7 @@ import net.minecraft.world.WorldServer;
 @SuppressWarnings("all")
 public class Teleport extends Teleporter {
     private final WorldServer worldServer;
-    private double x,y,z;
+    private double x, y, z;
 
     public Teleport(WorldServer worldServer, double x, double y, double z) {
         super(worldServer);
@@ -23,30 +23,27 @@ public class Teleport extends Teleporter {
 
     @Override
     public void placeInPortal(Entity entityIn, float rotationYaw) {
-        worldServer.getBlockState(new BlockPos(x,y,z));
-        entityIn.setPosition(x,y,z);
+        worldServer.getBlockState(new BlockPos(x, y, z));
+        entityIn.setPosition(x, y, z);
         entityIn.motionX = 0f;
         entityIn.motionY = 0f;
         entityIn.motionZ = 0f;
 
     }
 
-    public static void teleportToDim(EntityPlayer player, int dimension, double x, double y, double z)
-    {
+    public static void teleportToDim(EntityPlayer player, int dimension, double x, double y, double z) {
         EntityPlayerMP entityPlayerMP = (EntityPlayerMP) player;
         MinecraftServer server = player.getEntityWorld().getMinecraftServer();
-        if (server == null)
-        {
-            throw  new IllegalArgumentException("Player status incorrect");
+        if (server == null) {
+            throw new IllegalArgumentException("Player status incorrect");
         }
 
         WorldServer worldServerNew = server.getWorld(dimension);
-        if (worldServerNew == null)
-        {
+        if (worldServerNew == null) {
             throw new IllegalArgumentException(String.format("[Err]Teleporting dimension: %d does not exist", dimension));
         }
 
-        worldServerNew.getMinecraftServer().getPlayerList().transferPlayerToDimension(entityPlayerMP, dimension, new Teleport(worldServerNew, x,y,z));
-        player.setPositionAndUpdate(x,y,z);
+        worldServerNew.getMinecraftServer().getPlayerList().transferPlayerToDimension(entityPlayerMP, dimension, new Teleport(worldServerNew, x, y, z));
+        player.setPositionAndUpdate(x, y, z);
     }
 }

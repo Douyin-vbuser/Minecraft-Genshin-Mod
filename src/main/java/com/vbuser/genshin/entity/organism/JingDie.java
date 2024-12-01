@@ -24,7 +24,7 @@ public class JingDie extends EntityFlying implements IAnimatable, IAnimationTick
     private Entity target;
     private int flyingTicks;
 
-    public JingDie(World worldIn){
+    public JingDie(World worldIn) {
         super(worldIn);
         setSize(0.9F, 0.6F);
         setHealth(1F);
@@ -83,9 +83,9 @@ public class JingDie extends EntityFlying implements IAnimatable, IAnimationTick
                 double vx = dx * d;
                 double vy = dy * d + 1.4;
                 double vz = dz * d;
-                entity.motionX = -vx/20;
-                entity.motionY = vy/20;
-                entity.motionZ = -vz/20;
+                entity.motionX = -vx / 20;
+                entity.motionY = vy / 20;
+                entity.motionZ = -vz / 20;
                 entity.setAIMoveSpeed((float) speed);
                 entity.getNavigator().clearPath();
                 double yaw = -Math.atan2(motionX, motionZ) * 180.0 / Math.PI;
@@ -103,7 +103,7 @@ public class JingDie extends EntityFlying implements IAnimatable, IAnimationTick
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (!world.isRemote) {
-            world.playSound(player,player.posX,player.posY,player.posZ, SoundsHandler.PICK,SoundCategory.NEUTRAL,3f,1f);
+            world.playSound(player, player.posX, player.posY, player.posZ, SoundsHandler.PICK, SoundCategory.NEUTRAL, 3f, 1f);
             //dropItem(ModItems.JING_HE, 1);
             setDead();
         }

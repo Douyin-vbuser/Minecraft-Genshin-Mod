@@ -8,24 +8,26 @@ import net.minecraft.world.biome.BiomeProviderSingle;
 import net.minecraft.world.gen.IChunkGenerator;
 
 public class TestProvider extends WorldProvider {
-    public TestProvider(){
+    public TestProvider() {
         this.biomeProvider = new BiomeProviderSingle(InitBiome.BIOME_TEST);
         hasSkyLight = true;
     }
 
     @Override
-    public IChunkGenerator createChunkGenerator(){
-        return new TestChunkGenerator(world,world.getSeed(),true);
+    public IChunkGenerator createChunkGenerator() {
+        return new TestChunkGenerator(world, world.getSeed(), true);
     }
 
     @Override
-    public DimensionType getDimensionType(){
+    public DimensionType getDimensionType() {
         return InitDimension.TEST_DIMENSION;
     }
+
     @Override
-    public boolean canRespawnHere(){
+    public boolean canRespawnHere() {
         return false;
     }
+
     @Override
     public boolean isSurfaceWorld() {
         return false;

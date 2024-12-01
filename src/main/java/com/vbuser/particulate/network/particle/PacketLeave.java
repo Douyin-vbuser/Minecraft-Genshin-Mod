@@ -10,12 +10,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class PacketLeave implements IMessage {
 
-    double x,y,z;
+    double x, y, z;
     int particleId;
 
-    public PacketLeave(){}
+    public PacketLeave() {
+    }
 
-    public PacketLeave(double x,double y,double z,int id){
+    public PacketLeave(double x, double y, double z, int id) {
         this.x = x;
         this.y = y;
         this.z = z;

@@ -14,7 +14,7 @@ public class TabBase extends CreativeTabs {
         this.item = item;
     }
 
-    public TabBase(String label, Block block){
+    public TabBase(String label, Block block) {
         super(label);
         this.item = Item.getItemFromBlock(block);
     }

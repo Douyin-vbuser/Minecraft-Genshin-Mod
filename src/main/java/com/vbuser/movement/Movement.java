@@ -8,8 +8,8 @@ import com.vbuser.movement.event.CameraTrack;
 import com.vbuser.movement.event.FOVHandler;
 import com.vbuser.movement.event.FakePlayerEvent;
 import com.vbuser.movement.event.PlayerMovement;
-import com.vbuser.movement.network.TS_TN;
 import com.vbuser.movement.network.PacketCameraTrack;
+import com.vbuser.movement.network.TS_TN;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -21,13 +21,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import software.bernie.geckolib3.GeckoLib;
 
-@Mod(modid = "movement",version = "alpha 6.1.3")
+@Mod(modid = "movement", version = "alpha 6.1.3")
 public class Movement {
 
     @Mod.Instance
     public static Movement instance;
 
-    public Movement(){
+    public Movement() {
         GeckoLib.initialize();
     }
 
@@ -39,12 +39,12 @@ public class Movement {
         RenderingRegistry.registerEntityRenderingHandler(FakePlayer.class, FakePlayerRender::new);
 
         network = NetworkRegistry.INSTANCE.newSimpleChannel("movement_channel");
-        network.registerMessage(PacketCameraTrack.Handler.class, PacketCameraTrack.class,1, Side.CLIENT);
-        network.registerMessage(TS_TN.Handler.class, TS_TN.class,2,Side.SERVER);
+        network.registerMessage(PacketCameraTrack.Handler.class, PacketCameraTrack.class, 1, Side.CLIENT);
+        network.registerMessage(TS_TN.Handler.class, TS_TN.class, 2, Side.SERVER);
     }
 
     @Mod.EventHandler
-    public void onInit(FMLInitializationEvent event){
+    public void onInit(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new CameraTrack());
         MinecraftForge.EVENT_BUS.register(new PlayerMovement());
         MinecraftForge.EVENT_BUS.register(new FOVHandler());
@@ -52,7 +52,7 @@ public class Movement {
     }
 
     @Mod.EventHandler
-    public void onServerInit(FMLServerStartingEvent event){
+    public void onServerInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandCameraTrack());
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public abstract class Bing extends Element {
 
-    public Bing(World world){
+    public Bing(World world) {
         super(world);
     }
 

@@ -22,13 +22,13 @@ public class CommandChar extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if(args.length==0){
+        if (args.length == 0) {
             sender.sendMessage(new TextComponentString(CharacterChoice.get().toString()));
-        }else{
-            UUID player = getPlayer(server,sender,args[0]).getUniqueID();
+        } else {
+            UUID player = getPlayer(server, sender, args[0]).getUniqueID();
             int slot = Integer.parseInt(args[1]);
             int character = Integer.parseInt(args[2]);
-            CharacterChoice.set(player,slot,character);
+            CharacterChoice.set(player, slot, character);
         }
     }
 }
