@@ -206,6 +206,7 @@ public class AttackState {
                                     if (time_press > 30) {
                                         time_interval = 0;
                                         attack_state = 7;
+                                        Character.getById(character).sward();
                                     }
                                 } else {
                                     time_press = 0;
@@ -219,6 +220,7 @@ public class AttackState {
                                     int preState = state.get(player.getUniqueID());
                                     if (time_interval > 10) {
                                         attack_state = (preState > 5) ? 1 : preState + 1;
+                                        Character.getById(character).normal_attack(attack_state);
                                         time_interval = 0;
                                     }
                                 }
