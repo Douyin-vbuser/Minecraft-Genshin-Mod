@@ -30,7 +30,7 @@ public class Adam implements Optimizer {
     public void step(AutogradTensor... parameters) {
         t++;
         for (AutogradTensor param : parameters) {
-            if (param.getGradient() != null) {
+            if (param.gradient != null) {
                 if (!m.containsKey(param)) {
                     m.put(param, new double[param.data.length]);
                     v.put(param, new double[param.data.length]);
@@ -39,7 +39,7 @@ public class Adam implements Optimizer {
                 double[] vParam = v.get(param);
 
                 for (int i = 0; i < param.data.length; i++) {
-                    double grad = param.getGradient().data[i];
+                    double grad = param.gradient[i];
                     mParam[i] = beta1 * mParam[i] + (1 - beta1) * grad;
                     vParam[i] = beta2 * vParam[i] + (1 - beta2) * grad * grad;
                     double mHat = mParam[i] / (1 - Math.pow(beta1, t));
@@ -53,8 +53,8 @@ public class Adam implements Optimizer {
     @Override
     public void zeroGrad(AutogradTensor... parameters) {
         for (AutogradTensor param : parameters) {
-            if (param.getGradient() != null) {
-                Arrays.fill(param.getGradient().data, 0.0);
+            if (param.gradient != null) {
+                Arrays.fill(param.gradient, 0.0);
             }
         }
     }

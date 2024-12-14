@@ -11,7 +11,7 @@ public class Main {
         AutogradTensor inputs = new AutogradTensor(new double[]{1, 2, 3, 4, 5 }, new int[]{5, 1});
         AutogradTensor targets = new AutogradTensor(new double[]{2, 4, 6, 8, 10 }, new int[]{5, 1});
 
-        Optimizer optimizer = new SGD(0.0001);
+        Optimizer optimizer = new SGD(0.001);
         Loss lossFunction = new MSELoss();
 
         LinearRegression model = new LinearRegression(1, optimizer, lossFunction);

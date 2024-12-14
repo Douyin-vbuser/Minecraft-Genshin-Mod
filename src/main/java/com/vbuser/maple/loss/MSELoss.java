@@ -7,8 +7,8 @@ import com.vbuser.maple.math.AutogradTensor;
 public class MSELoss implements Loss {
     @Override
     public AutogradTensor forward(AutogradTensor predictions, AutogradTensor targets) {
-        AutogradTensor diff = predictions.sub(targets);
-        AutogradTensor squared = diff.mul(diff);
+        AutogradTensor diff = Maple.sub(predictions,targets);
+        AutogradTensor squared = Maple.mul(diff,diff);
         return Maple.mean(squared);
     }
 }

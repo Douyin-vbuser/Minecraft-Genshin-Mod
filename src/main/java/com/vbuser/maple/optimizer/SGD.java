@@ -15,9 +15,9 @@ public class SGD implements Optimizer {
     @Override
     public void step(AutogradTensor... parameters) {
         for (AutogradTensor param : parameters) {
-            if (param.getGradient() != null) {
+            if (param.gradient != null) {
                 for (int i = 0; i < param.data.length; i++) {
-                    param.data[i] -= learningRate * param.getGradient().data[i];
+                    param.data[i] -= learningRate * param.gradient[i];
                 }
             }
         }
@@ -26,10 +26,9 @@ public class SGD implements Optimizer {
     @Override
     public void zeroGrad(AutogradTensor... parameters) {
         for (AutogradTensor param : parameters) {
-            if (param.getGradient() != null) {
-                Arrays.fill(param.getGradient().data, 0.0);
+            if (param.gradient != null) {
+                Arrays.fill(param.gradient, 0.0);
             }
         }
     }
 }
-

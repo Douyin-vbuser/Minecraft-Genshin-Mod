@@ -67,29 +67,39 @@ public class Maple {
      * Calculation of autogradTensor:
      */
 
-    public static AutogradTensor add(AutogradTensor a, AutogradTensor b) {
+    public static AutogradTensor add(AutogradTensor a,AutogradTensor b){
         return a.add(b);
     }
 
     public static AutogradTensor sub(AutogradTensor a,AutogradTensor b){
-        return a.sub(b);
+        return a.subtract(b);
     }
 
-    public static AutogradTensor mul(AutogradTensor a, AutogradTensor b) {
-        return a.mul(b);
+    public static AutogradTensor mul(AutogradTensor a,AutogradTensor b){
+        return a.multiply(b);
     }
 
-    public static AutogradTensor pow(AutogradTensor a, double exponent) {
-        return a.pow(exponent);
+    public static AutogradTensor div(AutogradTensor a,AutogradTensor b){
+        return a.divide(b);
     }
 
-    public static AutogradTensor sum(AutogradTensor a) {
-        return AutogradTensor.sum(a);
+    public static AutogradTensor pow(AutogradTensor a,double b){
+        return a.pow(b);
+    }
+
+    public static AutogradTensor exp(AutogradTensor a){
+        return a.exp();
+    }
+
+    public static AutogradTensor log(AutogradTensor a){
+        return a.log();
     }
 
     public static AutogradTensor mean(AutogradTensor a){
         return a.mean();
     }
 
-
+    public static AutogradTensor sum(AutogradTensor a){
+        return a.sum();
+    }
 }
