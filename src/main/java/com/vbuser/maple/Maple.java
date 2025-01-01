@@ -3,6 +3,8 @@ package com.vbuser.maple;
 import com.vbuser.maple.math.AutogradTensor;
 import com.vbuser.maple.math.Tensor;
 
+import java.util.Arrays;
+
 @SuppressWarnings("unused")
 public class Maple {
 
@@ -10,96 +12,102 @@ public class Maple {
      * Create New Tensor:
      */
 
-    public static Tensor zeros(int... shape) {
-        return Tensor.zeros(shape);
+    public static AutogradTensor zeros(int... shape) {
+        return fromTensor(Tensor.zeros(shape));
     }
 
-    public static Tensor ones(int... shape) {
-        return Tensor.ones(shape);
+    public static AutogradTensor ones(int... shape) {
+        return fromTensor(Tensor.ones(shape));
     }
 
-    public static Tensor randn(int... shape) {
-        return Tensor.randn(shape);
+    public static AutogradTensor randn(int... shape) {
+        return fromTensor(Tensor.randn(shape));
     }
 
-    /**
-     * Tensor calculations:
-     */
-
-    public static Tensor add(Tensor a, Tensor b) {
-        return a.add(b);
+    public static AutogradTensor fromArray(double[][] array) {
+        Tensor tensor = new Tensor(array);
+        return new AutogradTensor(tensor.data, tensor.shape);
     }
 
-    public static Tensor sub(Tensor a, Tensor b) {
-        return a.sub(b);
+    public static AutogradTensor fromNum(AutogradTensor tensor, double num) {
+        AutogradTensor temp = new AutogradTensor(tensor.shape);
+        Arrays.fill(temp.data, num);
+        return temp;
     }
 
-    public static Tensor mul(Tensor a, Tensor b) {
-        return a.mul(b);
-    }
-
-    public static Tensor div(Tensor a, Tensor b) {
-        return a.div(b);
-    }
-
-    public static Tensor pow(Tensor a, double exponent) {
-        return a.pow(exponent);
-    }
-
-    public static Tensor pow(Tensor a, Tensor exponent) {
-        return a.pow(exponent);
-    }
-
-    public static Tensor exp(Tensor a) {
-        return Tensor.exp(a);
-    }
-
-    public static Tensor cat(Tensor a, Tensor b, int dim) {
-        Tensor[] temp = {a, b};
-        return Tensor.cat(temp, dim);
-    }
-
-    public static Tensor equ(Tensor a, Tensor b) {
-        return Tensor.equal(a, b);
+    public static AutogradTensor fromTensor(Tensor tensor) {
+        return new AutogradTensor(tensor.data, tensor.shape);
     }
 
     /**
      * Calculation of autogradTensor:
      */
 
-    public static AutogradTensor add(AutogradTensor a,AutogradTensor b){
+    public static AutogradTensor add(AutogradTensor a, AutogradTensor b) {
         return a.add(b);
     }
 
-    public static AutogradTensor sub(AutogradTensor a,AutogradTensor b){
+    public static AutogradTensor add(AutogradTensor a, double b) {
+        return a.add(fromNum(a, b));
+    }
+
+    public static AutogradTensor sub(AutogradTensor a, AutogradTensor b) {
         return a.subtract(b);
     }
 
-    public static AutogradTensor mul(AutogradTensor a,AutogradTensor b){
+    public static AutogradTensor sub(AutogradTensor a, double b) {
+        return a.subtract(fromNum(a, b));
+    }
+
+    public static AutogradTensor mul(AutogradTensor a, AutogradTensor b) {
         return a.multiply(b);
     }
 
-    public static AutogradTensor div(AutogradTensor a,AutogradTensor b){
+    public static AutogradTensor mul(AutogradTensor a, double b) {
+        return a.multiply(fromNum(a, b));
+    }
+
+    public static AutogradTensor div(AutogradTensor a, AutogradTensor b) {
         return a.divide(b);
     }
 
-    public static AutogradTensor pow(AutogradTensor a,double b){
+    public static AutogradTensor div(AutogradTensor a, double b) {
+        return a.divide(fromNum(a, b));
+    }
+
+    public static AutogradTensor pow(AutogradTensor a, double b) {
         return a.pow(b);
     }
 
-    public static AutogradTensor exp(AutogradTensor a){
+    public static AutogradTensor exp(AutogradTensor a) {
         return a.exp();
     }
 
-    public static AutogradTensor log(AutogradTensor a){
+    public static AutogradTensor log(AutogradTensor a) {
         return a.log();
     }
 
-    public static AutogradTensor mean(AutogradTensor a){
+    public static AutogradTensor mean(AutogradTensor a) {
         return a.mean();
     }
 
-    public static AutogradTensor sum(AutogradTensor a){
+    public static AutogradTensor mean(AutogradTensor a, int[] b) {
+        return a.mean(b);
+    }
+
+    public static AutogradTensor sum(AutogradTensor a) {
         return a.sum();
+    }
+
+    public static AutogradTensor sum(AutogradTensor a, int[] b) {
+        return a.mean(b);
+    }
+
+    public static AutogradTensor matmul(AutogradTensor a, AutogradTensor b) {
+        return a.matmul(b);
+    }
+
+    public static AutogradTensor transpose(AutogradTensor a, int dim1, int dim2) {
+        return a.transpose(dim1, dim2);
     }
 }

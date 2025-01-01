@@ -14,6 +14,10 @@ public class TestAutograd {
         testChainedOperations();
         testActivationFunctions();
         testBroadcastOperations();
+        testSoftmax();
+        testMatmul();
+        testTranspose();
+        testDimOp();
     }
 
     /**
@@ -164,8 +168,8 @@ public class TestAutograd {
         AutogradTensor b = new AutogradTensor(dataB, shape);
         AutogradTensor c = new AutogradTensor(dataC, shape);
 
-        AutogradTensor sumAB = Maple.add(a,b);
-        AutogradTensor result = Maple.mul(sumAB,c);
+        AutogradTensor sumAB = Maple.add(a, b);
+        AutogradTensor result = Maple.mul(sumAB, c);
 
         result.backward();
 
@@ -177,9 +181,9 @@ public class TestAutograd {
         b.zeroGrad();
         c.zeroGrad();
 
-        AutogradTensor mulAB = Maple.mul(a,b);
-        AutogradTensor mulBC = Maple.mul(b,c);
-        AutogradTensor result2 = Maple.add(mulAB,mulBC);
+        AutogradTensor mulAB = Maple.mul(a, b);
+        AutogradTensor mulBC = Maple.mul(b, c);
+        AutogradTensor result2 = Maple.add(mulAB, mulBC);
 
         result2.backward();
 
@@ -264,4 +268,175 @@ public class TestAutograd {
         System.out.println("b grad: " + b.getGradAsTensor());
     }
 
+    /**
+     * Result:<br>
+     * Softmax Output: [0.09, 0.24, 0.67]<br>
+     * Gradients input: [-0.017, -0.069, 0.086]<br>
+     */
+    public static void testSoftmax() {
+        double[] inputData = {1.0, 2.0, 3.0};
+        int[] shape = {3};
+        AutogradTensor input = new AutogradTensor(inputData, shape);
+
+        AutogradTensor output = input.softmax();
+
+        double[] targetData = {0.2, 0.5, 0.3};
+        AutogradTensor target = new AutogradTensor(targetData, shape);
+        AutogradTensor loss = Maple.sub(output, target).pow(2).mean();
+
+        System.out.println("Softmax Output: " + Arrays.toString(output.data));
+
+        loss.backward();
+
+        System.out.println("Gradients with respect to input: " + Arrays.toString(input.gradient));
+    }
+
+    /**
+     * Result:<br>
+     * Forward:<br>
+     * Tensor of shape [2, 2]:<br>
+     * 23.0, 29.0<br>
+     * 50.0, 65.0<br>
+     * Gradient:<br>
+     * A gradient:<br>
+     * [3.0, 7.0, 11.0, 3.0, 7.0, 11.0]<br>
+     * B gradient:<br>
+     * [5.0, 5.0, 7.0, 7.0, 9.0, 9.0]<br>
+     * C gradient:<br>
+     * [1.0, 1.0, 1.0, 1.0]<br>
+     */
+    public static void testMatmul() {
+        System.out.println("\nTest Matmul");
+        AutogradTensor A = new AutogradTensor(2, 3);
+        AutogradTensor B = new AutogradTensor(3, 2);
+        AutogradTensor C = new AutogradTensor(2, 2);
+
+        A.data = new double[]{1, 2, 3, 4, 5, 6};
+        B.data = new double[]{1, 2, 3, 4, 5, 6};
+        C.data = new double[]{1, 1, 1, 1};
+        AutogradTensor D = A.matmul(B).add(C);
+        D.backward();
+
+        System.out.println("Forward:");
+        System.out.println(D);
+
+        System.out.println("\nGradient:");
+        System.out.println("A gradient:");
+        System.out.println(Arrays.toString(A.gradient));
+        System.out.println("B gradient:");
+        System.out.println(Arrays.toString(B.gradient));
+        System.out.println("C gradient:");
+        System.out.println(Arrays.toString(C.gradient));
+    }
+
+    /**
+     * Result:<br>
+     * Test Case 1: Simple Transpose<br>
+     * Original tensor a:<br>
+     * Tensor of shape [2, 3]:<br>
+     * 1.0, 2.0, 3.0<br>
+     * 4.0, 5.0, 6.0<br>
+     * Transposed tensor b:<br>
+     * Tensor of shape [3, 2]:<br>
+     * 1.0, 4.0<br>
+     * 2.0, 5.0<br>
+     * 3.0, 6.0<br>
+     * Gradient of tensor a:<br>
+     * [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]<br>
+     * Test Case 2: Multiple Transpose and Computation<br>
+     * Original tensor x:<br>
+     * Tensor of shape [2, 2]:<br>
+     * 1.0, 2.0<br>
+     * 3.0, 4.0<br>
+     * First transpose y:<br>
+     * Tensor of shape [2, 2]:<br>
+     * 1.0, 3.0<br>
+     * 2.0, 4.0<br>
+     * After addition z:<br>
+     * Tensor of shape [2, 2]:<br>
+     * 2.0, 4.0<br>
+     * 3.0, 5.0<br>
+     * Final transpose w:<br>
+     * Tensor of shape [2, 2]:<br>
+     * 2.0, 3.0<br>
+     * 4.0, 5.0<br>
+     * Gradient of tensor x:<br>
+     * [1.0, 1.0, 1.0, 1.0]<br>
+     */
+    public static void testTranspose() {
+        System.out.println("Test Case 1: Simple Transpose");
+        AutogradTensor a = new AutogradTensor(new double[]{
+                1, 2, 3,
+                4, 5, 6
+        }, new int[]{2, 3});
+        System.out.println("Original tensor a:");
+        System.out.println(a);
+
+        AutogradTensor b = a.transpose(0, 1);
+        System.out.println("\nTransposed tensor b:");
+        System.out.println(b);
+
+        b.backward();
+        System.out.println("\nGradient of tensor a:");
+        System.out.println(Arrays.toString(a.gradient));
+
+        System.out.println("\nTest Case 2: Multiple Transpose and Computation");
+        AutogradTensor x = new AutogradTensor(new double[]{
+                1, 2,
+                3, 4
+        }, new int[]{2, 2});
+        System.out.println("Original tensor x:");
+        System.out.println(x);
+
+        AutogradTensor y = x.transpose(0, 1);
+        System.out.println("\nFirst transpose y:");
+        System.out.println(y);
+
+        AutogradTensor constant = new AutogradTensor(new double[]{
+                1, 1,
+                1, 1
+        }, new int[]{2, 2});
+        AutogradTensor z = y.add(constant);
+        System.out.println("\nAfter addition z:");
+        System.out.println(z);
+
+        AutogradTensor w = z.transpose(0, 1);
+        System.out.println("\nFinal transpose w:");
+        System.out.println(w);
+
+        w.backward();
+        System.out.println("\nGradient of tensor x:");
+        System.out.println(Arrays.toString(x.gradient));
+    }
+
+    public static void testDimOp(){
+        double[][] data = {
+                {1.0, 2.0},
+                {3.0, 4.0},
+                {5.0, 6.0}
+        };
+
+        AutogradTensor x = Maple.fromArray(data);
+
+        System.out.println("Original tensor:");
+        System.out.println(x);
+
+        AutogradTensor meanDim0 = x.mean(0);
+        System.out.println("\nMean along dim 0:");
+        System.out.println(meanDim0);
+
+        meanDim0.backward();
+        System.out.println("\nGradient for mean operation:");
+        System.out.println(Arrays.toString(x.gradient));
+
+        x.zeroGrad();
+
+        AutogradTensor sumDim0 = x.sum(0);
+        System.out.println("\nSum along dim 0:");
+        System.out.println(sumDim0);
+
+        sumDim0.backward();
+        System.out.println("\nGradient for sum operation:");
+        System.out.println(Arrays.toString(x.gradient));
+    }
 }
