@@ -2,8 +2,6 @@
 
 有空会看pr和issue(但估计不太会上线修)，可[邮件](mailto:douyin_vbuser@outlook.com)加急
 
-引用资源(包括但不限于78个原神游戏内材质（图源：网页版米游社手动透明底）)
-
 诶！你怎么知道我万叶6+1了\[emoji_书呆子]\[emoji_食指]。
 
 ----
@@ -65,3 +63,50 @@
 
 - [1.1] 可视化低代码剧情制作(网页前端)，用于征集现存剧情修订稿
 - [2.1] 世界任务配音补齐
+
+## 借物表
+
+<table>
+    <tr>
+        <th>资产类型</th>
+        <td>描述</td>
+        <td>数量</td>
+        <td>产权</td>
+        <td>链接</td>
+    </tr>
+    <tr>
+        <th>贴图</th>
+        <td>原神游戏材质</td>
+        <td>78</td>
+        <td>Proprietary</td>
+        <td>https://www.miyoushe.com/ys/</td>
+    </tr>
+    <tr>
+        <th>贴图</th>
+        <td>Minecraft材质</td>
+        <td>160</td>
+        <td>Proprietary</td>
+        <td>https://www.curseforge.com/minecraft/texture-packs/stay-true</td>
+    </tr>
+    <tr>
+        <th>源代码(Java)</th>
+        <td>理想境框架</td>
+        <td>600+loc</td>
+        <td>Custom License</td>
+        <td>https://github.com/IdeallandEarthDept/IdeallandFramework</td>
+    </tr>
+    <tr>
+        <th>源代码(Gradle)</th>
+        <td>Mixin引入</td>
+        <td>100-loc</td>
+        <td>Unlicense</td>
+        <td>https://github.com/mouse0w0/forge-mixin-example/blob/1.12.2-14.23.5.2860/build.gradle</td>
+    </tr>
+    <tr>
+        <th>源代码(Java)</th>
+        <td>AI辅助编程造成的潜在侵权风险</td>
+        <td>1000+loc</td>
+        <td>(Claud;Qwen;Chat-GPT)</td>
+        <td>https://lmarena.ai</td>
+    </tr>
+</table>
