@@ -161,6 +161,58 @@
 				"up": {"uv": [8, 8, 7.5, 7.5], "texture": "#0"},
 				"down": {"uv": [0.5, 8, 0, 8.5], "texture": "#0"}
 			}
+		},
+		{
+			"from": [8, -0.5, 8.5],
+			"to": [12, 8.5, 8.5],
+			"rotation": {"angle": -45, "axis": "y", "origin": [10, 4, 8.5]},
+			"faces": {
+				"north": {"uv": [8, 0, 11, 6.5], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"south": {"uv": [5, 8, 2, 14.5], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"up": {"uv": [3, 0, 0, 0], "texture": "#0"},
+				"down": {"uv": [3, 0, 0, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [8, -0.5, 5.5],
+			"to": [12, 8.5, 5.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [10, 4, 5.5]},
+			"faces": {
+				"north": {"uv": [8, 0, 11, 6.5], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"south": {"uv": [5, 8, 2, 14.5], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"up": {"uv": [3, 0, 0, 0], "texture": "#0"},
+				"down": {"uv": [3, 0, 0, 0], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, -0.5, 3.5],
+			"to": [7, 8.5, 7.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [7, 4, 5.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"east": {"uv": [5, 8, 2, 14.5], "texture": "#0"},
+				"south": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"west": {"uv": [8, 0, 11, 6.5], "texture": "#0"},
+				"up": {"uv": [3, 0, 0, 0], "rotation": 270, "texture": "#0"},
+				"down": {"uv": [3, 0, 0, 0], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"from": [5, -0.5, 8.5],
+			"to": [9, 8.5, 8.5],
+			"rotation": {"angle": 45, "axis": "y", "origin": [7, 4, 8.5]},
+			"faces": {
+				"north": {"uv": [5, 8, 2, 14.5], "texture": "#0"},
+				"east": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"south": {"uv": [8, 0, 11, 6.5], "texture": "#0"},
+				"west": {"uv": [0, 0, 0, 6.5], "texture": "#0"},
+				"up": {"uv": [3, 0, 0, 0], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [3, 0, 0, 0], "rotation": 180, "texture": "#0"}
+			}
 		}
 	],
 	"groups": [
@@ -168,7 +220,7 @@
 			"name": "group",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+			"children": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 		}
 	]
 }

@@ -1,16 +1,16 @@
 buildscript {
     repositories {
-        maven { url = 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url = 'https://maven.aliyun.com/repository/public/' }
+        maven { url = 'https://maven.aliyun.com/repository/central' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url = 'https://repo.spongepowered.org/maven' }
-        mavenCentral()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
-        
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
@@ -48,7 +48,10 @@ minecraft {
 }
 
 repositories {
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven' }
+    maven { url = 'https://maven.aliyun.com/repository/public/' }
+    maven { url = 'https://maven.aliyun.com/repository/central' }
+    maven { url = 'https://files.minecraftforge.net/maven' }
+    maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven' }
     maven { url = 'https://repo.spongepowered.org/maven' }
 }
 
@@ -101,7 +104,7 @@ publishing {
 
 
 sourceSets {
-    main{
+    main {
         output.resourcesDir = output.classesDir
     }
 }

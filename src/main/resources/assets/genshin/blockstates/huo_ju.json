@@ -1,6 +1,6 @@
 {
   "variants":{
     "fired=false": {"model": "genshin:huo_ju"},
-    "fired=true": {"model": "genshin:huo_ju_1"}
+    "fired=true": {"model": "genshin:huo_ju"}
   }
 }

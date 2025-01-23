@@ -160,4 +160,5 @@ public class ModItems {
     //-----------------------------------------------------------------------------------------------
     //misc
     public static final Item DEBUG_STICK = new ItemBase("debug_stick", Main.JIAN_CAI);
+    public static final Item PU_GONG_YING_ZI = new ItemBase("pu_gong_ying_zi",Main.ZI_RAN_ZI_YUAN);
 }
