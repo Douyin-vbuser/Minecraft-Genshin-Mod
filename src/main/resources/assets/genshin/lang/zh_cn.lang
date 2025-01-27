@@ -187,7 +187,15 @@ genshin.syw.s=时之沙
 genshin.syw.h=生之花
 genshin.syw.m=死之羽
 
-key.category.genshin=原神模组
+key.category.genshin=原神模组按键
+key.genshin.aa=选择角色1
+key.genshin.bb=选择角色2
+key.genshin.cc=选择角色3
+key.genshin.dd=选择角色4
+key.genshin.e=释放元素战技
+key.genshin.glider=滑翔
+key.genshin.pg=释放普通攻击
+key.genshin.q=释放元素爆发
 
 tile.tai_xian.name=苔藓
 tile.zhuan_kuai.name=砖块

@@ -1,10 +1,13 @@
 package com.vbuser.genshin.event;
 
 import com.vbuser.database.operate.Console;
+import com.vbuser.genshin.proxy.ClientProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,9 +30,48 @@ public class CharacterChoice {
         return choice.get(player);
     }
 
+    public static int getCharacter(UUID player){
+        return character.get(player).get(getChoice(player));
+    }
+
     public static void set(UUID player, int slot, int character) {
         Map<Integer, Integer> temp = get().get(player);
         temp.put(slot, character);
+    }
+
+    long time = System.currentTimeMillis();
+
+    @SubscribeEvent
+    public void selectChar(TickEvent.ClientTickEvent event){
+        if(Minecraft.getMinecraft().player != null) {
+            if(choice.containsKey(Minecraft.getMinecraft().player.getUniqueID())) {
+                UUID player = Minecraft.getMinecraft().player.getUniqueID();
+                if (ClientProxy.AA.isPressed()) {
+                    if (System.currentTimeMillis() - time >= 0.5 && character.get(player).get(1) != -1) {
+                        choice.put(player, 1);
+                        time = System.currentTimeMillis();
+                    }
+                }
+                if (ClientProxy.BB.isPressed()) {
+                    if (System.currentTimeMillis() - time >= 0.5 && character.get(player).get(2) != -1) {
+                        choice.put(player, 2);
+                        time = System.currentTimeMillis();
+                    }
+                }
+                if (ClientProxy.CC.isPressed()) {
+                    if (System.currentTimeMillis() - time >= 0.5 && character.get(player).get(3) != -1) {
+                        choice.put(player, 3);
+                        time = System.currentTimeMillis();
+                    }
+                }
+                if (ClientProxy.DD.isPressed()) {
+                    if (System.currentTimeMillis() - time >= 0.5 && character.get(player).get(4) != -1) {
+                        choice.put(player, 4);
+                        time = System.currentTimeMillis();
+                    }
+                }
+            }
+        }
     }
 
     File worldDirectory;

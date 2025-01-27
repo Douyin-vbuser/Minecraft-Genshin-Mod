@@ -24,6 +24,8 @@
  
  **·com.vbuser.maple**:简单pytorch模仿，用于简单AI实现。
 
+ **·com.vbuser.ime**:简单[IME](https://github.com/Douyin-vbuser/IME)实现，排除输入法干扰。
+
 想要或实在没实力写的：自定义光照和LOD（自定义着色器），浏览器局域网串流操控（云游戏）
 
 ## 原项目资产处理

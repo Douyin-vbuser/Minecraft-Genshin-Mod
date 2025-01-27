@@ -6,6 +6,7 @@ import com.vbuser.genshin.command.CommandTask;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.event.AttackState;
 import com.vbuser.genshin.event.CharacterChoice;
+import com.vbuser.genshin.event.IMEEvent;
 import com.vbuser.genshin.event.Task;
 import com.vbuser.genshin.init.EntityInit;
 import com.vbuser.genshin.init.InitBiome;
@@ -15,6 +16,7 @@ import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
 import com.vbuser.genshin.util.handler.RegistryRenderer;
 import com.vbuser.genshin.util.handler.SoundsHandler;
+import com.vbuser.ime.IMEController;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.world.biome.Biome;
@@ -53,6 +55,8 @@ public class Main {
         MinecraftForge.EVENT_BUS.register(new CharacterChoice());
         MinecraftForge.EVENT_BUS.register(new AttackState());
         MinecraftForge.EVENT_BUS.register(new Task());
+        MinecraftForge.EVENT_BUS.register(new IMEEvent());
+        IMEController.load("2501261505");
         AttackState.Character.init();
     }
 
