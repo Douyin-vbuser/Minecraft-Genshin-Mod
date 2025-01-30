@@ -31,7 +31,6 @@ public class FakePlayerModel extends AnimatedGeoModel<FakePlayer> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(FakePlayer fakePlayerModel) {
-        //return new ResourceLocation("genshin","animations/"+idToCharacter()+".animation.json");
-        return null;
+        return new ResourceLocation("genshin","animations/"+idToCharacter()+".animation.json");
     }
 }

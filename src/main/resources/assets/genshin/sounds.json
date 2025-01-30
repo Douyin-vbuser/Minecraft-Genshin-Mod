@@ -6,5 +6,13 @@
   "xiao_deng_cao": {
     "subtitle": "xiao_deng_cao",
     "sounds": [{"name": "genshin:block/xiao_deng_cao","stream": true}]
+  },
+  "kong_afk_a": {
+    "subtitle": "kong_afk_a",
+    "sounds": [{"name": "genshin:character/kong/afk_1","stream": true}]
+  },
+  "kong_afk_b": {
+    "subtitle": "kong_afk_b",
+    "sounds": [{"name": "genshin:character/kong/afk_2","stream": true}]
   }
 }

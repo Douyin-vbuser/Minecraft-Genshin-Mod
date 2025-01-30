@@ -10,11 +10,17 @@ public class SoundsHandler {
 
     public static SoundEvent XDC;
 
+    public static SoundEvent KONG_AFK_A;
+    public static SoundEvent KONG_AFK_B;
+
     public static void registerSounds() {
         TEST = registerSound("test");
         PICK = registerSound("pick");
 
         XDC = registerSound("xiao_deng_cao");
+
+        KONG_AFK_A = registerSound("kong_afk_a");
+        KONG_AFK_B = registerSound("kong_afk_b");
     }
 
     private static SoundEvent registerSound(String name) {
