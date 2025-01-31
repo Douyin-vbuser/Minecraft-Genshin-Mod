@@ -138,6 +138,10 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         }
     }
 
+    private boolean isRunning(EntityPlayer player){
+        return player.isSprinting() && !PlayerMovement.climbMap.get(player.getUniqueID()) && PlayerMovement.isMoving(player) && !PlayerMovement.isPlayerFalling(player);
+    }
+
     long ddl = System.currentTimeMillis();
     public boolean isAnimationPlaying(){
         return ddl >= System.currentTimeMillis();

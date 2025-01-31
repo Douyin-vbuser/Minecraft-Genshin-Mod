@@ -244,7 +244,7 @@ public class PlayerMovement {
 
     //Glide logic:
     public static boolean equipped = true;
-    private static boolean using = false;
+    public static boolean using = false;
     static float y_speed = 1.3f / 20;
     static float side_speed = 0.86f / 20;
 

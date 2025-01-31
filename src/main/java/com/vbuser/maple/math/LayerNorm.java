@@ -40,30 +40,4 @@ public class LayerNorm {
     public AutogradTensor getBeta() {
         return beta;
     }
-
-    public static void main(String[] args) {
-        LayerNorm layerNorm = new LayerNorm(4, 1e-5);
-
-        double[][] inputData = {{1, 2, 3, 4}, {5, 6, 7, 8}};
-        AutogradTensor input = Maple.fromArray(inputData);
-
-        AutogradTensor output = layerNorm.forward(input);
-
-        System.out.println("Input:");
-        System.out.println(input);
-
-        System.out.println("Output:");
-        System.out.println(output);
-
-        output.backward();
-
-        System.out.println("Input Gradient:");
-        System.out.println(java.util.Arrays.toString(input.gradient));
-
-        System.out.println("Gamma Gradient:");
-        System.out.println(java.util.Arrays.toString(layerNorm.getGamma().gradient));
-
-        System.out.println("Beta Gradient:");
-        System.out.println(java.util.Arrays.toString(layerNorm.getBeta().gradient));
-    }
 }

@@ -301,26 +301,74 @@ public class AutogradTensor extends Tensor {
     }
 
     public AutogradTensor matmul(AutogradTensor other) {
-        if (this.shape[1] != other.shape[0]) {
+        if (this.shape.length < 2 || other.shape.length < 2) {
+            throw new IllegalArgumentException("Both tensors must have at least 2 dimensions");
+        }
+
+        if (this.shape[this.shape.length - 1] != other.shape[other.shape.length - 2]) {
             throw new IllegalArgumentException("Incompatible dimensions for matrix multiplication");
         }
 
-        int[] resultShape = {this.shape[0], other.shape[1]};
+        int[] batchShape = broadcastShapes(
+                Arrays.copyOfRange(this.shape, 0, this.shape.length - 2),
+                Arrays.copyOfRange(other.shape, 0, other.shape.length - 2)
+        );
+
+        int[] resultShape = new int[batchShape.length + 2];
+        System.arraycopy(batchShape, 0, resultShape, 0, batchShape.length);
+        resultShape[resultShape.length - 2] = this.shape[this.shape.length - 2];
+        resultShape[resultShape.length - 1] = other.shape[other.shape.length - 1];
+
         AutogradTensor result = new AutogradTensor(resultShape);
 
-        for (int i = 0; i < this.shape[0]; i++) {
-            for (int j = 0; j < other.shape[1]; j++) {
-                double sum = 0;
-                for (int k = 0; k < this.shape[1]; k++) {
-                    sum += this.getElement(i, k) * other.getElement(k, j);
+        int batchSize = 1;
+        for (int dim : batchShape) {
+            batchSize *= dim;
+        }
+
+        int m = this.shape[this.shape.length - 2];
+        int k = this.shape[this.shape.length - 1];
+        int n = other.shape[other.shape.length - 1];
+
+        for (int batch = 0; batch < batchSize; batch++) {
+            int[] batchIndices = getIndices(batch, batchShape);
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    double sum = 0;
+                    for (int p = 0; p < k; p++) {
+                        int[] thisIndices = new int[this.shape.length];
+                        int[] otherIndices = new int[other.shape.length];
+
+                        for (int d = 0; d < batchShape.length; d++) {
+                            if (d < this.shape.length - 2) {
+                                thisIndices[d] = this.shape[d] == 1 ? 0 : batchIndices[d];
+                            }
+                            if (d < other.shape.length - 2) {
+                                otherIndices[d] = other.shape[d] == 1 ? 0 : batchIndices[d];
+                            }
+                        }
+                        thisIndices[this.shape.length - 2] = i;
+                        thisIndices[this.shape.length - 1] = p;
+                        otherIndices[other.shape.length - 2] = p;
+                        otherIndices[other.shape.length - 1] = j;
+
+                        sum += getElement(thisIndices) * other.getElement(otherIndices);
+                    }
+                    int[] resultIndices = new int[resultShape.length];
+                    System.arraycopy(batchIndices, 0, resultIndices, 0, batchShape.length);
+                    resultIndices[resultShape.length - 2] = i;
+                    resultIndices[resultShape.length - 1] = j;
+
+                    result.data[result.getFlatIndex(resultIndices)] = sum;
                 }
-                result.data[i * other.shape[1] + j] = sum;
             }
         }
 
         result.op = new Operation(result, this, other, "matmul");
         return result;
     }
+
 
     public AutogradTensor transpose(int dim1, int dim2) {
         if (dim1 < 0 || dim1 >= shape.length || dim2 < 0 || dim2 >= shape.length) {
@@ -461,28 +509,81 @@ public class AutogradTensor extends Tensor {
                         break;
 
                     case "matmul":
-                        AutogradTensor gradientTensor = new AutogradTensor(tensor.shape);
-                        System.arraycopy(tensor.gradient, 0, gradientTensor.data, 0, tensor.gradient.length);
+                        int[] batchShape = broadcastShapes(
+                                Arrays.copyOfRange(left.shape, 0, left.shape.length - 2),
+                                Arrays.copyOfRange(right.shape, 0, right.shape.length - 2)
+                        );
 
-                        for (int i = 0; i < left.shape[0]; i++) {
-                            for (int k = 0; k < left.shape[1]; k++) {
-                                double sum = 0;
-                                for (int j = 0; j < right.shape[1]; j++) {
-                                    sum += gradientTensor.getElement(i, j) *
-                                            right.getElement(k, j);
-                                }
-                                left.gradient[i * left.shape[1] + k] += sum;
-                            }
+                        int batchSize1 = 1;
+                        for (int dim : batchShape) {
+                            batchSize1 *= dim;
                         }
 
-                        for (int k = 0; k < right.shape[0]; k++) {
-                            for (int j = 0; j < right.shape[1]; j++) {
-                                double sum = 0;
-                                for (int i = 0; i < left.shape[0]; i++) {
-                                    sum += left.getElement(i, k) *
-                                            gradientTensor.getElement(i, j);
+                        int m = left.shape[left.shape.length - 2];
+                        int k = left.shape[left.shape.length - 1];
+                        int n = right.shape[right.shape.length - 1];
+
+                        for (int batch = 0; batch < batchSize1; batch++) {
+                            int[] batchIndices = getIndices(batch, batchShape);
+
+                            for (int i = 0; i < m; i++) {
+                                for (int p = 0; p < k; p++) {
+                                    double sum = 0;
+                                    for (int j = 0; j < n; j++) {
+                                        int[] gradIndices = new int[tensor.shape.length];
+                                        int[] rightIndices = new int[right.shape.length];
+
+                                        System.arraycopy(batchIndices, 0, gradIndices, 0, batchShape.length);
+                                        for (int d = 0; d < batchShape.length && d < right.shape.length - 2; d++) {
+                                            rightIndices[d] = right.shape[d] == 1 ? 0 : batchIndices[d];
+                                        }
+
+                                        gradIndices[gradIndices.length - 2] = i;
+                                        gradIndices[gradIndices.length - 1] = j;
+                                        rightIndices[right.shape.length - 2] = p;
+                                        rightIndices[right.shape.length - 1] = j;
+
+                                        sum += tensor.gradient[tensor.getFlatIndex(gradIndices)] *
+                                                right.getElement(rightIndices);
+                                    }
+
+                                    int[] leftIndices = new int[left.shape.length];
+                                    System.arraycopy(batchIndices, 0, leftIndices, 0, Math.min(batchShape.length, left.shape.length - 2));
+                                    leftIndices[left.shape.length - 2] = i;
+                                    leftIndices[left.shape.length - 1] = p;
+
+                                    left.gradient[left.getFlatIndex(leftIndices)] += sum;
                                 }
-                                right.gradient[k * right.shape[1] + j] += sum;
+                            }
+
+                            for (int p = 0; p < k; p++) {
+                                for (int j = 0; j < n; j++) {
+                                    double sum = 0;
+                                    for (int i = 0; i < m; i++) {
+                                        int[] gradIndices = new int[tensor.shape.length];
+                                        int[] leftIndices = new int[left.shape.length];
+
+                                        System.arraycopy(batchIndices, 0, gradIndices, 0, batchShape.length);
+                                        for (int d = 0; d < batchShape.length && d < left.shape.length - 2; d++) {
+                                            leftIndices[d] = left.shape[d] == 1 ? 0 : batchIndices[d];
+                                        }
+
+                                        gradIndices[gradIndices.length - 2] = i;
+                                        gradIndices[gradIndices.length - 1] = j;
+                                        leftIndices[left.shape.length - 2] = i;
+                                        leftIndices[left.shape.length - 1] = p;
+
+                                        sum += tensor.gradient[tensor.getFlatIndex(gradIndices)] *
+                                                left.getElement(leftIndices);
+                                    }
+
+                                    int[] rightIndices = new int[right.shape.length];
+                                    System.arraycopy(batchIndices, 0, rightIndices, 0, Math.min(batchShape.length, right.shape.length - 2));
+                                    rightIndices[right.shape.length - 2] = p;
+                                    rightIndices[right.shape.length - 1] = j;
+
+                                    right.gradient[right.getFlatIndex(rightIndices)] += sum;
+                                }
                             }
                         }
                         break;
@@ -567,6 +668,36 @@ public class AutogradTensor extends Tensor {
                         }
                         break;
 
+                    case "softmax_axis":
+                        int axisSize = left.shape[op.axis];
+                        int batchSize = 1;
+                        for (int i = 0; i < op.axis; i++) {
+                            batchSize *= left.shape[i];
+                        }
+                        int stride = 1;
+                        for (int i = op.axis + 1; i < left.shape.length; i++) {
+                            stride *= left.shape[i];
+                        }
+
+                        Arrays.fill(left.gradient, 0.0);
+
+                        for (int batch = 0; batch < batchSize; batch++) {
+                            for (int s = 0; s < stride; s++) {
+                                double sum = 0.0;
+                                for (int i = 0; i < axisSize; i++) {
+                                    int idx = batch * axisSize * stride + i * stride + s;
+                                    sum += tensor.data[idx];
+                                }
+
+                                for (int i = 0; i < axisSize; i++) {
+                                    int idx = batch * axisSize * stride + i * stride + s;
+                                    double si = tensor.data[idx];
+                                    left.gradient[idx] = si * (1 - si);
+                                }
+                            }
+                        }
+                        break;
+
                     case "reshape":
                         for (int i = 0; i < tensor.gradient.length; i++) {
                             tensor.op.left.gradient[i] += tensor.gradient[i];
@@ -630,6 +761,7 @@ public class AutogradTensor extends Tensor {
         public int dim1, dim2;
         public int[] originalShape;
         public int[] dims;
+        public int axis;
 
         public Operation(AutogradTensor output, AutogradTensor left, AutogradTensor right, String type) {
             this.output = output;
@@ -692,6 +824,44 @@ public class AutogradTensor extends Tensor {
             result.data[i] = expData[i] / sumExp;
         }
         result.op = new Operation(result, this, null, "softmax");
+        return result;
+    }
+
+    public AutogradTensor softmax(int axis) {
+        if (axis < 0) {
+            return softmax(this.shape.length + axis);
+        }
+        AutogradTensor result = new AutogradTensor(this.shape);
+
+        int axisSize = this.shape[axis];
+        int batchSize = 1;
+        for (int i = 0; i < axis; i++) {
+            batchSize *= this.shape[i];
+        }
+        int stride = 1;
+        for (int i = axis + 1; i < this.shape.length; i++) {
+            stride *= this.shape[i];
+        }
+
+        for (int batch = 0; batch < batchSize; batch++) {
+            for (int s = 0; s < stride; s++) {
+                double sumExp = 0.0;
+                double[] expValues = new double[axisSize];
+
+                for (int i = 0; i < axisSize; i++) {
+                    int idx = batch * axisSize * stride + i * stride + s;
+                    expValues[i] = Math.exp(this.data[idx]);
+                    sumExp += expValues[i];
+                }
+                for (int i = 0; i < axisSize; i++) {
+                    int idx = batch * axisSize * stride + i * stride + s;
+                    result.data[idx] = expValues[i] / sumExp;
+                }
+            }
+        }
+
+        result.op = new Operation(result, this, null, "softmax_axis");
+        result.op.axis = axis;
         return result;
     }
 

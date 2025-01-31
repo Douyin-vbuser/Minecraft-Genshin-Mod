@@ -108,6 +108,13 @@ public class Maple {
     }
 
     public static AutogradTensor transpose(AutogradTensor a, int dim1, int dim2) {
+        dim1 = dim1 < 0 ? dim1 + a.shape.length : dim1;
+        dim2 = dim2 < 0 ? dim2 + a.shape.length : dim2;
         return a.transpose(dim1, dim2);
+    }
+
+    public static AutogradTensor softmax(AutogradTensor tensor, int axis) {
+        axis = axis < 0 ? axis + tensor.shape.length : axis;
+        return tensor.softmax(axis);
     }
 }
