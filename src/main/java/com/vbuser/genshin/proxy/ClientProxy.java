@@ -35,4 +35,6 @@ public class ClientProxy extends CommonProxy {
     public static final KeyBinding CC = new ModKeyBinding("cc", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_3, "key.category.genshin");
 
     public static final KeyBinding DD = new ModKeyBinding("dd", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_4, "key.category.genshin");
+
+    public static final KeyBinding RUN = new ModKeyBinding("run",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_LCONTROL,"key.category.genshin");
 }

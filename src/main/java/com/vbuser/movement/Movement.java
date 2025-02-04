@@ -9,6 +9,7 @@ import com.vbuser.movement.event.FOVHandler;
 import com.vbuser.movement.event.FakePlayerEvent;
 import com.vbuser.movement.event.PlayerMovement;
 import com.vbuser.movement.network.PacketCameraTrack;
+import com.vbuser.movement.network.PacketRun;
 import com.vbuser.movement.network.TS_TN;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -41,6 +42,7 @@ public class Movement {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("movement_channel");
         network.registerMessage(PacketCameraTrack.Handler.class, PacketCameraTrack.class, 1, Side.CLIENT);
         network.registerMessage(TS_TN.Handler.class, TS_TN.class, 2, Side.SERVER);
+        network.registerMessage(PacketRun.Handler.class, PacketRun.class,3,Side.SERVER);
     }
 
     @Mod.EventHandler

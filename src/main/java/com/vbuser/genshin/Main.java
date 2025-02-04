@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.spongepowered.asm.launch.MixinBootstrap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public class Main {
     public void onInit(FMLInitializationEvent event) {
         SoundsHandler.registerSounds();
         KeyboardManager.init();
+        MixinBootstrap.init();
         MinecraftForge.EVENT_BUS.register(new CharacterChoice());
         MinecraftForge.EVENT_BUS.register(new AttackState());
         MinecraftForge.EVENT_BUS.register(new Task());

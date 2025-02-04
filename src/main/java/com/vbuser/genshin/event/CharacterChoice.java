@@ -30,7 +30,7 @@ public class CharacterChoice {
         return choice.get(player);
     }
 
-    public static int getCharacter(UUID player){
+    public static int getCharacter(UUID player) {
         return character.get(player).get(getChoice(player));
     }
 
@@ -42,9 +42,9 @@ public class CharacterChoice {
     long time = System.currentTimeMillis();
 
     @SubscribeEvent
-    public void selectChar(TickEvent.ClientTickEvent event){
-        if(Minecraft.getMinecraft().player != null) {
-            if(choice.containsKey(Minecraft.getMinecraft().player.getUniqueID())) {
+    public void selectChar(TickEvent.ClientTickEvent event) {
+        if (Minecraft.getMinecraft().player != null) {
+            if (choice.containsKey(Minecraft.getMinecraft().player.getUniqueID())) {
                 UUID player = Minecraft.getMinecraft().player.getUniqueID();
                 if (ClientProxy.AA.isPressed()) {
                     if (System.currentTimeMillis() - time >= 0.5 && character.get(player).get(1) != -1) {

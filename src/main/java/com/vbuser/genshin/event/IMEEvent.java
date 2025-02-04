@@ -10,12 +10,12 @@ public class IMEEvent {
     boolean pre = false;
 
     @SubscribeEvent
-    public void tick(TickEvent.ClientTickEvent event){
-        boolean post = Minecraft.getMinecraft().player !=null ;
-        if(post != pre){
+    public void tick(TickEvent.ClientTickEvent event) {
+        boolean post = Minecraft.getMinecraft().player != null;
+        if (post != pre) {
             pre = post;
             IMEController.toggleIME(post);
-            System.out.println("IME turned "+(post?"on":"off"));
+            System.out.println("IME turned " + (post ? "on" : "off"));
         }
     }
 }

@@ -59,6 +59,9 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     public void onLivingUpdate() {
         setRenderer();
         setAni();
+        if(!Storage_s.renderer.containsValue(this) && Storage_s.renderer.containsKey(world.getPlayerEntityByUUID(player_uuid))){
+            this.setDead();
+        }
     }
 
     //Correction of yaw and position:
@@ -118,7 +121,7 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         EntityPlayer player = world.getPlayerEntityByUUID(player_uuid);
         if (player != null) {
             if(AttackState.getState(player_uuid)==0) {
-                if (player.isSprinting()) {
+                if (isRunning(player)) {
                     if (currentAnimationState == AnimationState.STOPPED || currentAnimationState == AnimationState.RUN_END) {
                         currentAnimationState = AnimationState.RUN_START;
                         ddl = System.currentTimeMillis() + 250;
@@ -138,8 +141,12 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         }
     }
 
+    public static boolean isInDeepWater(EntityPlayer player) {
+        return player.isInWater() && PlayerMovement.waterDepth(player.world, player.getPosition()) >= 2;
+    }
+
     private boolean isRunning(EntityPlayer player){
-        return player.isSprinting() && !PlayerMovement.climbMap.get(player.getUniqueID()) && PlayerMovement.isMoving(player) && !PlayerMovement.isPlayerFalling(player);
+        return player.isSprinting() && !PlayerMovement.climbMap.get(player.getUniqueID()) && PlayerMovement.isMoving(player) && !PlayerMovement.isPlayerFalling(player) && !isInDeepWater(player);
     }
 
     long ddl = System.currentTimeMillis();

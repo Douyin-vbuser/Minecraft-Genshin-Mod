@@ -5,8 +5,10 @@ import com.vbuser.database.operate.Console;
 import com.vbuser.database.packet.OperateServer;
 import com.vbuser.genshin.event.AttackState;
 import com.vbuser.genshin.proxy.ClientProxy;
+import com.vbuser.movement.Movement;
 import com.vbuser.movement.Storage_s;
 import com.vbuser.movement.entity.FakePlayer;
+import com.vbuser.movement.network.PacketRun;
 import com.vbuser.movement.util.IntArray;
 import com.vbuser.movement.util.PrecisePos;
 import net.minecraft.block.Block;
@@ -48,6 +50,7 @@ public class PlayerMovement {
         Storage_s.normal.remove(event.player);
         event.player.world.removeEntity(Storage_s.renderer.get(event.player));
         Storage_s.renderer.remove(event.player);
+        sprintMap.remove(event.player.getUniqueID());
     }
 
     @SubscribeEvent
@@ -91,6 +94,20 @@ public class PlayerMovement {
             depth++;
         }
         y = maxHeight;
+        return depth;
+    }
+
+    public static int waterDepth(World world, BlockPos pos) {
+        int depth = 0;
+        BlockPos pos1 = pos.up();
+        while (world.getBlockState(pos).getMaterial() == Material.WATER) {
+            pos = pos.down();
+            depth++;
+        }
+        while (world.getBlockState(pos1).getMaterial() == Material.WATER) {
+            pos1 = pos1.up();
+            depth++;
+        }
         return depth;
     }
 
@@ -292,6 +309,35 @@ public class PlayerMovement {
             }
             time = System.currentTimeMillis();
             y1 = player.posY;
+        }
+    }
+
+    //force sprint logic:
+
+    public static Map<UUID, Boolean> sprintMap = new HashMap<>();
+
+    @SubscribeEvent
+    public void forceClient(TickEvent.PlayerTickEvent event) {
+        EntityPlayer player = event.player;
+        if (!sprintMap.containsKey(player.getUniqueID())) {
+            sprintMap.put(player.getUniqueID(), true);
+        }
+        player.setSprinting(sprintMap.get(player.getUniqueID()) && isMoving(player));
+    }
+
+    @SubscribeEvent
+    public void runKeyPress(InputEvent.KeyInputEvent event) {
+        EntityPlayer player = Minecraft.getMinecraft().player;
+        if (player != null && ClientProxy.RUN.isPressed()) {
+            Movement.network.sendToServer(new PacketRun(player.getUniqueID()));
+        }
+    }
+
+    @SubscribeEvent
+    public void removeGUI(TickEvent.ClientTickEvent e){
+        EntityPlayer p = Minecraft.getMinecraft().player;
+        if(p!=null){
+            Minecraft.getMinecraft().gameSettings.hideGUI = true;
         }
     }
 }
