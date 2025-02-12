@@ -59,13 +59,13 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     public void onLivingUpdate() {
         setRenderer();
         setAni();
-        if(!Storage_s.renderer.containsValue(this) && Storage_s.renderer.containsKey(world.getPlayerEntityByUUID(player_uuid))){
+        if (!Storage_s.renderer.containsValue(this) && Storage_s.renderer.containsKey(world.getPlayerEntityByUUID(player_uuid))) {
             this.setDead();
         }
     }
 
     //Correction of yaw and position:
-    public void setRenderer(){
+    public void setRenderer() {
         EntityPlayer player = world.getPlayerEntityByUUID(player_uuid);
         if (player != null) {
             if (Storage_s.normal.get(player)) {
@@ -113,14 +113,16 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
     }
 
     AnimationState currentAnimationState = AnimationState.STOPPED;
+
     public enum AnimationState {
-        STOPPED, RUN_START, RUN_LOOP, RUN_END
+        STOPPED, RUN_START, RUN_LOOP, RUN_END, NATK1, NATK2, NATK3, NATK4, NATK5, SWACK, E, Q, FATK
     }
 
-    public void setAni(){
+    public void setAni() {
         EntityPlayer player = world.getPlayerEntityByUUID(player_uuid);
         if (player != null) {
-            if(AttackState.getState(player_uuid)==0) {
+            int state = AttackState.getState(player_uuid);
+            if (state == 0) {
                 if (isRunning(player)) {
                     if (currentAnimationState == AnimationState.STOPPED || currentAnimationState == AnimationState.RUN_END) {
                         currentAnimationState = AnimationState.RUN_START;
@@ -137,6 +139,24 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
                         currentAnimationState = AnimationState.STOPPED;
                     }
                 }
+            } else if (state == 1) {
+                currentAnimationState = AnimationState.NATK1;
+            } else if (state == 2) {
+                currentAnimationState = AnimationState.NATK2;
+            } else if (state == 3) {
+                currentAnimationState = AnimationState.NATK3;
+            } else if (state == 4) {
+                currentAnimationState = AnimationState.NATK4;
+            } else if (state == 5) {
+                currentAnimationState = AnimationState.NATK5;
+            } else if (state == 7) {
+                currentAnimationState = AnimationState.SWACK;
+            } else if (state == 8) {
+                currentAnimationState = AnimationState.FATK;
+            } else if (state == 9) {
+                currentAnimationState = AnimationState.E;
+            } else if (state == 10) {
+                currentAnimationState = AnimationState.Q;
             }
         }
     }
@@ -145,12 +165,13 @@ public class FakePlayer extends EntityLiving implements IAnimatable, IAnimationT
         return player.isInWater() && PlayerMovement.waterDepth(player.world, player.getPosition()) >= 2;
     }
 
-    private boolean isRunning(EntityPlayer player){
+    public boolean isRunning(EntityPlayer player) {
         return player.isSprinting() && !PlayerMovement.climbMap.get(player.getUniqueID()) && PlayerMovement.isMoving(player) && !PlayerMovement.isPlayerFalling(player) && !isInDeepWater(player);
     }
 
-    long ddl = System.currentTimeMillis();
-    public boolean isAnimationPlaying(){
+    public long ddl = System.currentTimeMillis();
+
+    public boolean isAnimationPlaying() {
         return ddl >= System.currentTimeMillis();
     }
 

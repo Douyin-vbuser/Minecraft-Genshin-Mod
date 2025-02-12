@@ -108,7 +108,7 @@
         <th>源代码(Java)</th>
         <td>AI辅助编程造成的潜在侵权风险</td>
         <td>1000+loc</td>
-        <td>(Claud;Qwen;Chat-GPT)</td>
-        <td>https://lmarena.ai</td>
+        <td>(Claud;Qwen;Chat-GPT;DeepSeek)</td>
+        <td>https://lmarena.ai;http://chat.deepseek.com</td>
     </tr>
 </table>

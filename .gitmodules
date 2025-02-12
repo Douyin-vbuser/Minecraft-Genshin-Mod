@@ -1,0 +1,3 @@
+[submodule "MCI-model"]
+	path = MCI-model
+	url = https://github.com/Douyin-vbuser/MCI-model

@@ -54,6 +54,16 @@ public class PlayerMovement {
     }
 
     @SubscribeEvent
+    public void playerTickEvent(TickEvent.PlayerTickEvent e){
+        EntityPlayer p = e.player;
+        if(!Storage_s.renderer.containsKey(p) && Storage_s.renderer.get(p).isDead){
+            FakePlayer fp = new FakePlayer(p.world,p.getUniqueID());
+            p.world.spawnEntity(fp);
+            Storage_s.renderer.put(p,fp);
+        }
+    }
+
+    @SubscribeEvent
     public void invisible(TickEvent.PlayerTickEvent event) {
         event.player.setInvisible(true);
     }
