@@ -1,16 +1,72 @@
 [
-{
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "genshin",
+    "name": "Minecraft Impact",
+    "description": "Minecraft Genshin Mod.",
+    "version": "basic 1.1.45(refactored)",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "Stay True(Resource pack by haimcyfly)\nhttps://www.curseforge.com/minecraft/texture-packs/stay-true\n",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+  {
+    "modid": "database",
+    "name": "Database",
+    "description": "Simple database design for MCI.",
+    "version": "release 1.1.08-rc",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/database",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "Qwen-72b,for providing reliable and free artificial intelligence coding aid;",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+  {
+    "modid": "browser",
+    "name": "MCI Browser",
+    "description": "A mod use MCEF to build GuiScreen access mp4 files and web.",
+    "version": "release 1.0.8",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/browser",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "MCEF,for providing video decoding dependency;\nPandora GPT,for providing a reliable artificial intelligence access till 24/01/30.\nFUCK U OPENAI!!!",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+  {
+    "modid": "movement",
+    "name": "MCI-Movement",
+    "description": "A mod control players' camera and movement.",
+    "version": "alpha 6.1.33",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/movement",
+    "updateUrl": "",
+    "authorList": ["MCI-vbuser"],
+    "credits": "Geckolib,for providing .json animation support",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  },
+  {
+    "modid": "particulate",
+    "name": "Custom Renderer Mod",
+    "description": "A mod build custom render logic.",
+    "version": "basic 0.0.1",
+    "mcversion": "1.12.2",
+    "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/particulate",
+    "updateUrl": "",
+    "authorList": ["MCI_vbuser"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]
