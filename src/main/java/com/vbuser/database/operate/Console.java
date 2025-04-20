@@ -31,9 +31,9 @@ public class Console {
             if (commands[0].equals("init")) {
                 dataBase = Init.initBase(commands[1], new File(commands[2]));
             } else if (commands[0].equals("access")) {
-                dataBase = new File(commands[1]);
-                if ((new File(dataBase, "tables.txt")).exists()) {
-                    System.out.println("[] Database " + dataBase.getName() + " is accessed");
+                if ((new File(new File(commands[1]), "tables.txt")).exists()) {
+                    System.out.println("[] Database " + new File(commands[1]).getName() + " is accessed");
+                    dataBase = new File(commands[1]);
                 }else{
                     result = "fail";
                 }
@@ -77,7 +77,25 @@ public class Console {
                     conditions = whereMatcher.group(1).split("and\\s+");
                 }
                 Update.updateTable(dataBase, tableName, columnValues.keySet().toArray(new String[0]), columnValues.values().toArray(new String[0]), conditions);
-            } else {
+            } else if(commands[0].equals("server")){
+                if(commands[1].equals("start")) {
+                    thr_server = new Thread(() -> {
+                        try {
+                            Server.start(dataBase);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                    thr_server.start();
+                }else if(commands[1].equals("kill")){
+                    thr_server.stop();
+                }else{
+                    System.out.println("[!] Invalid command \\[ o_x ]/");
+                    result = "fail";
+                }
+            }
+
+            else {
                 System.out.println("[!] Invalid command \\[ o_x ]/");
                 result = "fail";
             }
@@ -88,6 +106,7 @@ public class Console {
     }
 
     public static File dataBase;
+    static Thread thr_server;
 
     public static String getResult(String command) {
         command = command.toLowerCase();

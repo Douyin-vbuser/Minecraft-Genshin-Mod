@@ -41,6 +41,7 @@ public class Select {
         List<String> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(database, "\\tables\\" + tableName + ".txt")))) {
             String header = reader.readLine();
+            result.add(header);
             initColumnIndices(header);
 
             String line;
