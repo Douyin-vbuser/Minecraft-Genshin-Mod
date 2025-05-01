@@ -3,7 +3,9 @@ package com.vbuser.database.operate.huffman;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class HuffmanCoder {
     public static void compress(String inputFile, String outputFile) throws IOException {

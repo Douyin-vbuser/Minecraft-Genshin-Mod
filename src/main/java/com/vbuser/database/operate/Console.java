@@ -34,7 +34,7 @@ public class Console {
                 if ((new File(new File(commands[1]), "tables.txt")).exists()) {
                     System.out.println("[] Database " + new File(commands[1]).getName() + " is accessed");
                     dataBase = new File(commands[1]);
-                }else{
+                } else {
                     result = "fail";
                 }
             } else if (commands[0].equals("create") && commands[1].equals("table")) {
@@ -77,7 +77,7 @@ public class Console {
                     conditions = whereMatcher.group(1).split("and\\s+");
                 }
                 Update.updateTable(dataBase, tableName, columnValues.keySet().toArray(new String[0]), columnValues.values().toArray(new String[0]), conditions);
-            } else if(commands[0].equals("server")) {
+            } else if (commands[0].equals("server")) {
                 if (commands[1].equals("start")) {
                     thr_server = new Thread(() -> {
                         try {
@@ -93,14 +93,14 @@ public class Console {
                     System.out.println("[!] Invalid command \\[ o_x ]/");
                     result = "fail";
                 }
-            }else if(commands[0].equals("backup")){
+            } else if (commands[0].equals("backup")) {
                 try {
-                    Backup.handleBackupCommand(commands, dataBase);
-                }catch(Exception e){
+                    String output = Backup.handleBackupCommand(commands, dataBase);
+                    System.out.println(output);
+                } catch (Exception e) {
                     result = "fail";
                 }
-            }
-            else {
+            } else {
                 System.out.println("[!] Invalid command \\[ o_x ]/");
                 result = "fail";
             }
