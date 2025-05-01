@@ -77,8 +77,8 @@ public class Console {
                     conditions = whereMatcher.group(1).split("and\\s+");
                 }
                 Update.updateTable(dataBase, tableName, columnValues.keySet().toArray(new String[0]), columnValues.values().toArray(new String[0]), conditions);
-            } else if(commands[0].equals("server")){
-                if(commands[1].equals("start")) {
+            } else if(commands[0].equals("server")) {
+                if (commands[1].equals("start")) {
                     thr_server = new Thread(() -> {
                         try {
                             Server.start(dataBase);
@@ -87,14 +87,19 @@ public class Console {
                         }
                     });
                     thr_server.start();
-                }else if(commands[1].equals("kill")){
-                    thr_server.stop();
-                }else{
+                } else if (commands[1].equals("kill")) {
+                    thr_server.interrupt();
+                } else {
                     System.out.println("[!] Invalid command \\[ o_x ]/");
                     result = "fail";
                 }
+            }else if(commands[0].equals("backup")){
+                try {
+                    Backup.handleBackupCommand(commands, dataBase);
+                }catch(Exception e){
+                    result = "fail";
+                }
             }
-
             else {
                 System.out.println("[!] Invalid command \\[ o_x ]/");
                 result = "fail";
