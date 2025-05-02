@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@SuppressWarnings("unused")
 @Mod(modid = "genshin", name = "Minecraft Genshin Mod", version = "basic 1.14")
 public class Main {
 
@@ -27,7 +28,7 @@ public class Main {
     }
 
     @SubscribeEvent
-    public static void onEvent(final RegistryEvent.Register<Biome> event){
+    public static void onEvent(final RegistryEvent.Register<Biome> event) {
     }
 
 }

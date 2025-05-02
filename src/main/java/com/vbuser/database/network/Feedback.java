@@ -23,7 +23,7 @@ public class Feedback implements IMessage {
     public void fromBytes(ByteBuf buf) {
         PacketBuffer buffer = new PacketBuffer(buf);
         this.mark = buffer.readDouble();
-        this.result = buffer.readString(Integer.MAX_VALUE);
+        this.result = buffer.readString(1145141919);
     }
 
     @Override

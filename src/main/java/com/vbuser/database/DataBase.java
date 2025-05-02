@@ -3,7 +3,7 @@ package com.vbuser.database;
 import com.vbuser.database.network.Feedback;
 import com.vbuser.database.network.Operation;
 import com.vbuser.database.network.Storage;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -12,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Random;
 
+@SuppressWarnings("unused")
 @Mod(modid = "database", name = "Database")
 public class DataBase {
     public static SimpleNetworkWrapper network;
@@ -23,10 +24,10 @@ public class DataBase {
         network.registerMessage(Feedback.Handle.class, Feedback.class, 11, Side.CLIENT);
     }
 
-    public String execute(String command, EntityPlayerMP mp) throws InterruptedException {
+    public static String execute(String command, EntityPlayer mp) throws InterruptedException {
         double mark = new Random().nextDouble();
-        network.sendToServer(new Operation(mark,command,mp.getUniqueID()));
-        while(!Storage.select.containsKey(mark)){
+        network.sendToServer(new Operation(mark, command, mp.getUniqueID()));
+        while (!Storage.select.containsKey(mark)) {
             Thread.sleep(10);
         }
         return Storage.select.remove(mark);
