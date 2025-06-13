@@ -1,0 +1,3 @@
+[submodule "MapVCS"]
+	path = MapVCS
+	url = https://github.com/Douyin-vbuser/MCMapVCS

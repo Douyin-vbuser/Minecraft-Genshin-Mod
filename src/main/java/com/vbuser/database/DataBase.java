@@ -20,8 +20,8 @@ public class DataBase {
     @Mod.EventHandler
     public void PreInit(FMLPreInitializationEvent event) {
         network = NetworkRegistry.INSTANCE.newSimpleChannel("database");
-        network.registerMessage(Operation.Handle.class, Operation.class, 10, Side.SERVER);
-        network.registerMessage(Feedback.Handle.class, Feedback.class, 11, Side.CLIENT);
+        network.registerMessage(Operation.Handle.class, Operation.class, 200, Side.SERVER);
+        network.registerMessage(Feedback.Handle.class, Feedback.class, 201, Side.CLIENT);
     }
 
     public static String execute(String command, EntityPlayer mp) throws InterruptedException {
