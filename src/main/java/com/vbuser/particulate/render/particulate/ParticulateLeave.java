@@ -28,7 +28,7 @@ public class ParticulateLeave extends Particle {
         this.initialX = xCoordIn;
         this.initialY = yCoordIn;
         this.initialZ = zCoordIn;
-        this.particleScale *= 1.1F;
+        this.particleScale *= (float) (0.3 * Math.random() + 1);
         bindValue();
     }
 

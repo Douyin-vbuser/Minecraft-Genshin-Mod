@@ -108,23 +108,4 @@ public class ExpressionParser {
     public void setVariable(String name, double value) {
         variables.put(name, value);
     }
-
-    //Example:
-    public static void main(String[] args) {
-        //Create parser:
-        ExpressionParser parser = new ExpressionParser();
-        //Define variables:
-        int x = 2;
-        int y = 3;
-        //Bind variables to parser:
-        parser.setVariable("x", x);
-        parser.setVariable("y", y);
-        parser.setVariable("A_1", 5.5);
-        parser.setVariable("PI", Math.PI);
-        //Parse expression:
-        String expr = "sin(0 - A_1) + PI * (cos(y) * (2 + 3 * x^2)) / (1 + x^y)";
-        System.out.println(expr + " = " + parser.parse(expr));
-        double result = Math.sin(-5.5) + Math.PI * (Math.cos(y) * (2 + 3 * Math.pow(x, 2))) / (1 + Math.pow(x, y));
-        System.out.println("Expected: " + result);
-    }
 }

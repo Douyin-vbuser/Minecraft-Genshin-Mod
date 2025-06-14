@@ -9,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
+@SuppressWarnings("all")
 public class CmdP extends CommandBase {
     @Override
     public String getName() {
