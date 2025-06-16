@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
+//cmdb @a fill 5 5 5 15 15 15 minecraft:grass 0
 @SuppressWarnings("all")
 public class CmdB extends CommandBase {
     @Override

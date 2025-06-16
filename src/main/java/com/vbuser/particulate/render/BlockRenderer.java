@@ -20,7 +20,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -43,6 +42,14 @@ public class BlockRenderer {
         setLoaded(false);
         clearVisibilityCache();
         map = new ConcurrentHashMap<>(value);
+
+        long[] posArray = new long[value.size()];
+        int i = 0;
+        for (BlockPos pos : value.keySet()) {
+            posArray[i++] = pos.toLong();
+        }
+        NativeBlockRenderer.updateMap(posArray);
+
         setLoaded(!value.isEmpty());
     }
 
@@ -107,111 +114,13 @@ public class BlockRenderer {
             return false;
         }
 
-        return visibleInMap(playerEyes, blockCenter);
-    }
-
-    private static class VisibilityCache {
-        private static final int MAX_CACHE_SIZE = 1000;
-        private static final Map<Long, Boolean> cache = new LinkedHashMap<Long, Boolean>(MAX_CACHE_SIZE, 0.75f, true) {
-            @Override
-            protected boolean removeEldestEntry(Map.Entry<Long, Boolean> eldest) {
-                return size() > MAX_CACHE_SIZE;
-            }
-        };
-
-        private static long createKey(BlockPos from, BlockPos to) {
-            return ((long) from.getX() & 0x7FFFL) << 52 |
-                    ((long) from.getY() & 0xFFFL) << 40 |
-                    ((long) from.getZ() & 0x7FFFL) << 28 |
-                    ((long) to.getX() & 0x7FFFL) << 16 |
-                    ((long) to.getY() & 0xFFFL) << 4 |
-                    ((long) to.getZ() & 0x7FFFL);
-        }
-
-        public static void clear() {
-            cache.clear();
-        }
-    }
-
-    private static boolean visibleInMap(Vec3d fromVec, Vec3d toVec) {
-        BlockPos fromPos = new BlockPos(fromVec);
-        BlockPos toPos = new BlockPos(toVec);
-
-        long cacheKey = VisibilityCache.createKey(fromPos, toPos);
-        Boolean cachedResult = VisibilityCache.cache.get(cacheKey);
-        if (cachedResult != null) {
-            return cachedResult;
-        }
-
-        boolean result = checkVisibilityDDA(fromVec, toVec);
-        VisibilityCache.cache.put(cacheKey, result);
-        return result;
-    }
-
-    private static boolean checkVisibilityDDA(Vec3d fromVec, Vec3d toVec) {
-        double dx = toVec.x - fromVec.x;
-        double dy = toVec.y - fromVec.y;
-        double dz = toVec.z - fromVec.z;
-
-        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (distance < 0.0001) return true;
-
-        dx /= distance;
-        dy /= distance;
-        dz /= distance;
-
-        double x = fromVec.x;
-        double y = fromVec.y;
-        double z = fromVec.z;
-
-        double stepX = dx >= 0 ? 1 : -1;
-        double stepY = dy >= 0 ? 1 : -1;
-        double stepZ = dz >= 0 ? 1 : -1;
-
-        double tMaxX = dx != 0 ? (stepX > 0 ? Math.ceil(x) - x : x - Math.floor(x)) / Math.abs(dx) : Double.MAX_VALUE;
-        double tMaxY = dy != 0 ? (stepY > 0 ? Math.ceil(y) - y : y - Math.floor(y)) / Math.abs(dy) : Double.MAX_VALUE;
-        double tMaxZ = dz != 0 ? (stepZ > 0 ? Math.ceil(z) - z : z - Math.floor(z)) / Math.abs(dz) : Double.MAX_VALUE;
-
-        double tDeltaX = dx != 0 ? Math.abs(1 / dx) : Double.MAX_VALUE;
-        double tDeltaY = dy != 0 ? Math.abs(1 / dy) : Double.MAX_VALUE;
-        double tDeltaZ = dz != 0 ? Math.abs(1 / dz) : Double.MAX_VALUE;
-
-        int blocksPassed = 0;
-        BlockPos targetPos = new BlockPos(toVec);
-
-        while (true) {
-            BlockPos currentPos = new BlockPos(x, y, z);
-            if (currentPos.equals(targetPos)) {
-                return true;
-            }
-
-            if (map.containsKey(currentPos)) {
-                blocksPassed++;
-                if (blocksPassed > 5) {
-                    return false;
-                }
-            }
-
-            if (Math.abs(x - fromVec.x) > distance ||
-                    Math.abs(y - fromVec.y) > distance ||
-                    Math.abs(z - fromVec.z) > distance) {
-                return false;
-            }
-
-            if (tMaxX < tMaxY && tMaxX < tMaxZ) {
-                x += stepX;
-                tMaxX += tDeltaX;
-            } else if (tMaxY < tMaxZ) {
-                y += stepY;
-                tMaxY += tDeltaY;
-            } else {
-                z += stepZ;
-                tMaxZ += tDeltaZ;
-            }
-        }
+        return NativeBlockRenderer.visibleInMap(
+                playerEyes.x, playerEyes.y, playerEyes.z,
+                blockCenter.x, blockCenter.y, blockCenter.z
+        );
     }
 
     public static void clearVisibilityCache() {
-        VisibilityCache.clear();
+        NativeBlockRenderer.clearVisibilityCache();
     }
 }
