@@ -3,17 +3,11 @@ package com.vbuser.particulate.render;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -58,10 +52,41 @@ public class BlockRenderer {
         if (loaded && map != null) {
             Minecraft mc = Minecraft.getMinecraft();
             Entity viewEntity = mc.getRenderViewEntity();
-            assert viewEntity != null;
-            double viewX = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * event.getPartialTicks();
-            double viewY = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * event.getPartialTicks();
-            double viewZ = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * event.getPartialTicks();
+            if (viewEntity == null) return;
+
+            double entityX = viewEntity.lastTickPosX + (viewEntity.posX - viewEntity.lastTickPosX) * event.getPartialTicks();
+            double entityY = viewEntity.lastTickPosY + (viewEntity.posY - viewEntity.lastTickPosY) * event.getPartialTicks();
+            double entityZ = viewEntity.lastTickPosZ + (viewEntity.posZ - viewEntity.lastTickPosZ) * event.getPartialTicks();
+
+            double viewX = entityX;
+            double viewY = entityY;
+            double viewZ = entityZ;
+
+            if (mc.gameSettings.thirdPersonView != 0) {
+                float distance = 4.0F;
+
+                float yaw = viewEntity.rotationYaw;
+                float pitch = viewEntity.rotationPitch;
+
+                double offsetX = -Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch));
+                double offsetY = -Math.sin(Math.toRadians(pitch));
+                double offsetZ = Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch));
+
+                double length = Math.sqrt(offsetX * offsetX + offsetY * offsetY + offsetZ * offsetZ);
+                offsetX = offsetX / length * distance;
+                offsetY = offsetY / length * distance;
+                offsetZ = offsetZ / length * distance;
+
+                if (mc.gameSettings.thirdPersonView == 2) {
+                    offsetX = -offsetX;
+                    offsetY = -offsetY;
+                    offsetZ = -offsetZ;
+                }
+
+                viewX = entityX + offsetX;
+                viewY = entityY + offsetY;
+                viewZ = entityZ + offsetZ;
+            }
 
             frustum = new Frustum();
             frustum.setPosition(viewX, viewY, viewZ);

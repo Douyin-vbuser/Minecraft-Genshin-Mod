@@ -5,9 +5,5 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(GuiIngame.class)
 public abstract class MixinGuiIngame {
-    /**
-     * @author vbuser
-     * @reason 删除经验条
-     */
 
 }
