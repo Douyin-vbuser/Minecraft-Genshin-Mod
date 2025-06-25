@@ -1,5 +1,7 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.command.CommandSetBiome;
+import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.ime.IMEController;
 import com.vbuser.particulate.render.BlockRenderer;
 import com.vbuser.particulate.render.NativeBlockRenderer;
@@ -40,6 +42,8 @@ public class Main {
 
     @Mod.EventHandler
     public static void serverInit(FMLServerStartingEvent event) {
+        event.registerServerCommand(new CommandSetBiome());
+        event.registerServerCommand(new CommandTpDim());
     }
 
     @SubscribeEvent
