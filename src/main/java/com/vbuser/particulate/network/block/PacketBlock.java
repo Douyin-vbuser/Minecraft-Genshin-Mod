@@ -15,7 +15,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings("all")
 public class PacketBlock implements IMessage {
 
     public Block block;
@@ -53,23 +55,24 @@ public class PacketBlock implements IMessage {
     public static class Handler implements IMessageHandler<PacketBlock, IMessage> {
         @Override
         public IMessage onMessage(PacketBlock message, MessageContext ctx) {
+            Map<BlockPos, IBlockState> currentMap = BlockRenderer.getMap();
 
-            Map<BlockPos, IBlockState> stateMap = BlockRenderer.getMap();
+            Map<BlockPos, IBlockState> newMap = new ConcurrentHashMap<>(currentMap);
 
             if (message.block.equals(Blocks.AIR)) {
                 if (ctx.side == Side.CLIENT) {
                     Particulate.networkWrapper.sendToServer(new PacketTSB(message.pos));
                 }
-                stateMap.remove(message.pos);
+                newMap.remove(message.pos);
             } else {
                 IBlockState state = message.block.getStateFromMeta(message.meta);
-                stateMap.put(message.pos, state);
+                newMap.put(message.pos, state);
                 if (ctx.side == Side.CLIENT) {
                     World world = Minecraft.getMinecraft().world;
                     world.setBlockToAir(message.pos);
                 }
             }
-            BlockRenderer.setMap(stateMap);
+            BlockRenderer.setMap(newMap);
 
             return null;
         }
