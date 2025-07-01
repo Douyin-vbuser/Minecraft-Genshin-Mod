@@ -1,6 +1,6 @@
 package com.vbuser.genshin.init;
 
-import com.vbuser.genshin.Main;
+import com.vbuser.genshin.items.FoodBase;
 import com.vbuser.genshin.items.ItemBase;
 import net.minecraft.item.Item;
 
@@ -23,31 +23,31 @@ public class ModItems {
     public static final Item ICON_J = new ItemBase("icon_j");
 
     //Foods:
-    public static final Item YE_GU_JI_ROU_CHUANG = new ItemBase("ye_gu_ji_rou_chuan", Main.SHI_WU);
-    public static final Item TI_WA_TE_JIAN_DAN = new ItemBase("ti_wa_te_jian_dan", Main.SHI_WU);
-    public static final Item KAO_ROU_PAI = new ItemBase("kao_rou_pai", Main.SHI_WU);
-    public static final Item LUO_BO_SHI_SHU_TANG = new ItemBase("luo_bo_shi_shu_tang", Main.SHI_WU);
-    public static final Item BAO_CHAO_ROU_PIAN = new ItemBase("bao_chao_rou_pian", Main.SHI_WU);
-    public static final Item TIAN_TIAN_HUA_NIANG_JI = new ItemBase("tian_tian_hua_niang_ji", Main.SHI_WU);
-    public static final Item MAN_ZU_SHA_LA = new ItemBase("man_zu_sha_la", Main.SHI_WU);
-    public static final Item XING_RENG_DOU_FU = new ItemBase("xing_reng_dou_fu", Main.SHI_WU);
-    public static final Item SONG_RONG_NIANG_ROU_JUAN = new ItemBase("song_rong_niang_rou_juan", Main.SHI_WU);
-    public static final Item YE_GU_JI_ROU_CHUANG_GOOD = new ItemBase("ye_gu_ji_rou_chuan_good", Main.SHI_WU);
-    public static final Item TI_WA_TE_JIAN_DAN_GOOD = new ItemBase("ti_wa_te_jian_dan_good", Main.SHI_WU);
-    public static final Item KAO_ROU_PAI_GOOD = new ItemBase("kao_rou_pai_good", Main.SHI_WU);
-    public static final Item LUO_BO_SHI_SHU_TANG_GOOD = new ItemBase("luo_bo_shi_shu_tang_good", Main.SHI_WU);
-    public static final Item BAO_CHAO_ROU_PIAN_GOOD = new ItemBase("bao_chao_rou_pian_good", Main.SHI_WU);
-    public static final Item TIAN_TIAN_HUA_NIANG_JI_GOOD = new ItemBase("tian_tian_hua_niang_ji_good", Main.SHI_WU);
-    public static final Item MAN_ZU_SHA_LA_GOOD = new ItemBase("man_zu_sha_la_good", Main.SHI_WU);
-    public static final Item XING_RENG_DOU_FU_GOOD = new ItemBase("xing_reng_dou_fu_good", Main.SHI_WU);
-    public static final Item SONG_RONG_NIANG_ROU_JUAN_GOOD = new ItemBase("song_rong_niang_rou_juan_good", Main.SHI_WU);
-    public static final Item YE_GU_JI_ROU_CHUANG_BAD = new ItemBase("ye_gu_ji_rou_chuan_bad", Main.SHI_WU);
-    public static final Item TI_WA_TE_JIAN_DAN_BAD = new ItemBase("ti_wa_te_jian_dan_bad", Main.SHI_WU);
-    public static final Item KAO_ROU_PAI_BAD = new ItemBase("kao_rou_pai_bad", Main.SHI_WU);
-    public static final Item LUO_BO_SHI_SHU_TANG_BAD = new ItemBase("luo_bo_shi_shu_tang_bad", Main.SHI_WU);
-    public static final Item BAO_CHAO_ROU_PIAN_BAD = new ItemBase("bao_chao_rou_pian_bad", Main.SHI_WU);
-    public static final Item TIAN_TIAN_HUA_NIANG_JI_BAD = new ItemBase("tian_tian_hua_niang_ji_bad", Main.SHI_WU);
-    public static final Item MAN_ZU_SHA_LA_BAD = new ItemBase("man_zu_sha_la_bad", Main.SHI_WU);
-    public static final Item XING_RENG_DOU_FU_BAD = new ItemBase("xing_reng_dou_fu_bad", Main.SHI_WU);
-    public static final Item SONG_RONG_NIANG_ROU_JUAN_BAD = new ItemBase("song_rong_niang_rou_juan_bad", Main.SHI_WU);
+    public static final Item YE_GU_JI_ROU_CHUANG = new FoodBase("ye_gu_ji_rou_chuan");
+    public static final Item TI_WA_TE_JIAN_DAN = new FoodBase("ti_wa_te_jian_dan");
+    public static final Item KAO_ROU_PAI = new FoodBase("kao_rou_pai");
+    public static final Item LUO_BO_SHI_SHU_TANG = new FoodBase("luo_bo_shi_shu_tang");
+    public static final Item BAO_CHAO_ROU_PIAN = new FoodBase("bao_chao_rou_pian");
+    public static final Item TIAN_TIAN_HUA_NIANG_JI = new FoodBase("tian_tian_hua_niang_ji");
+    public static final Item MAN_ZU_SHA_LA = new FoodBase("man_zu_sha_la");
+    public static final Item XING_RENG_DOU_FU = new FoodBase("xing_reng_dou_fu");
+    public static final Item SONG_RONG_NIANG_ROU_JUAN = new FoodBase("song_rong_niang_rou_juan");
+    public static final Item YE_GU_JI_ROU_CHUANG_GOOD = new FoodBase("ye_gu_ji_rou_chuan_good");
+    public static final Item TI_WA_TE_JIAN_DAN_GOOD = new FoodBase("ti_wa_te_jian_dan_good");
+    public static final Item KAO_ROU_PAI_GOOD = new FoodBase("kao_rou_pai_good");
+    public static final Item LUO_BO_SHI_SHU_TANG_GOOD = new FoodBase("luo_bo_shi_shu_tang_good");
+    public static final Item BAO_CHAO_ROU_PIAN_GOOD = new FoodBase("bao_chao_rou_pian_good");
+    public static final Item TIAN_TIAN_HUA_NIANG_JI_GOOD = new FoodBase("tian_tian_hua_niang_ji_good");
+    public static final Item MAN_ZU_SHA_LA_GOOD = new FoodBase("man_zu_sha_la_good");
+    public static final Item XING_RENG_DOU_FU_GOOD = new FoodBase("xing_reng_dou_fu_good");
+    public static final Item SONG_RONG_NIANG_ROU_JUAN_GOOD = new FoodBase("song_rong_niang_rou_juan_good");
+    public static final Item YE_GU_JI_ROU_CHUANG_BAD = new FoodBase("ye_gu_ji_rou_chuan_bad");
+    public static final Item TI_WA_TE_JIAN_DAN_BAD = new FoodBase("ti_wa_te_jian_dan_bad");
+    public static final Item KAO_ROU_PAI_BAD = new FoodBase("kao_rou_pai_bad");
+    public static final Item LUO_BO_SHI_SHU_TANG_BAD = new FoodBase("luo_bo_shi_shu_tang_bad");
+    public static final Item BAO_CHAO_ROU_PIAN_BAD = new FoodBase("bao_chao_rou_pian_bad");
+    public static final Item TIAN_TIAN_HUA_NIANG_JI_BAD = new FoodBase("tian_tian_hua_niang_ji_bad");
+    public static final Item MAN_ZU_SHA_LA_BAD = new FoodBase("man_zu_sha_la_bad");
+    public static final Item XING_RENG_DOU_FU_BAD = new FoodBase("xing_reng_dou_fu_bad");
+    public static final Item SONG_RONG_NIANG_ROU_JUAN_BAD = new FoodBase("song_rong_niang_rou_juan_bad");
 }
