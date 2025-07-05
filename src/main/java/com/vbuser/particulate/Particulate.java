@@ -6,10 +6,13 @@ import com.vbuser.particulate.network.block.PacketBlock;
 import com.vbuser.particulate.network.block.PacketTCB;
 import com.vbuser.particulate.network.block.PacketTSB;
 import com.vbuser.particulate.network.particle.PacketLeave;
+import com.vbuser.particulate.shader.RenderEventHandler;
+import com.vbuser.particulate.shader.ShaderManager;
 import com.vbuser.particulate.util.ParticleUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -26,6 +29,9 @@ public class Particulate {
     public void init(FMLInitializationEvent event) {
         ParticleUtil.init();
         registerNetwork();
+
+        ShaderManager.init();
+        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
     }
 
     public static void registerNetwork() {
