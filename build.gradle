@@ -65,7 +65,6 @@ dependencies {
     runtimeOnly fg.deobf(files("libs/mcef.jar"))
     implementation fg.deobf(files("libs/mcef.jar"))
     embed files("libs/ime.jar")
-    embed files("libs/dda.jar")
     implementation fg.deobf('software.bernie.geckolib:forge-1.12.2-geckolib:3.0.21')
     embed('org.spongepowered:mixin:0.8.3-SNAPSHOT') {
         exclude module: 'guava'

@@ -4,9 +4,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -36,19 +39,14 @@ public class BlockRenderer {
 
     public static void setMap(Map<BlockPos, IBlockState> value) {
         setLoaded(false);
-        clearVisibilityCache();
-
         snapshot = value.isEmpty() ? EMPTY_MAP : Collections.unmodifiableMap(new HashMap<>(value));
-
-        long[] posArray = new long[value.size()];
-        int i = 0;
-        for (BlockPos pos : value.keySet()) {
-            posArray[i++] = pos.toLong();
-        }
-        NativeBlockRenderer.updateMap(posArray);
-
         setLoaded(!value.isEmpty());
     }
+
+    private final Map<BlockPos, List<BakedQuad>> quadCache = new HashMap<>();
+    private long lastCacheUpdate = 0;
+    private static final long CACHE_UPDATE_INTERVAL = 1000;
+    private static final int BATCH_SIZE = 64;
 
     @SubscribeEvent
     public void onRenderTick(RenderWorldLastEvent event) {
@@ -82,8 +80,8 @@ public class BlockRenderer {
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
 
-        BlockRendererDispatcher dispatcher = mc.getBlockRendererDispatcher();
         World world = mc.world;
+        BlockRendererDispatcher dispatcher = mc.getBlockRendererDispatcher();
 
         visibleBlocks.clear();
         Map<BlockPos, IBlockState> currentSnapshot = snapshot;
@@ -94,10 +92,38 @@ public class BlockRenderer {
             }
         }
 
-        if (!visibleBlocks.isEmpty()) {
-            for (BlockPos pos : visibleBlocks) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastCacheUpdate > CACHE_UPDATE_INTERVAL) {
+            quadCache.clear();
+            lastCacheUpdate = currentTime;
+        }
+
+        List<BlockPos> positions = new ArrayList<>(visibleBlocks);
+        for (int i = 0; i < positions.size(); i += BATCH_SIZE) {
+            int end = Math.min(i + BATCH_SIZE, positions.size());
+            List<BlockPos> batch = positions.subList(i, end);
+
+            for (BlockPos pos : batch) {
                 IBlockState state = currentSnapshot.get(pos);
-                dispatcher.renderBlock(state, pos, world, bufferBuilder);
+                List<BakedQuad> quads = quadCache.computeIfAbsent(pos, p -> {
+                    List<BakedQuad> quadList = new ArrayList<>();
+                    IBakedModel model = dispatcher.getModelForState(state);
+                    for (EnumFacing facing : EnumFacing.values()) {
+                        quadList.addAll(model.getQuads(state, facing, 0L));
+                    }
+                    quadList.addAll(model.getQuads(state, null, 0L));
+                    return quadList;
+                });
+
+                Vec3d offset = state.getOffset(world, pos);
+                double x = pos.getX() + offset.x;
+                double y = pos.getY() + offset.y;
+                double z = pos.getZ() + offset.z;
+
+                for (BakedQuad quad : quads) {
+                    bufferBuilder.addVertexData(quad.getVertexData());
+                    bufferBuilder.putPosition(x, y, z);
+                }
             }
         }
 
@@ -145,33 +171,8 @@ public class BlockRenderer {
         return result;
     }
 
-    private static boolean isBlockInFrustum(BlockPos pos) {
+    private boolean isBlockVisible(BlockPos pos) {
         AxisAlignedBB aabb = new AxisAlignedBB(pos);
         return frustum.isBoundingBoxInFrustum(aabb);
-    }
-
-    private static boolean isBlockVisible(BlockPos blockPos) {
-        if (!isBlockInFrustum(blockPos)) {
-            return false;
-        }
-
-        Vec3d playerEyes = player.getPositionEyes(1.0f);
-        Vec3d blockCenter = new Vec3d(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
-
-        RayTraceResult result = mc.world.rayTraceBlocks(playerEyes, blockCenter, false, true, false);
-
-        if (result != null && !result.getBlockPos().equals(blockPos)) {
-            return false;
-        }
-
-        //return true;
-        return NativeBlockRenderer.visibleInMap(
-                playerEyes.x, playerEyes.y, playerEyes.z,
-                blockCenter.x, blockCenter.y, blockCenter.z
-        );
-    }
-
-    public static void clearVisibilityCache() {
-        NativeBlockRenderer.clearVisibilityCache();
     }
 }
