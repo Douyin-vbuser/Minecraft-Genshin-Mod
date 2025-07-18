@@ -7,11 +7,10 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.*;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class ShaderManager {
     private static final Minecraft mc = Minecraft.getMinecraft();
     private static final List<ShaderProgram> shaderPasses = new ArrayList<>();
     public static Framebuffer[] pingPongBuffers = new Framebuffer[2];
+    private static final int[] depthTextures = new int[2];
 
     public static void init() {
         cleanup();
@@ -46,6 +46,7 @@ public class ShaderManager {
 
         Framebuffer originalFramebuffer = mc.getFramebuffer();
         setupFramebuffers();
+        copyMainDepthToTextures(originalFramebuffer);
 
         try {
             setupRenderState();
@@ -77,49 +78,46 @@ public class ShaderManager {
         }
     }
 
-    private static void renderPass(ShaderProgram shader, Framebuffer input, Framebuffer output) {
-        if (input == output) {
-            setupFramebuffers();
-            Framebuffer temp = pingPongBuffers[0];
+    private static void copyMainDepthToTextures(Framebuffer mainFbo) {
+        int prevFBO = GL11.glGetInteger(GL30.GL_FRAMEBUFFER_BINDING);
+        int prevTexture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 
-            temp.bindFramebuffer(true);
-            GlStateManager.clearColor(0.0F, 0.0F, 0.0F, 0.0F);
-            GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT);
-
-            GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
-            input.bindFramebufferTexture();
-            setupTextureParameters();
-            renderFullscreenQuadSimple();
-            GlStateManager.bindTexture(0);
-
-            output.bindFramebuffer(true);
-            GlStateManager.clearColor(0.0F, 0.0F, 0.0F, 0.0F);
-            GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT);
-
-            shader.use();
-            GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
-            temp.bindFramebufferTexture();
-        } else {
-            output.bindFramebuffer(true);
-            GlStateManager.clearColor(0.0F, 0.0F, 0.0F, 0.0F);
-            GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT);
-
-            shader.use();
-            GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
-
-            input.bindFramebufferTexture();
-
+        for (int i = 0; i < pingPongBuffers.length; i++) {
+            if (pingPongBuffers[i] != null) {
+                GL11.glBindTexture(GL11.GL_TEXTURE_2D, depthTextures[i]);
+                mainFbo.bindFramebuffer(false);
+                GL11.glCopyTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT,
+                        0, 0, mainFbo.framebufferWidth, mainFbo.framebufferHeight, 0);
+            }
         }
-        GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ZERO);
+
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, prevTexture);
+        GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, prevFBO);
+    }
+
+    private static void renderPass(ShaderProgram shader, Framebuffer input, Framebuffer output) {
+        output.bindFramebuffer(true);
+        GlStateManager.clearColor(0.0F, 0.0F, 0.0F, 0.0F);
+        GlStateManager.clear(GL11.GL_COLOR_BUFFER_BIT);
+
+        shader.use();
+        GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
+        input.bindFramebufferTexture();
+
+        GlStateManager.setActiveTexture(GL13.GL_TEXTURE1);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, depthTextures[0]);
+
         setupTextureParameters();
         setupShaderUniforms(shader);
         renderFullscreenQuad();
+
         shader.release();
+        GlStateManager.bindTexture(0);
+        GlStateManager.setActiveTexture(GL13.GL_TEXTURE0);
         GlStateManager.bindTexture(0);
     }
 
-    private static void renderFullscreenQuadSimple() {
+    private static void renderFullscreenQuad() {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
 
@@ -170,50 +168,39 @@ public class ShaderManager {
                     pingPongBuffers[i].framebufferHeight != mc.displayHeight) {
                 if (pingPongBuffers[i] != null) {
                     pingPongBuffers[i].deleteFramebuffer();
+                    GL11.glDeleteTextures(depthTextures[i]);
                 }
-                pingPongBuffers[i] = new Framebuffer(mc.displayWidth, mc.displayHeight, false);
+                pingPongBuffers[i] = new Framebuffer(mc.displayWidth, mc.displayHeight, true);
                 pingPongBuffers[i].setFramebufferFilter(GL11.GL_LINEAR);
+                createDepthTexture(i);
             }
         }
     }
 
+    private static void createDepthTexture(int index) {
+        depthTextures[index] = GL11.glGenTextures();
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, depthTextures[index]);
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT,
+                mc.displayWidth, mc.displayHeight,
+                0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, (ByteBuffer) null);
+        setupTextureParameters();
+    }
+
     private static void setupTextureParameters() {
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_COMPARE_MODE, GL11.GL_NONE);
     }
 
     private static void setupShaderUniforms(ShaderProgram shader) {
-        shader.setUniform1i("texture", 0);
+        shader.setUniform1i("colorTexture", 0);
+        shader.setUniform1i("depthTexture", 1);
         shader.setUniform2f("resolution", mc.displayWidth, mc.displayHeight);
         shader.setUniform1f("time", (float)(System.currentTimeMillis() % 100000L) / 1000.0F);
-    }
-
-    private static void renderFullscreenQuad() {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-
-        GlStateManager.matrixMode(GL11.GL_PROJECTION);
-        GlStateManager.pushMatrix();
-        GlStateManager.loadIdentity();
-        GlStateManager.ortho(0.0D, mc.displayWidth, mc.displayHeight, 0.0D, -1.0D, 1.0D);
-
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-        GlStateManager.pushMatrix();
-        GlStateManager.loadIdentity();
-
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.pos(0.0D, mc.displayHeight, 0.0D).tex(0.0D, 0.0D).endVertex();
-        buffer.pos(mc.displayWidth, mc.displayHeight, 0.0D).tex(1.0D, 0.0D).endVertex();
-        buffer.pos(mc.displayWidth, 0.0D, 0.0D).tex(1.0D, 1.0D).endVertex();
-        buffer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, 1.0D).endVertex();
-        tessellator.draw();
-
-        GlStateManager.matrixMode(GL11.GL_PROJECTION);
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(GL11.GL_MODELVIEW);
-        GlStateManager.popMatrix();
+        shader.setUniform1f("near", 0.05F);
+        shader.setUniform1f("far", 1000.0F);
     }
 
     private static void restoreRenderState() {
@@ -249,6 +236,10 @@ public class ShaderManager {
             if (pingPongBuffers[i] != null) {
                 pingPongBuffers[i].deleteFramebuffer();
                 pingPongBuffers[i] = null;
+            }
+            if (depthTextures[i] != 0) {
+                GL11.glDeleteTextures(depthTextures[i]);
+                depthTextures[i] = 0;
             }
         }
     }

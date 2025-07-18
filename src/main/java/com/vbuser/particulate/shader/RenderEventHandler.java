@@ -2,7 +2,7 @@ package com.vbuser.particulate.shader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-//import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -70,12 +70,11 @@ public class RenderEventHandler {
         needsResize = false;
     }
 
+    static ResourceLocation baseVert = new ResourceLocation("particulate:shaders/post/base.vert");
+
     public static void loadDefaultShaders() {
 //        ShaderManager.loadShaders(
-//                new ResourceLocation("particulate:shaders/post/base.vert"),
-//                new ResourceLocation("particulate:shaders/post/invert.frag"),
-//                new ResourceLocation("particulate:shaders/post/base.vert"),
-//                new ResourceLocation("particulate:shaders/post/gray.frag")
+//                baseVert, new ResourceLocation("particulate:shaders/post/depth.frag")
 //        );
     }
 
