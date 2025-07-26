@@ -6,8 +6,10 @@
     "MixinInventoryPlayer"
   ],
   "client": [
+    "MixinEntityPlayerSP",
     "MixinGuiIngame",
-    "MixinMinecraft"
+    "MixinMinecraft",
+    "MixinMovementInput"
   ],
   "server": []
 }

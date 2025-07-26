@@ -3,11 +3,11 @@ package com.vbuser.genshin;
 import com.vbuser.genshin.command.CommandSetBiome;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.init.ModItems;
+import com.vbuser.genshin.init.key.KeyboardManager;
 import com.vbuser.genshin.items.FoodBase;
 import com.vbuser.genshin.proxy.CommonProxy;
 import com.vbuser.genshin.tabs.TabBase;
 import com.vbuser.ime.IMEController;
-import com.vbuser.particulate.render.BlockRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
@@ -74,9 +74,10 @@ public class Main {
         //JNI:
         System.out.println("[JNI] Loading Native Libraries.");
         IMEController.load();
+        //Key Bindings:
+        KeyboardManager.init();
         //Event Listener:
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new BlockRenderer());
         //Bullshit:
         ModItems.ITEMS.stream()
                 .filter(item -> item instanceof FoodBase)
