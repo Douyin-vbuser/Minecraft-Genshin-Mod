@@ -198,7 +198,7 @@ public class ShaderManager {
         shader.setUniform1i("colorTexture", 0);
         shader.setUniform1i("depthTexture", 1);
         shader.setUniform2f("resolution", mc.displayWidth, mc.displayHeight);
-        shader.setUniform1f("time", (float)(System.currentTimeMillis() % 100000L) / 1000.0F);
+        shader.setUniform1f("time", (float) (System.currentTimeMillis() % 100000L) / 1000.0F);
         shader.setUniform1f("near", 0.05F);
         shader.setUniform1f("far", 1000.0F);
     }

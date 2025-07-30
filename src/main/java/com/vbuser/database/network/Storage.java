@@ -9,5 +9,5 @@ public class Storage {
      * K : 随机数<br>
      * V : 表格源数据
      */
-    public static ConcurrentMap<Double,String> select =  new ConcurrentHashMap<>(10);
+    public static ConcurrentMap<Double, String> select = new ConcurrentHashMap<>(10);
 }

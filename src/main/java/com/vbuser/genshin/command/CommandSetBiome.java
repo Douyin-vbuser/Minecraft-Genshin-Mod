@@ -42,7 +42,7 @@ public class CommandSetBiome extends CommandBase {
         chunk.setModified(true);
 
         world.getChunkProvider().provideChunk(chunk.x, chunk.z);
-        world.markChunkDirty(chunk.getPos().getBlock(0,0,0), null);
+        world.markChunkDirty(chunk.getPos().getBlock(0, 0, 0), null);
 
         if (!world.isRemote) {
             SPacketChunkData packet = new SPacketChunkData(chunk, 65535);

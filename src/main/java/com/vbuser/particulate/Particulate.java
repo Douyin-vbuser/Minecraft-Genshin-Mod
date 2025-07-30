@@ -2,6 +2,7 @@ package com.vbuser.particulate;
 
 import com.vbuser.particulate.command.CmdB;
 import com.vbuser.particulate.command.CmdP;
+import com.vbuser.particulate.field.ClearExpBar;
 import com.vbuser.particulate.network.block.PacketBlock;
 import com.vbuser.particulate.network.block.PacketTCB;
 import com.vbuser.particulate.network.block.PacketTSB;
@@ -34,6 +35,7 @@ public class Particulate {
         ShaderManager.init();
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
         MinecraftForge.EVENT_BUS.register(new BlockRenderer());
+        MinecraftForge.EVENT_BUS.register(new ClearExpBar());
     }
 
     public static void registerNetwork() {

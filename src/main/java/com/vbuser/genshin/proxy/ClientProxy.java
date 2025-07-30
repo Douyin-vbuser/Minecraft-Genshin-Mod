@@ -38,5 +38,5 @@ public class ClientProxy extends CommonProxy {
     //Allow player to switch to character 4. Default value: [4]
     //public static final KeyBinding DD = new ModKeyBinding("dd", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_4, "key.category.genshin");
     //Allow player to switch between running and walking. Default value: [LEFT CONTROL]
-    public static final KeyBinding RUN = new ModKeyBinding("run",KeyConflictContext.IN_GAME,KeyModifier.NONE,Keyboard.KEY_LCONTROL,"key.category.genshin");
+    public static final KeyBinding RUN = new ModKeyBinding("run", KeyConflictContext.IN_GAME, KeyModifier.NONE, Keyboard.KEY_LCONTROL, "key.category.genshin");
 }

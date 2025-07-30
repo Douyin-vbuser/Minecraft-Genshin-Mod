@@ -16,8 +16,8 @@ public abstract class MixinMinecraft {
 
     @Shadow
     private boolean fullscreen;
-    @Final
-    @Shadow
+
+    @Shadow@Final
     private static final Logger LOGGER = LogManager.getLogger();
 
 

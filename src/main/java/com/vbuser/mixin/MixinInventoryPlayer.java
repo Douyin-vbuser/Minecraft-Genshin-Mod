@@ -16,6 +16,7 @@ public class MixinInventoryPlayer {
     /**
      * @author vbuser
      * @reason for fov control
+     * 阻止快捷栏循环滚动以支持视距控制
      */
     @SideOnly(Side.CLIENT)
     @Overwrite

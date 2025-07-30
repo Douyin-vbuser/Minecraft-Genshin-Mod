@@ -34,7 +34,7 @@ public class SprintPacket implements IMessage {
 
         @Override
         public IMessage onMessage(SprintPacket message, MessageContext ctx) {
-            if(ctx.side.isServer()) Sprint.sprintingPlayers
+            if (ctx.side.isServer()) Sprint.sprintingPlayers
                     .put(ctx.getServerHandler().player, message.sprinting);
             return null;
         }

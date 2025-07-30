@@ -53,6 +53,8 @@ public class Sprint {
             if (player != null) {
                 player.setSprinting(last);
                 player.movementInput.sneak = false;
+            } else {
+                last = true;
             }
         }
     }

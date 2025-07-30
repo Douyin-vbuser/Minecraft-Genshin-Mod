@@ -7,7 +7,6 @@
   ],
   "client": [
     "MixinEntityPlayerSP",
-    "MixinGuiIngame",
     "MixinMinecraft",
     "MixinMovementInput"
   ],
