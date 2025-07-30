@@ -17,33 +17,33 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BlockRenderer {
 
-    private static volatile Map<BlockPos, IBlockState> snapshot = Collections.emptyMap();
     private static boolean loaded;
     private static Frustum frustum;
-    private static final List<BlockPos> visibleBlocks = new ArrayList<>();
-    private static final Map<BlockPos, IBlockState> EMPTY_MAP = Collections.emptyMap();
+
+    private static final ConcurrentHashMap<BlockPos, IBlockState> snapshot = new ConcurrentHashMap<>();
+    private static final Set<BlockPos> visibleBlocks = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private static final ConcurrentHashMap<BlockPos, List<BakedQuad>> quadCache = new ConcurrentHashMap<>();
 
     static Minecraft mc;
     static EntityPlayerSP player;
 
-    public static void setLoaded(boolean value) {
-        loaded = value;
+    public static void addBlock(BlockPos pos, IBlockState state) {
+        snapshot.put(pos, state);
+        quadCache.remove(pos);
+        loaded = true;
     }
 
-    public static Map<BlockPos, IBlockState> getMap() {
-        return snapshot;
+    public static void removeBlock(BlockPos pos) {
+        snapshot.remove(pos);
+        visibleBlocks.remove(pos);
+        quadCache.remove(pos);
+        loaded = !snapshot.isEmpty();
     }
 
-    public static void setMap(Map<BlockPos, IBlockState> value) {
-        setLoaded(false);
-        snapshot = value.isEmpty() ? EMPTY_MAP : Collections.unmodifiableMap(new HashMap<>(value));
-        setLoaded(!value.isEmpty());
-    }
-
-    private final Map<BlockPos, List<BakedQuad>> quadCache = new HashMap<>();
     private long lastCacheUpdate = 0;
     private static final long CACHE_UPDATE_INTERVAL = 1000;
     private static final int BATCH_SIZE = 64;
@@ -83,14 +83,13 @@ public class BlockRenderer {
         World world = mc.world;
         BlockRendererDispatcher dispatcher = mc.getBlockRendererDispatcher();
 
-        visibleBlocks.clear();
-        Map<BlockPos, IBlockState> currentSnapshot = snapshot;
-
-        for (BlockPos pos : currentSnapshot.keySet()) {
+        snapshot.keySet().parallelStream().forEach(pos -> {
             if (isBlockVisible(pos)) {
                 visibleBlocks.add(pos);
+            } else {
+                visibleBlocks.remove(pos);
             }
-        }
+        });
 
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastCacheUpdate > CACHE_UPDATE_INTERVAL) {
@@ -104,7 +103,9 @@ public class BlockRenderer {
             List<BlockPos> batch = positions.subList(i, end);
 
             for (BlockPos pos : batch) {
-                IBlockState state = currentSnapshot.get(pos);
+                IBlockState state = snapshot.get(pos);
+                if (state == null) continue;
+
                 List<BakedQuad> quads = quadCache.computeIfAbsent(pos, p -> {
                     List<BakedQuad> quadList = new ArrayList<>();
                     IBakedModel model = dispatcher.getModelForState(state);
