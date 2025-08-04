@@ -73,6 +73,10 @@ dependencies {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
 jar {
     from {
         configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }
