@@ -5,9 +5,9 @@ import java.util.concurrent.ConcurrentMap;
 
 public class Storage {
     /**
-     * select : 用于在客户端存储select的SQL语句获得的返回结果<br>
-     * K : 随机数<br>
-     * V : 表格源数据
+     * 用于在客户端存储select查询结果的并发映射<br>
+     * K: 随机生成的唯一标记<br>
+     * V: 查询返回的数据表格
      */
     public static ConcurrentMap<Double, String> select = new ConcurrentHashMap<>(10);
 }

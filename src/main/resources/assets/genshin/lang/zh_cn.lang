@@ -1,6 +1,10 @@
 #指令输出(Command output)
 commands.biome.success=[] 群系修改成功
 
+#按键相关(KeyBinding)
+key.categories.genshin=Minecraft Impact按键
+key.genshin.run=跑步/步行状态切换
+
 #创造模式物品分类(Creative tab)
 itemGroup.sheng_yi_wu=圣遗物
 itemGroup.wu_qi=武器

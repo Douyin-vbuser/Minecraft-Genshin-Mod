@@ -14,25 +14,37 @@ import java.util.UUID;
 import static com.vbuser.database.operate.Console.executeCommand;
 import static com.vbuser.database.operate.ToTP.validateTOTP;
 
+/**
+ * HTTP数据库服务器<br>
+ * 提供Web界面访问数据库功能<br>
+ * 支持TOTP作为操作确权
+ */
 public class Server {
 
-    static int PORT = 11451;
-    private static String TOTP_PAGE;
-    private static String TERMINAL_PAGE;
-    private static final Map<String, Long> tokenStore = new HashMap<>();
-    private static String key;
+    static int PORT = 11451;  // 服务器端口
+    private static String TOTP_PAGE;   // TOTP认证页面HTML
+    private static String TERMINAL_PAGE; // 终端页面HTML
+    private static final Map<String, Long> tokenStore = new HashMap<>(); // 有效token存储
+    private static String key;  // TOTP密钥
+    public static HttpServer server;   // HTTP服务器实例
 
+    /**
+     * 启动HTTP服务器
+     * @param dir 数据库目录
+     */
     public static void start(File dir) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
-        setHTMLContent();
+        server = HttpServer.create(new InetSocketAddress(PORT), 0);
+        setHTMLContent();  // 初始化HTML页面
 
+        // 读取TOTP密钥
         File file = new File(dir, "totp.txt");
         key = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
 
+        // 定时清理过期token
         new Thread(() -> {
             while (true) {
                 try {
-                    Thread.sleep(60 * 1000);
+                    Thread.sleep(60 * 1000); // 每分钟清理一次
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -40,19 +52,20 @@ public class Server {
             }
         }).start();
 
+        // 设置请求处理器
         server.createContext("/", exchange -> {
             try {
                 String requestMethod = exchange.getRequestMethod();
                 if (requestMethod.equalsIgnoreCase("GET")) {
                     handleGetRequest(exchange, dir);
                 } else if (requestMethod.equalsIgnoreCase("POST")) {
-                    handlePostRequest(exchange,dir);
+                    handlePostRequest(exchange, dir);
                 } else {
-                    exchange.sendResponseHeaders(405, 0);
+                    exchange.sendResponseHeaders(405, 0); // 方法不允许
                     exchange.close();
                 }
             } catch (Exception e) {
-                exchange.sendResponseHeaders(500, -1);
+                exchange.sendResponseHeaders(500, -1); // 服务器错误
                 exchange.close();
             }
         });
@@ -62,10 +75,16 @@ public class Server {
         System.out.println("Server is listening on port " + PORT);
     }
 
+    /**
+     * 处理GET请求
+     * @param exchange HTTP交换对象
+     * @param dir 数据库目录
+     */
     private static void handleGetRequest(HttpExchange exchange, File dir) throws IOException {
         String path = exchange.getRequestURI().getPath();
 
         if (path.equals("/")) {
+            // 重定向到TOTP认证页
             exchange.getResponseHeaders().set("Location", "/totp");
             exchange.sendResponseHeaders(302, -1);
             exchange.close();
@@ -73,6 +92,7 @@ public class Server {
             sendResponse(exchange, TOTP_PAGE);
         } else if (path.startsWith("/terminal")) {
             String token = exchange.getRequestURI().getQuery().replace("token=", "");
+            // 验证token有效性
             if (isTokenValid(token)) {
                 exchange.getResponseHeaders().set("Location", "/totp");
                 exchange.sendResponseHeaders(302, -1);
@@ -81,6 +101,7 @@ public class Server {
             }
             sendResponse(exchange, TERMINAL_PAGE);
         } else {
+            // 处理表数据请求
             path = path.substring(1);
             File file = new File(dir, "tables/" + path);
             String htmlResponse = Convert.convertTxtToHtmlTable(file.getAbsolutePath());
@@ -88,19 +109,31 @@ public class Server {
         }
     }
 
+    /**
+     * 生成新token
+     * @return 生成的token
+     */
     private static String generateToken() {
         String uuid = UUID.randomUUID().toString();
-        tokenStore.put(uuid, System.currentTimeMillis() + 5 * 60 * 1000);
+        tokenStore.put(uuid, System.currentTimeMillis() + 5 * 60 * 1000); // 5分钟有效期
         return uuid;
     }
 
-    private static void handlePostRequest(HttpExchange exchange,File db) throws IOException {
+    /**
+     * 处理POST请求
+     * @param exchange HTTP交换对象
+     * @param db 数据库目录
+     */
+    private static void handlePostRequest(HttpExchange exchange, File db) throws IOException {
         if (exchange.getRequestURI().getPath().equals("/totp")) {
+            // 处理TOTP认证
             String totpCode = getString(exchange, "code");
             if (!validateTOTP(key, totpCode)) {
+                // 认证失败，重定向回认证页
                 exchange.getResponseHeaders().set("Location", "/totp");
                 exchange.sendResponseHeaders(302, -1);
             } else {
+                // 认证成功，生成token并重定向到终端
                 String token = generateToken();
                 String redirectUrl = "/terminal?token=" + token;
                 exchange.getResponseHeaders().set("Location", redirectUrl);
@@ -108,12 +141,15 @@ public class Server {
             }
             exchange.close();
         } else if (exchange.getRequestURI().getPath().contains("terminal")) {
+            // 处理终端命令
             String token = exchange.getRequestURI().getQuery().replace("token=", "");
             if (isTokenValid(token)) {
+                // token无效，重定向到认证页
                 exchange.getResponseHeaders().set("Location", "/totp");
                 exchange.sendResponseHeaders(302, -1);
                 exchange.close();
             } else {
+                // 执行命令
                 executeCommand("access " + db.getAbsolutePath());
                 String command = getString(exchange, "command");
                 command = command.replaceAll("%20", " ").replaceAll("%3D", "=");
@@ -123,11 +159,17 @@ public class Server {
                 System.out.println("executing:" + command + "\nresult: " + response);
             }
         } else {
-            exchange.sendResponseHeaders(404, -1);
+            exchange.sendResponseHeaders(404, -1); // 未找到
             exchange.close();
         }
     }
 
+    /**
+     * 从请求体获取字符串值
+     * @param exchange HTTP交换对象
+     * @param key 参数键
+     * @return 参数值
+     */
     private static String getString(HttpExchange exchange, String key) throws IOException {
         StringBuilder requestBody = new StringBuilder();
         try (InputStream inputStream = exchange.getRequestBody();
@@ -146,10 +188,20 @@ public class Server {
         return totpCode;
     }
 
+    /**
+     * 检查token有效性
+     * @param token 待检查的token
+     * @return 是否有效
+     */
     private static boolean isTokenValid(String token) {
         return !tokenStore.containsKey(token);
     }
 
+    /**
+     * 发送HTTP响应
+     * @param exchange HTTP交换对象
+     * @param response 响应内容
+     */
     private static void sendResponse(HttpExchange exchange, String response) throws IOException {
         byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
         exchange.sendResponseHeaders(200, responseBytes.length);
@@ -158,7 +210,11 @@ public class Server {
         outputStream.close();
     }
 
+    /**
+     * HTML页面内容
+     */
     public static void setHTMLContent() {
+        // TOTP认证页面
         TOTP_PAGE = "<!DOCTYPE html>\n" +
                 "<html lang=\"zh-CN\">\n" +
                 "<head>\n" +
