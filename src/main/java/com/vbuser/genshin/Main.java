@@ -2,6 +2,7 @@ package com.vbuser.genshin;
 
 import com.vbuser.genshin.command.CommandSetBiome;
 import com.vbuser.genshin.command.CommandTpDim;
+import com.vbuser.genshin.event.BiomeDisplayHandler;
 import com.vbuser.genshin.init.ModItems;
 import com.vbuser.genshin.init.key.KeyboardManager;
 import com.vbuser.genshin.items.FoodBase;
@@ -77,6 +78,7 @@ public class Main {
         KeyboardManager.init();
         //Event Listener:
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new BiomeDisplayHandler());
         //Bullshit:
         ModItems.ITEMS.stream()
                 .filter(item -> item instanceof FoodBase)

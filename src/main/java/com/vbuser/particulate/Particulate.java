@@ -2,7 +2,7 @@ package com.vbuser.particulate;
 
 import com.vbuser.particulate.command.CmdB;
 import com.vbuser.particulate.command.CmdP;
-import com.vbuser.particulate.field.ClearExpBar;
+import com.vbuser.particulate.event.ClearExpBar;
 import com.vbuser.particulate.network.block.PacketBlock;
 import com.vbuser.particulate.network.block.PacketTCB;
 import com.vbuser.particulate.network.block.PacketTSB;
