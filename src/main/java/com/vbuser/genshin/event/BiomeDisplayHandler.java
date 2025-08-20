@@ -52,8 +52,16 @@ public class BiomeDisplayHandler {
 
         if (pendingBiome != null) {
             if (stableTimer++ >= STABLE_TIME) {
-                if (!firstEntry) {
-                    displayTimer = DISPLAY_TIME + FADE_TIME;
+                if (currentStableBiome != null) {
+                    String currentKey = getBiomeKey(currentStableBiome);
+                    String pendingKey = getBiomeKey(pendingBiome);
+                    if (!currentKey.equals(pendingKey)) {
+                        if (!firstEntry) {
+                            displayTimer = DISPLAY_TIME + FADE_TIME;
+                        } else {
+                            firstEntry = false;
+                        }
+                    }
                 } else {
                     firstEntry = false;
                 }
@@ -124,7 +132,10 @@ public class BiomeDisplayHandler {
         }
 
         Biome reference = (pendingBiome != null) ? pendingBiome : currentStableBiome;
-        return reference != newBiome;
+
+        String referenceKey = getBiomeKey(reference);
+        String newKey = getBiomeKey(newBiome);
+        return !referenceKey.equals(newKey);
     }
 
     private String getBiomeKey(Biome biome) {

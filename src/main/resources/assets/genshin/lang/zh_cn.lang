@@ -1,5 +1,7 @@
 #指令输出(Command output)
 commands.biome.success=[] 群系修改成功
+message.cf.process=正在生成云，进度
+message.cf.result=云生成完毕，共计
 
 #按键相关(KeyBinding)
 key.categories.genshin=Minecraft Impact按键
@@ -17,7 +19,7 @@ itemGroup.gui_zhong_dao_ju=贵重道具
 itemGroup.bai_she=摆设
 
 #物品(Item)
-#圣遗物(Artifacts)
+##圣遗物(Artifacts)
 item.mxj_h.name=冒险家
 item.mxj_m.name=冒险家
 item.mxj_s.name=冒险家
@@ -134,7 +136,7 @@ item.yszx_s_iv.name=勇士之心
 item.yszx_b_iv.name=勇士之心
 item.yszx_t_iv.name=勇士之心
 
-#食物(Food)
+##食物(Food)
 item.ti_wa_te_jian_dan_good.name=美味的提瓦特煎蛋
 item.ti_wa_te_jian_dan.name=提瓦特煎蛋
 item.ti_wa_te_jian_dan_bad.name=奇怪的提瓦特煎蛋

@@ -1,5 +1,6 @@
 package com.vbuser.genshin;
 
+import com.vbuser.genshin.command.CommandCloudFill;
 import com.vbuser.genshin.command.CommandSetBiome;
 import com.vbuser.genshin.command.CommandTpDim;
 import com.vbuser.genshin.event.BiomeDisplayHandler;
@@ -93,6 +94,7 @@ public class Main {
     public static void serverInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandSetBiome());
         event.registerServerCommand(new CommandTpDim());
+        event.registerServerCommand(new CommandCloudFill());
     }
 
     @SubscribeEvent
