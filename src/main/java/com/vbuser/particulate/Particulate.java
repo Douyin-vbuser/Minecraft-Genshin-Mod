@@ -6,7 +6,7 @@ import com.vbuser.particulate.event.ClearExpBar;
 import com.vbuser.particulate.network.block.PacketBlock;
 import com.vbuser.particulate.network.block.PacketTCB;
 import com.vbuser.particulate.network.block.PacketTSB;
-import com.vbuser.particulate.network.particle.PacketLeave;
+import com.vbuser.particulate.network.particle.PacketCommon;
 import com.vbuser.particulate.render.BlockRenderer;
 import com.vbuser.particulate.shader.RenderEventHandler;
 import com.vbuser.particulate.shader.ShaderManager;
@@ -40,7 +40,7 @@ public class Particulate {
 
     public static void registerNetwork() {
         networkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("ParticulateChannel");
-        networkWrapper.registerMessage(PacketLeave.Handle.class, PacketLeave.class, 300, Side.CLIENT);
+        networkWrapper.registerMessage(PacketCommon.Handle.class, PacketCommon.class, 300, Side.CLIENT);
         networkWrapper.registerMessage(PacketBlock.Handler.class, PacketBlock.class, 301, Side.CLIENT);
         networkWrapper.registerMessage(PacketTCB.Handler.class, PacketTCB.class, 302, Side.CLIENT);
         networkWrapper.registerMessage(PacketTSB.Handler.class, PacketTSB.class, 303, Side.SERVER);

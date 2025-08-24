@@ -8,15 +8,15 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketLeave implements IMessage {
+public class PacketCommon implements IMessage {
 
     double x, y, z;
     int particleId;
 
-    public PacketLeave() {
+    public PacketCommon() {
     }
 
-    public PacketLeave(double x, double y, double z, int id) {
+    public PacketCommon(double x, double y, double z, int id) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -39,10 +39,10 @@ public class PacketLeave implements IMessage {
         buf.writeInt(particleId);
     }
 
-    public static class Handle implements IMessageHandler<PacketLeave, IMessage> {
+    public static class Handle implements IMessageHandler<PacketCommon, IMessage> {
 
         @Override
-        public IMessage onMessage(PacketLeave message, MessageContext ctx) {
+        public IMessage onMessage(PacketCommon message, MessageContext ctx) {
             if (ctx.side.isClient()) {
                 World world = Minecraft.getMinecraft().world;
                 EnumParticleTypes particle = EnumParticleTypes.values()[message.particleId];

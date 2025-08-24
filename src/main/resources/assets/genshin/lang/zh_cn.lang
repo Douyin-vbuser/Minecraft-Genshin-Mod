@@ -18,6 +18,9 @@ itemGroup.reng_wu=任务
 itemGroup.gui_zhong_dao_ju=贵重道具
 itemGroup.bai_she=摆设
 
+#方块(Block)
+tile.cloud_block.name=云
+
 #物品(Item)
 ##圣遗物(Artifacts)
 item.mxj_h.name=冒险家

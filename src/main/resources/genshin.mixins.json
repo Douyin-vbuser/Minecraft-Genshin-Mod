@@ -3,6 +3,8 @@
   "package": "com.vbuser.mixin",
   "refmap": "refmap.genshin.json",
   "mixins": [
+    "MixinEntity",
+    "MixinEntityLivingBase",
     "MixinInventoryPlayer"
   ],
   "client": [

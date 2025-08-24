@@ -1,7 +1,7 @@
 package com.vbuser.particulate.command;
 
 import com.vbuser.particulate.Particulate;
-import com.vbuser.particulate.network.particle.PacketLeave;
+import com.vbuser.particulate.network.particle.PacketCommon;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -36,7 +36,7 @@ public class CmdP extends CommandBase {
             EnumParticleTypes particle = EnumParticleTypes.values()[particleId];
             World world = sender.getEntityWorld();
             world.spawnParticle(particle, x, y, z, 0.0, 0.0, 0.0);
-            Particulate.networkWrapper.sendToAll(new PacketLeave(x, y, z, particleId));
+            Particulate.networkWrapper.sendToAll(new PacketCommon(x, y, z, particleId));
         } catch (NumberFormatException e) {
             throw new CommandException("Invalid number format. Usage: " + getUsage(sender));
         } catch (ArrayIndexOutOfBoundsException e) {
