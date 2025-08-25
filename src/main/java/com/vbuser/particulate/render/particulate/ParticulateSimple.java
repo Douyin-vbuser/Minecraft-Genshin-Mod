@@ -1,5 +1,6 @@
 package com.vbuser.particulate.render.particulate;
 
+import com.vbuser.particulate.math.ExprNode;
 import com.vbuser.particulate.math.ExpressionParser;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
@@ -7,6 +8,8 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class ParticulateSimple extends Particle {
@@ -18,9 +21,9 @@ public class ParticulateSimple extends Particle {
     };
     private static final Random R=new Random();
 
-    private final String exX,exY,exZ,exR,exG,exB,exA,exS;
+    private final ExprNode astX, astY, astZ, astR, astG, astB, astA, astS;
     private final double ox,oy,oz;
-    private final ExpressionParser p=new ExpressionParser();
+    private final Map<String, Double> variables = new HashMap<>();
 
     public ParticulateSimple(World w,double x,double y,double z,
                              String exX,String exY,String exZ,
@@ -28,9 +31,17 @@ public class ParticulateSimple extends Particle {
                              String exS,int life){
         super(w,x,y,z);
         this.ox=x;this.oy=y;this.oz=z;
-        this.exX=exX;this.exY=exY;this.exZ=exZ;
-        this.exR=exR;this.exG=exG;this.exB=exB;this.exA=exA;
-        this.exS=exS;
+
+        ExpressionParser parser = new ExpressionParser();
+        this.astX = parser.compile(exX);
+        this.astY = parser.compile(exY);
+        this.astZ = parser.compile(exZ);
+        this.astR = parser.compile(exR);
+        this.astG = parser.compile(exG);
+        this.astB = parser.compile(exB);
+        this.astA = parser.compile(exA);
+        this.astS = parser.compile(exS);
+
         this.particleMaxAge=life;
         this.canCollide=false;
         this.setParticleTextureIndex(0);
@@ -48,15 +59,17 @@ public class ParticulateSimple extends Particle {
     public void onUpdate(){
         if(particleAge++>=particleMaxAge){setExpired();return;}
         double t=particleAge/20.0;
-        p.setVariable("t",t);
-        double dx=p.parse(exX);
-        double dy=p.parse(exY);
-        double dz=p.parse(exZ);
-        double r=c(p.parse(exR));
-        double g=c(p.parse(exG));
-        double b=c(p.parse(exB));
-        double a=c(p.parse(exA));
-        double s=p.parse(exS);
+        variables.put("t", t);
+
+        double dx=astX.evaluate(variables);
+        double dy=astY.evaluate(variables);
+        double dz=astZ.evaluate(variables);
+        double r=c(astR.evaluate(variables));
+        double g=c(astG.evaluate(variables));
+        double b=c(astB.evaluate(variables));
+        double a=c(astA.evaluate(variables));
+        double s=astS.evaluate(variables);
+
         prevPosX=posX;prevPosY=posY;prevPosZ=posZ;
         posX=ox+dx;posY=oy+dy;posZ=oz+dz;
         particleRed=(float)r;particleGreen=(float)g;particleBlue=(float)b;particleAlpha=(float)a;

@@ -1,6 +1,6 @@
 package com.vbuser.particulate.render.particulate;
 
-import com.vbuser.particulate.math.ExpressionParser;
+import com.vbuser.particulate.math.ExprNode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
@@ -14,12 +14,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static com.vbuser.particulate.math.ExpressionList.get_leave_pos;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.vbuser.particulate.math.ExpressionList.get_leave_pos_ast;
 
 public class ParticulateLeave extends Particle {
     private final long startTime;
     private final double initialX, initialY, initialZ;
-    ExpressionParser parser = new ExpressionParser();
+    private final Map<String, Double> variables = new HashMap<>();
+    private final ExprNode[] leavePosAst;
     ResourceLocation rl = new ResourceLocation("particulate", "particle/leave.png");
 
     public ParticulateLeave(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn) {
@@ -29,19 +33,20 @@ public class ParticulateLeave extends Particle {
         this.initialY = yCoordIn;
         this.initialZ = zCoordIn;
         this.particleScale *= (float) (0.3 * Math.random() + 1);
+        this.leavePosAst = get_leave_pos_ast();
         bindValue();
     }
 
     public void bindValue() {
-        parser.setVariable("A", Math.random() * 4 - 2);
-        parser.setVariable("w_x", Math.random() * 0.4 - 0.2);
-        parser.setVariable("v_wx", Math.random() * 4 - 2);
-        parser.setVariable("g", Math.random() * 4 + 3);
-        parser.setVariable("B", Math.random() * 4 - 2);
-        parser.setVariable("w_z", Math.random() * 0.4 - 0.2);
-        parser.setVariable("v_wz", Math.random() * 4 - 2);
-        parser.setVariable("phi_z", 0);
-        parser.setVariable("phi_x", 0);
+        variables.put("A", Math.random() * 4 - 2);
+        variables.put("w_x", Math.random() * 0.4 - 0.2);
+        variables.put("v_wx", Math.random() * 4 - 2);
+        variables.put("g", Math.random() * 4 + 3);
+        variables.put("B", Math.random() * 4 - 2);
+        variables.put("w_z", Math.random() * 0.4 - 0.2);
+        variables.put("v_wz", Math.random() * 4 - 2);
+        variables.put("phi_z", 0.0);
+        variables.put("phi_x", 0.0);
     }
 
     @Override
@@ -85,7 +90,6 @@ public class ParticulateLeave extends Particle {
                 .endVertex();
     }
 
-
     @Override
     public void onUpdate() {
         if (world.getBlockState(new BlockPos(this.posX, this.posY - 1, this.posZ)).getBlock() != Blocks.AIR) {
@@ -95,15 +99,21 @@ public class ParticulateLeave extends Particle {
 
         long currentTime = System.currentTimeMillis();
         long elapsedTime = currentTime - startTime;
-        double[] deltaPos = get_leave_pos(elapsedTime / 1000.0, this.parser);
+        double time = elapsedTime / 1000.0;
+
+        variables.put("t", time);
+
+        double dx = leavePosAst[0].evaluate(variables);
+        double dy = leavePosAst[1].evaluate(variables);
+        double dz = leavePosAst[2].evaluate(variables);
 
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
 
-        this.posX = initialX + deltaPos[0];
-        this.posY = initialY + deltaPos[1];
-        this.posZ = initialZ + deltaPos[2];
+        this.posX = initialX + dx;
+        this.posY = initialY + dy;
+        this.posZ = initialZ + dz;
 
         this.setPosition(this.posX, this.posY, this.posZ);
     }
