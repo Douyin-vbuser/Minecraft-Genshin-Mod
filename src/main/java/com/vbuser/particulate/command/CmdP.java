@@ -3,6 +3,7 @@ package com.vbuser.particulate.command;
 import com.vbuser.particulate.Particulate;
 import com.vbuser.particulate.network.particle.PacketCommon;
 import com.vbuser.particulate.network.particle.PacketSimple;
+import com.vbuser.particulate.render.particulate.cluster.ClusterSpawner;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -36,6 +37,13 @@ public class CmdP extends CommandBase {
 
             if (particleId == 50) {
                 Particulate.networkWrapper.sendToAll(new PacketSimple(x, y, z));
+                return;
+            }
+
+            if (particleId == 51) {
+                ClusterSpawner.spawn(sender.getEntityWorld(), x, y, z,
+                        "x*x+y*y+z*z-1", 0.2,
+                        120, 255, 80, 255);
                 return;
             }
 
