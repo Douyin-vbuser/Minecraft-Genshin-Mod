@@ -2,6 +2,7 @@ package com.vbuser.particulate.command;
 
 import com.vbuser.particulate.Particulate;
 import com.vbuser.particulate.network.particle.PacketCommon;
+import com.vbuser.particulate.network.particle.PacketSimple;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -32,6 +33,11 @@ public class CmdP extends CommandBase {
             double x = parseDouble(args[1]);
             double y = parseDouble(args[2]);
             double z = parseDouble(args[3]);
+
+            if (particleId == 50) {
+                Particulate.networkWrapper.sendToAll(new PacketSimple(x, y, z));
+                return;
+            }
 
             EnumParticleTypes particle = EnumParticleTypes.values()[particleId];
             World world = sender.getEntityWorld();

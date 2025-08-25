@@ -1,6 +1,7 @@
 package com.vbuser.particulate.util;
 
 import com.vbuser.particulate.render.particulate.ParticulateLeave;
+import com.vbuser.particulate.render.particulate.ParticulateSimple;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.util.EnumParticleTypes;
@@ -23,8 +24,10 @@ public class ParticleUtil {
     }
 
     public static EnumParticleTypes LEAVE;
+    public static EnumParticleTypes SIMPLE;
 
     public static void init() {
         LEAVE = registerParticleSystem("PARTICULATE_LEAVE", "leave", 49, true, 0, new ParticulateLeave.Factory());
+        SIMPLE = registerParticleSystem("PARTICULATE_SIMPLE","simple",50,true,0,new ParticulateSimple.Factory());
     }
 }
