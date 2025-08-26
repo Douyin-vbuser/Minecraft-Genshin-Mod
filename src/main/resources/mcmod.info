@@ -59,7 +59,7 @@
     "modid": "particulate",
     "name": "Custom Renderer Mod",
     "description": "A mod build custom render logic.",
-    "version": "basic 0.0.1",
+    "version": "alpha 1.3.12",
     "mcversion": "1.12.2",
     "url": "https://github.com/Douyin-vbuser/Minecraft-Genshin-Mod/tree/master/src/main/java/com/vbuser/particulate",
     "updateUrl": "",
