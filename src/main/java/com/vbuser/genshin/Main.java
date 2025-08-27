@@ -3,6 +3,8 @@ package com.vbuser.genshin;
 import com.vbuser.genshin.command.CommandCloudFill;
 import com.vbuser.genshin.command.CommandSetBiome;
 import com.vbuser.genshin.command.CommandTpDim;
+import com.vbuser.genshin.data.save.CommandRule;
+import com.vbuser.genshin.data.save.RuleManager;
 import com.vbuser.genshin.event.BiomeDisplayHandler;
 import com.vbuser.genshin.init.ModItems;
 import com.vbuser.genshin.init.key.KeyboardManager;
@@ -31,7 +33,6 @@ public class Main {
     /**
      * Creative Tabs:
      */
-
     public static final List<TabBase> TABS = new ArrayList<>();
     public static final TabBase SHENG_YI_WU = new TabBase("sheng_yi_wu", ModItems.ICON_A);
     public static final TabBase WU_QI = new TabBase("wu_qi", ModItems.ICON_B);
@@ -58,7 +59,6 @@ public class Main {
     /**
      * Assignment:
      */
-
     @SidedProxy(clientSide = "com.vbuser.genshin.proxy.ClientProxy", serverSide = "com.vbuser.genshin.proxy.CommonProxy")
 
     public static CommonProxy proxy;
@@ -69,7 +69,6 @@ public class Main {
     /**
      * Register Event:
      */
-
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
         //JNI:
@@ -88,6 +87,8 @@ public class Main {
 
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent event) {
+        RuleManager.preInit(event);
+        RuleManager.registerDefaultRule();
     }
 
     @Mod.EventHandler
@@ -95,6 +96,7 @@ public class Main {
         event.registerServerCommand(new CommandSetBiome());
         event.registerServerCommand(new CommandTpDim());
         event.registerServerCommand(new CommandCloudFill());
+        event.registerServerCommand(new CommandRule());
     }
 
     @SubscribeEvent

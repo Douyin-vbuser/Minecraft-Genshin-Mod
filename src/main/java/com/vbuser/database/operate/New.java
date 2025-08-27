@@ -22,6 +22,10 @@ public class New {
     public static void createTable(String name, String[] columns, File dataBase) {
         // 创建表文件并写入表头
         File tableFile = new File(new File(dataBase, "tables"), name + ".txt");
+        if(tableFile.exists()){
+            System.out.println("[] Skipped as the table has existed.");
+            return;
+        }
         try (FileWriter writer = new FileWriter(tableFile, true)) {
             for (int i = 0; i < columns.length; i++) {
                 writer.write(columns[i]);
