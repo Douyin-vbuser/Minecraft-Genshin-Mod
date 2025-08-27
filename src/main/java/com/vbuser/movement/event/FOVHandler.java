@@ -18,18 +18,19 @@ public class FOVHandler {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && event.side.isClient()) {
-            EntityPlayer player = event.player;
+        if (event.phase != TickEvent.Phase.END || !event.side.isClient()) return;
 
-            int selectedSlot = player.inventory.currentItem;
+        Minecraft mc = Minecraft.getMinecraft();
+        if (mc.player == null || event.player != mc.player) return;
 
-            float targetFOV = sp.containsKey(player) ? sp.get(player) : FOV_VALUES[selectedSlot];
+        int selectedSlot = mc.player.inventory.currentItem;
+        float targetFOV = sp.containsKey(mc.player)
+                ? sp.get(mc.player)
+                : FOV_VALUES[selectedSlot];
 
-            if (currentFOV != targetFOV) {
-                currentFOV = leap(currentFOV, targetFOV);
-
-                Minecraft.getMinecraft().gameSettings.fovSetting = currentFOV;
-            }
+        if (Math.abs(currentFOV - targetFOV) > 0.001f) {
+            currentFOV += (targetFOV - currentFOV) * INTERPOLATION_SPEED;
+            mc.gameSettings.fovSetting = currentFOV;
         }
     }
 
@@ -50,9 +51,5 @@ public class FOVHandler {
     @SubscribeEvent
     public void onPlayerEnterServer(PlayerEvent.PlayerLoggedInEvent event) {
         event.player.inventory.currentItem = 4;
-    }
-
-    private float leap(float start, float end) {
-        return start + (end - start) * FOVHandler.INTERPOLATION_SPEED;
     }
 }

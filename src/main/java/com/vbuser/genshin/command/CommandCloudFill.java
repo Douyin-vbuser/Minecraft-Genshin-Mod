@@ -107,7 +107,7 @@ public class CommandCloudFill extends CommandBase {
                             final int finalProgress = progress;
                             int finalProcessedBlocks = processedBlocks;
                             server.addScheduledTask(() -> sender.sendMessage(new TextComponentString(
-                                    I18n.format("message.cf.process")+": " + finalProgress + "% (" + finalProcessedBlocks + "/" + totalBlocks + ")"
+                                    I18n.format("commands.cf.process")+": " + finalProgress + "% (" + finalProcessedBlocks + "/" + totalBlocks + ")"
                             )));
                         }
 
@@ -128,7 +128,7 @@ public class CommandCloudFill extends CommandBase {
             int finalProcessedBlocks1 = processedBlocks;
             server.addScheduledTask(() -> {
                 sender.sendMessage(new TextComponentString("Noise range: " + finalMinNoise + " to " + finalMaxNoise));
-                sender.sendMessage(new TextComponentString(I18n.format("message.cf.result") + finalProcessedBlocks1));
+                sender.sendMessage(new TextComponentString(I18n.format("commands.cf.result") + finalProcessedBlocks1));
             });
         });
     }
