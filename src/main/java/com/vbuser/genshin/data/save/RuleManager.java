@@ -72,9 +72,13 @@ public final class RuleManager {
     }
 
     public static void registerDefaultRule(){
+        //Test rule:
         RuleManager.registerDefault("test_boolean", RuleType.BOOLEAN, "true");
         RuleManager.registerDefault("test_double", RuleType.DOUBLE, "114.514");
-        RuleManager.registerDefault("test_string", RuleType.STRING, "HelloWorld");
+        RuleManager.registerDefault("test_string", RuleType.STRING, "MiHomo");
+
+        //Real rule:
+        RuleManager.registerDefault("glider_enabled",RuleType.BOOLEAN,"false");
     }
 
     private static void broadcastFull(EntityPlayerMP to) {
