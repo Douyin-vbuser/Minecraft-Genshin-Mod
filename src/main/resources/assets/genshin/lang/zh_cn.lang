@@ -4,8 +4,8 @@ commands.cf.process=正在生成云，进度
 commands.cf.result=云生成完毕，共计
 
 #HUD显示(HUD display)
-hud.sprint.activate=已切换至奔跑状态
-hud.sprint.inactivate=已切换至步行状态
+hud.sprint.activate=已切换为跑步状态
+hud.sprint.inactivate=已切换为行走状态
 
 #按键相关(KeyBinding)
 key.categories.genshin=Minecraft Impact按键

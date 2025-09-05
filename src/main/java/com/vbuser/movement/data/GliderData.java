@@ -1,4 +1,4 @@
-package com.vbuser.movement.math;
+package com.vbuser.movement.data;
 
 import net.minecraft.entity.player.EntityPlayer;
 import java.util.Map;

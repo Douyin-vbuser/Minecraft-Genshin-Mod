@@ -29,7 +29,7 @@ public class Movement {
 
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent event){
-        GliderUtils.initGlider(event);  //todo:MultiPlayer test.
+        GliderUtils.initGlider(event);
     }
 
     @Mod.EventHandler
