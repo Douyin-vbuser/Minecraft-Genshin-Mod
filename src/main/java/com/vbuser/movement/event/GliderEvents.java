@@ -1,7 +1,7 @@
 package com.vbuser.movement.event;
 
 import com.vbuser.movement.capability.GliderUtils;
-import com.vbuser.movement.math.GliderData;
+import com.vbuser.movement.data.GliderData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

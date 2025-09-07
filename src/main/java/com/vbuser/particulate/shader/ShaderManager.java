@@ -1,3 +1,7 @@
+//本文件包含AI辅助生成内容
+//AI辅助编程服务提供商:ChatGPT(LMArena);DeepSeek
+//AI注释服务提供商:DeepSeek
+
 package com.vbuser.particulate.shader;
 
 import net.minecraft.client.Minecraft;

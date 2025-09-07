@@ -1,6 +1,6 @@
 package com.vbuser.movement.network;
 
-import com.vbuser.movement.math.GliderData;
+import com.vbuser.movement.data.GliderData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
